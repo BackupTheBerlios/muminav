@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+
+<!-- =================================================================== -->
+<!-- $Id: build.xml,v 1.1 2002/09/02 19:50:08 glaessel Exp $              -->
+<!-- =================================================================== -->
+
+<project name="muminav" default="all" basedir=".">
+
+    <!-- Load the host property file -->
+    <property environment="env"/>
+    <property file="${env.COMPUTERNAME}.properties"/>
+    <property file="${env.HOSTNAME}.properties"/>
+    <property file="${env.HOSTNAME}_${env.USER}.properties"/>
+
+    <!-- the name of this project -->
+    <property name="project.name" value="muminav"/>
+
+    <!-- this is the projects home directory. -->
+    <property name="base.dir" value="."/>
+
+    <!-- The destination directory for the build and the source. -->
+    <property name="src.dir" value="${base.dir}/src"/>
+    <property name="bin.dir" value="${base.dir}/bin"/>
+    <property name="lib.dir" value="${base.dir}/lib" />
+    <property name="config.dir" value="${base.dir}/config" />
+    <property name="javadoc.dir" value="${base.dir}/doc/javadoc"/>
+
+    <!-- The destination directory for all the compiled classes. -->
+    <property name="classes.dir" value="${base.dir}/classes"/>
+
+    <!-- class path -->
+    <path id="project.class.path">
+        <pathelement location="classes"/>
+	  </path>
+
+    <!-- src path for java files -->
+    <path id="project.src.path">
+        <pathelement location="${base.dir}/src"/>
+    </path>
+
+  <target name="javadoc">
+      <mkdir dir="${javadoc.dir}"/>
+      <javadoc packagenames="muminav.*"
+               destdir="${javadoc.dir}"
+               windowtitle="Muminav"
+               version="true"
+               author="true">
+      <sourcepath>
+        <pathelement location="${src.dir}"/>
+      </sourcepath>
+<!--
+      <doctitle><![CDATA[<h1>Der LookupServer</h1>]]></doctitle>
+      <bottom><![CDATA[<i>[PVP] Projekt Parallele und Verteilte Programmierung. WS01/02 TU-Berlin</i>]]></bottom>
+-->
+      </javadoc>
+  </target>
+
+
+  <target name="init" >
+    <mkdir dir="${classes.dir}"/>
+  </target>
+
+  <target name="compile" depends="init">
+    <javac destdir="${classes.dir}">
+	   <src refid="project.src.path"/>
+ 	   <classpath refid="project.class.path"/>
+    </javac>
+  </target>
+
+
+  <target name="clean" depends="init">
+    <delete dir="${classes.dir}" />
+  </target>
+
+  <target name="copyhtml" depends="init">
+    <copy file="html/content.html" todir="classes/"/>
+    <copy file="html/applet.html" todir="classes/"/>
+    <copy file="html/frameset.html" todir="classes/"/>
+    <copy file="html/contentM1.html" todir="classes/"/>
+  </target>
+
+  <target name="all" depends="compile,copyhtml" />
+
+</project>
+
