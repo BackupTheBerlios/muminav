@@ -14,7 +14,7 @@ import javax.swing.event.MouseInputAdapter;
  *@author     Joerg
  *@created    17. September 2002
  */
-class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
+class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener {
 	/**  Description of the Field */
 	protected Timer m_timer;
 	/**  Description of the Field */
@@ -42,7 +42,7 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@param  parent  Description of the Parameter
 	 *@param  panel   Description of the Parameter
 	 */
-	public MyToolTipManager(JApplet parent, MuminavPanel panel) {
+	public MuminavToolTipManager(JApplet parent, MuminavPanel panel) {
 
 		//parent.addMouseMotionListener(this);
 		panel.add(m_toolTip);
