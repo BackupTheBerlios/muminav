@@ -1,0 +1,847 @@
+<MathNet>
+
+    <MainElement
+    posX="19"
+    posY="3"
+    width="6"
+    height="4"
+    text="M"
+    tooltipText="Motivation"
+    url=""
+    bgColor=" 40, 200, 40 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+
+        <MainElement
+        posX=" 22 "
+        posY=" 5 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+    </MainElement>
+
+	<Connector
+    startX=" 19 "
+    startY=" 3 "
+    endX=" 19 "
+    endY=" 13 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 ">
+	
+		<Connector
+		startX=" 19 "
+		startY=" 13 "
+		endX=" 9 "
+		endY=" 13 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 9 "
+		startY=" 13 "
+		endX=" 9 "
+		endY=" 19 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 19 "
+		startY=" 13 "
+		endX=" 29 "
+		endY=" 13 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 ">
+		
+			<Connector
+			startX=" 29 "
+			startY=" 13 "
+			endX=" 29 "
+			endY=" 19 "
+			lineThickness=" 0.2 "
+			color=" 0, 0, 0 "/>
+		</Connector>
+	</Connector>
+	
+	<MainElement
+    posX="9"
+    posY="19"
+    width="6"
+    height="4"
+    text="D"
+    tooltipText="Definition"
+    url=""
+    bgColor=" 150, 150, 255 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+	
+		<MainElement
+        posX=" 6 "
+        posY=" 21 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Motivation"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 12 "
+        posY=" 21 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 13 "
+        posY=" 22 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beispiel"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<MainElement
+    posX="4"
+    posY="34"
+    width="6"
+    height="4"
+    text="T"
+    tooltipText="Theorem"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 7 "
+        posY=" 32"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+    startX=" 9 "
+    startY=" 19 "
+    endX=" 9 "
+    endY=" 27 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 ">
+	
+		<Connector
+		startX=" 9 "
+		startY=" 27 "
+		endX=" 4 "
+		endY=" 27 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 4 "
+		startY=" 27 "
+		endX=" 4 "
+		endY=" 34 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+	</Connector>
+
+	<Connector
+    startX=" 9 "
+    startY=" 27 "
+    endX=" 14 "
+    endY=" 27 "
+    lineThickness=" 0.2 "
+    color=" 0, 0, 0 ">
+	
+		<Connector
+		startX=" 14 "
+		startY=" 27 "
+		endX=" 14 "
+		endY=" 34 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 "/>
+	</Connector>
+	
+	<Connector
+    startX=" 4 "
+    startY=" 34 "
+    endX=" 14 "
+    endY=" 34 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 "/>
+	
+	<MainElement
+    posX="14"
+    posY="34"
+    width="6"
+    height="4"
+    text="L"
+    tooltipText="Lemma"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 17 "
+        posY=" 32"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<MainElement
+    posX="9"
+    posY="49"
+    width="6"
+    height="4"
+    text="T"
+    tooltipText="Theorem"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 6 "
+        posY=" 47"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Herleitung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 12 "
+        posY=" 47"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 12 "
+        posY=" 51"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 13 "
+        posY=" 52"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beispiel"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 6 "
+        posY=" 51"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Motivation"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+    startX=" 14 "
+    startY=" 34 "
+    endX=" 14 "
+    endY=" 41 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 ">
+	
+		<Connector
+		startX=" 14 "
+		startY=" 41 "
+		endX=" 9 "
+		endY=" 41 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 9 "
+		startY=" 41 "
+		endX=" 9 "
+		endY=" 49 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+	</Connector>
+
+	<Connector
+    startX=" 4 "
+    startY=" 34 "
+    endX=" 4 "
+    endY=" 41 "
+    lineThickness=" 0.2 "
+    color=" 0, 0, 0 ">
+	
+		<Connector
+		startX=" 4 "
+		startY=" 41 "
+		endX=" 9 "
+		endY=" 41 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 "/>
+	</Connector>
+	
+	<MainElement
+    posX="29"
+    posY="19"
+    width="6"
+    height="4"
+    text="D"
+    tooltipText="Definition"
+    url=""
+    bgColor=" 150, 150, 255 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+	
+		<MainElement
+        posX=" 32 "
+        posY=" 21 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+		startX=" 29 "
+		startY=" 19 "
+		endX=" 29 "
+		endY=" 29 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 "
+	/>
+	
+	<MainElement
+    posX="29"
+    posY="29"
+    width="6"
+    height="4"
+    text="T"
+    tooltipText="Theorem"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 26 "
+        posY=" 27"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Herleitung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 27"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 31"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 33 "
+        posY=" 32"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beispiel"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+		startX=" 29 "
+		startY=" 29 "
+		endX=" 29 "
+		endY=" 39 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 "
+	/>
+	
+	<MainElement
+    posX="29"
+    posY="39"
+    width="6"
+    height="4"
+    text="T"
+    tooltipText="Theorem"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 37"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 41"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 33 "
+        posY=" 42"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beispiel"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+		startX=" 29 "
+		startY=" 39 "
+		endX=" 29 "
+		endY=" 49 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 "
+	/>
+	
+	<MainElement
+    posX="29"
+    posY="49"
+    width="6"
+    height="4"
+    text="T"
+    tooltipText="Theorem"
+    url=""
+    bgColor=" 255, 150, 150 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 47"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beweis"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 32 "
+        posY=" 51"
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+	</MainElement>
+	
+	<Connector
+    startX=" 9 "
+    startY=" 49 "
+    endX=" 9 "
+    endY=" 55 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 ">
+	
+		<Connector
+		startX=" 9 "
+		startY=" 55 "
+		endX=" 19 "
+		endY=" 55 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 19 "
+		startY=" 55 "
+		endX=" 19 "
+		endY=" 61 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 29 "
+		startY=" 49 "
+		endX=" 29 "
+		endY=" 55 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 ">
+		
+			<Connector
+			startX=" 29 "
+			startY=" 55 "
+			endX=" 19 "
+			endY=" 55 "
+			lineThickness=" 0.2 "
+			color=" 0, 0, 0 "/>
+		</Connector>
+	</Connector>
+	
+	<MainElement
+    posX="19"
+    posY="61"
+    width="6"
+    height="4"
+    text="Al"
+    tooltipText="Algorithmus"
+    url=""
+    bgColor=" 80, 250, 250 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+
+        <MainElement
+        posX=" 22 "
+        posY=" 63 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+    </MainElement>
+	
+	<Connector
+    startX=" 19 "
+    startY=" 61 "
+    endX=" 19 "
+    endY=" 67 "
+    lineThickness=" 1 "
+    color=" 255, 0, 0 ">
+	
+		<Connector
+		startX=" 19 "
+		startY=" 67 "
+		endX=" 9 "
+		endY=" 67 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 9 "
+		startY=" 67 "
+		endX=" 9 "
+		endY=" 73 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "/>
+		
+		<Connector
+		startX=" 19 "
+		startY=" 67 "
+		endX=" 19 "
+		endY=" 73 "
+		lineThickness=" 0.2 "
+		color=" 0, 0, 0 ">
+		
+			<Connector
+			startX=" 19 "
+			startY=" 67 "
+			endX=" 29 "
+			endY=" 67 "
+			lineThickness=" 0.2 "
+			color=" 0, 0, 0 "/>
+			
+			<Connector
+			startX=" 29 "
+			startY=" 67 "
+			endX=" 29 "
+			endY=" 73 "
+			lineThickness=" 0.2 "
+			color=" 0, 0, 0 "/>
+		</Connector>
+	</Connector>
+	
+	<MainElement
+    posX="9"
+    posY="73"
+    width="6"
+    height="4"
+    text="A"
+    tooltipText="Anwendung"
+    url=""
+    bgColor=" 200, 200, 200 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+
+        <MainElement
+        posX=" 6 "
+        posY=" 75 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Motivation"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 12 "
+        posY=" 75 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+    </MainElement>
+	
+	<Connector
+		startX=" 9 "
+		startY=" 73 "
+		endX=" 19 "
+		endY=" 73 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "
+	/>
+	
+	<MainElement
+    posX="19"
+    posY="73"
+    width="6"
+    height="4"
+    text="A"
+    tooltipText="Anwendung"
+    url=""
+    bgColor=" 200, 200, 200 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+
+        <MainElement
+        posX=" 22 "
+        posY=" 75 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+		
+		<MainElement
+        posX=" 23 "
+        posY=" 76 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Beispiel"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+    </MainElement>
+
+	<Connector
+		startX=" 19 "
+		startY=" 73 "
+		endX=" 29 "
+		endY=" 73 "
+		lineThickness=" 1 "
+		color=" 255, 0, 0 "
+	/>
+	
+	<MainElement
+    posX="29"
+    posY="73"
+    width="6"
+    height="4"
+    text="A"
+    tooltipText="Anwendung"
+    url=""
+    bgColor=" 200, 200, 200 "
+    fontColor="0, 0, 0 "
+    borderColor=" 0, 0, 0 "
+    borderThickness =" 0.2 "
+    fontHeight=" 2.5 ">
+
+        <MainElement
+        posX=" 32 "
+        posY=" 75 "
+        width=" 2 "
+        height=" 2 "
+        text=""
+        tooltipText="Visualisierung"
+        url=""
+        bgColor=" 220, 220, 70"
+        fontColor=" 0, 0, 0 "
+        borderColor=" 0, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.6 "/>
+    </MainElement>
+	
+</MathNet>
