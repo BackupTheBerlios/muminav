@@ -11,7 +11,7 @@ import javax.swing.event.MouseInputAdapter;
 /**
  *  Description of the Class
  *
- *@author     Joerg
+ *@author     Michael
  *@created    17. September 2002
  */
 class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener {
