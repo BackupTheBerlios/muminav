@@ -7,19 +7,36 @@ relevante andere Projekte - hoch spezifizierte Anforderungen
 
 \section{Lizenz}
 
-Vorgabe war, die gesamte Entwicklungsarbeit als Open Source
-Projekt durchzuführen. Dies schließt ein, die
-Projektergebnisse unter einer Open Source Lizenz \cite{OSI2002} zu veröffentlichen.\\
-Da wir unser Projekt in Zusammenarbeit mit der Mumie-Gruppe
-entwickeln, mussten wir uns im Vorfeld mit Ihnen auf eine Open
-Source Lizenz verständigen, welche in das Gesamtprojekt
-\textsc{Mumie}
-integrierbar ist.\\
-Die GPL \cite{GPL1991} (GNU General Public License)
+Eine Vorgabe für die Entwicklung war, die gesamte Arbeit als Open
+Source Projekt durchzuführen. Dies schließt ein, die
+Projektergebnisse unter einer Open Source Lizenz \cite{OSI2002} zu
+veröffentlichen.
 
+Zur Diskussion standen zwei Lizenzen. Die GPL \cite{GPL1991} (GNU General Public
+License), als eine der meistverwendeten Lizenzen im Open Source Bereich, sieht
+vor, eine Software für jeden frei verfügbar, nutzbar und veränderbar zu machen.
+Hinzu kommt der Aspekt, dass Programme, die GPL lizensierte Software benutzen
+(linken) oder die durch die Weiterentwicklung dieser entstehen, wieder unter
+der GPL stehen müssen. So wird verhindert, dass man von der Arbeit anderer
+profitiert, ohne eine Gegenleistung zu erbringen.
 
+Eine Lockerung dieser Politik sieht die LGPL \cite{LGPL1999} (Lesser General
+Public License oder auch Library General Public License) vor. Ursprünglich
+eingeführt, um das Linken von frei verfügbaren Bibliotheken aus proprietären
+Systemen heraus zu ermöglichen, ohne Einfluss auf die ursprüngliche Lizenz zu
+nehmen, wird sie heutzutage überall dort eingesetzt, wo freie Software auch in
+kommerziellen und nicht freien Umgebungen eingesetzt wird.
 
-LGPL \cite{LGPL1999}.
+Da der Ursprung von \textsc{MumiNav} in der Entwicklung eines Navigationssystems
+für die modulare Lernumgebung \textsc{Mumie} liegt, musste bei der Wahl der
+Lizenz darauf Rücksicht genommen werden. Zum Entstehungszeitpunkt dieses
+Dokumentes wird zwar für die \textsc{Mumie} ebenfalls eine Open Source Lizenz
+vorgesehen, doch ist in Zukunft ein kommerzieller Einsatz nicht ausgeschlossen.
+
+Um eventuelle Vorhaben in dieser Richtung nicht zu verhindern, haben wir uns 
+deshalb dazu entschlossen, \textsc{MumiNav} unter die LGPL zu stellen und somit
+die freie Verfüg- und Benutzbarkeit zu sichern und trotzdem den Entwicklern der
+\textsc{Mumie} alle Möglichkeiten offen zu lassen.
 
 \section{Entwicklungsumgebung}
 \subsection{Enwicklungswerkzeuge}
@@ -85,8 +102,10 @@ Bei der Wahl des Projekthosters kam für uns \textsc{SourceForge}
 \emph{nicht} in Frage, da sich im Laufe der Zeit die
 Lizenz-Politik \cite{SFORGE} des Hosters immer mehr gegen die
 Ideale der Open-Source-Gemeinde richten. Das Savannah Projket der
-Free Software Foundation war zu Projektbeginn leider noch nicht
-genügend weit entwickelt.
+Free Software Foundation kam nicht in Frage, da die Aufnahme eines Projektes
+strengen Restriktionen unterliegt, die es zum Beispiel schwer machen, eine
+Software, die mit dem Java-Compiler von Sun entwickelt wird, bei diesem Hoster
+anzumelden.
 
 Aus diesen Gründen haben wir uns für den Berliner Projekthoster
 \textsc{Berlios} \cite{BerliOS} entschieden, der uns mit den
