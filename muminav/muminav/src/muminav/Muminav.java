@@ -21,15 +21,13 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.16 $
+ *@version    $Revision: 1.17 $
  */
 
 public class Muminav extends JApplet {
 
 	// background color
 	private final Color bgColor = Color.white;
-
-	boolean showTooltip;
 
 	private AppletContext appletContext;
 
@@ -58,8 +56,6 @@ public class Muminav extends JApplet {
 	/**  Constructor for the Muminav object */
 	public Muminav() {
 
-		showTooltip = false;
-
 	}
 
 
@@ -86,12 +82,6 @@ public class Muminav extends JApplet {
 	public void init() {
 		appletContext = getAppletContext();
 
-		try {
-			jbInit();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
 
 		// TODO: implement a better exception handling
 		try {
@@ -161,18 +151,6 @@ public class Muminav extends JApplet {
 			controlPanel.add(buttonPanel, BorderLayout.SOUTH);
 			this.getContentPane().add(controlPanel, BorderLayout.SOUTH);
 		}
-	}
-
-
-
-	/**
-	 *  Initializes the applet.
-	 *
-	 *@exception  Exception  Description of the Exception
-	 */
-	private void jbInit()
-		throws Exception {
-
 	}
 
 
@@ -455,6 +433,6 @@ public class Muminav extends JApplet {
 
 }
 /*
-    $Id: Muminav.java,v 1.16 2002/09/26 03:15:52 zander Exp $
+    $Id: Muminav.java,v 1.17 2002/09/26 14:08:10 glaessel Exp $
   */
 

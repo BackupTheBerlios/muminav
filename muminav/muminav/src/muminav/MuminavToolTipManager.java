@@ -43,17 +43,14 @@ class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener
 	 *@param  panel   Description of the Parameter
 	 */
 	public MuminavToolTipManager(JApplet parent, MuminavPanel panel) {
-
-		//parent.addMouseMotionListener(this);
 		panel.add(m_toolTip);
 		panel.addMouseMotionListener(this);
 		m_toolTip.setTipText(null);
-		//panel.add(m_toolTip);
 		m_toolTip.setVisible(false);
 		m_timer = new Timer(1000, this);
 		m_timer.start();
 
-		m_toolTip.setTipText("TEST");
+		m_toolTip.setTipText("-");
 		m_toolTip.setComponent(panel);
 		this.panel = panel;
 	}
@@ -124,7 +121,6 @@ class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener
 		if (m_counter < 0) {
 			m_counter = 4;
 			m_toolTip.setTipText("! " + (Math.random() * 255));
-//     m_toolTip.setVisible(true);
 
 			tooltipPart = getTooltipObject(m_lastX, m_lastY);
 			if (tooltipPart != null) {
