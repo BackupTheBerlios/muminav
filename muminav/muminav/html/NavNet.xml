@@ -1,0 +1,126 @@
+<?xml version="1.0" standalone="no"?>
+<!--
+$Id: NavNet.xml,v 1.1 2002/09/17 02:11:28 ercmat Exp $
+-->
+
+<!--
+<!DOCTYPE NavNet SYSTEM "NavNet.dtd">
+-->
+
+<NavNet>
+
+      
+  <MainElement 
+    posX="5"
+    posY="7" 
+    width="5" 
+    height="5" 
+    text="T" 
+    textZoom="Theorem" 
+    url="contentM1.html" 
+    bgColor=" 0, 0, 0 " 
+    fontColor="255, 255, 255 " 
+    borderColor=" 255, 0, 0 " 
+    lineRelSize=" 5 " 
+    fontRelSize=" 70 " 
+  >  
+  
+    <MainElement 
+     posX=" 8 "
+     posY=" 4 "
+     width=" 3 "
+     height=" 3 "
+     text= "B" 
+     textZoom= "Bew." 
+     url= "contentM1.html" 
+     bgColor=" 0, 0, 0 "
+     fontColor=" 255, 255, 255 "
+     borderColor=" 255, 0, 0 "
+     lineRelSize=" 2 "
+     fontRelSize=" 40 "
+    >  
+    </MainElement>
+    
+    <MainElement 
+     posX=" 10 "
+     posY=" 2 "
+     width=" 3 "
+     height=" 3 "
+     text= "H" 
+     textZoom= "Herl." 
+     url= "contentM1.html" 
+     bgColor=" 0, 0, 0 "
+     fontColor=" 255, 255, 255 "
+     borderColor=" 255, 0, 0 "
+     lineRelSize=" 2 "
+     fontRelSize=" 40 "
+    >  
+    </MainElement>
+    
+    <MainElement 
+     posX=" 2 "
+     posY=" 10 "
+     width=" 3 "
+     height=" 3 "
+     text= "B" 
+     textZoom= "Bem." 
+     url= "contentM1.html" 
+     bgColor=" 0, 0, 0 "
+     fontColor=" 255, 255, 255 "
+     borderColor=" 255, 0, 0 "
+     lineRelSize=" 2 "
+     fontRelSize=" 40 "
+    ></MainElement>
+    
+    <MainElement 
+     posX=" 8 "
+     posY=" 10 "
+     width=" 3 "
+     height=" 3 "
+     text= "B" 
+     textZoom= "Beisp." 
+     url= "contentM1.html" 
+     bgColor=" 0, 0, 0 "
+     fontColor=" 255, 255, 255 "
+     borderColor=" 255, 0, 0 "
+     lineRelSize=" 2 "
+     fontRelSize=" 40 "    >  
+    </MainElement>
+    
+    </MainElement>
+  
+    <Connector 
+     startX=" 5 "
+     startY=" 7 "
+     endX=" 6 "
+     endY=" 18 "
+     lineRelSize=" 3 "
+     color=" 0, 0, 255 "
+    ></Connector>
+ 
+ 	<MainElement 
+     posX=" 6 "
+     posY=" 18 "
+     width=" 10 "
+     height=" 3 "
+     text= ":-)" 
+     textZoom= "NoName" 
+     url= "contentM1.html" 
+     bgColor=" 100, 100, 100 "
+     fontColor=" 255, 255, 255 "
+     borderColor=" 255, 0, 0 "
+     lineRelSize=" 5 "
+     fontRelSize=" 70 "
+    ></MainElement>
+</NavNet>
+
+<!--
+$Log: NavNet.xml,v $
+Revision 1.1  2002/09/17 02:11:28  ercmat
+hint thread erweitert
+kontrolle des thread durch hauptklasse erweitert
+übergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
+baum kann jetzt aus xml file aufgebaut werden
+xml file unter html hinzugefuegt
+
+-->

@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.2 2002/09/16 21:05:42 ercmat Exp $
+ *  $Id: TreeBuilder.java,v 1.3 2002/09/17 02:11:28 ercmat Exp $
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,10 +15,12 @@ import java.util.Hashtable;
 import java.io.*;
 
 /**
- *  Reads the XML input and generates a tree representing the graph.
+ *  Reads the XML input and generates a tree representing
+ *  the graph.
  *
  *@author     ercmat
  *@created    2. September 2002
+ *@version    $Revision: 1.3 $
  */
 public class TreeBuilder extends DefaultHandler {
 
@@ -31,6 +33,8 @@ public class TreeBuilder extends DefaultHandler {
     // this Stack holds all nodes (means Vectors of Parts)
     // the topmost element will be the next actuaNode
     private Stack nodeStack = null;
+    // the package which represents the skin
+    private static String skin = "muminav.skin.math.";
 
 
     /**
@@ -45,11 +49,12 @@ public class TreeBuilder extends DefaultHandler {
      *  Does some inits for the xml parser.
      *
      *@param  xml            xml representation of the graph
-     *@exception  Exception  Thrown in case of problems while configurating a
-     *      new parser
+     *@param  skin           Description of the Parameter
+     *@exception  Exception  Thrown in case of problems
+     *      while configurating a new parser
      */
-    public void init( InputStream xml )
-             throws Exception {
+    public void init( InputStream xml, String skin )
+        throws Exception {
 
         // using myself as the handler
         DefaultHandler handler = new TreeBuilder();
@@ -61,12 +66,19 @@ public class TreeBuilder extends DefaultHandler {
         SAXParser saxParser = factory.newSAXParser();
 
         saxParser.parse( xml, handler );
-
+        /*
+         *  if ( skin.endsWith( "." ) ) {
+         *  this.skin = skin;
+         *  } else {
+         *  this.skin = skin + ".";
+         *  }
+         */
     }
 
 
     /**
-     *  Returns the tree which represents the graph, defined by the xml input.
+     *  Returns the tree which represents the graph, defined
+     *  by the xml input.
      *
      *@return    The tree which represents the graph
      */
@@ -85,9 +97,9 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void startDocument()
-             throws SAXException {
+        throws SAXException {
         this.nodeStack = new Stack();
-        this.nodeStack.push( new Vector() );
+        //this.nodeStack.push( new Vector() );
     }
 
 
@@ -97,7 +109,7 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void endDocument()
-             throws SAXException {
+        throws SAXException {
         Vector part = null;
 
         while ( !this.nodeStack.empty() ) {
@@ -112,14 +124,16 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if enabled
+     *@param  namespaceURI      URI of the namespace, if
+     *      enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
-     *@param  attrs             The attributes of this element
+     *@param  attrs             The attributes of this
+     *      element
      *@exception  SAXException
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs )
-             throws SAXException {
+        throws SAXException {
         // the new drawable element
         Part element = null;
         // name of the element
@@ -132,17 +146,17 @@ public class TreeBuilder extends DefaultHandler {
             eName = qName;
         }
 
-        this.actualLevel++;
-
-        // TODO: get it from the applet
-        String pack = "muminav.skin.math.";
-
         try {
-            element = (Part) Class.forName( pack + eName.trim() ).newInstance();
+            element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
         } catch ( Exception e ) {
             // TODO: decide what to do with the topmost element in the xml file
-            element = new muminav.skin.math.MainElement();
+            // TODO: decide what to do with onknown elements in the xml file
+            this.nodeStack.push( new Vector() );
+            return;
         }
+
+        this.actualLevel++;
+
         // create a new level in the tree
         if ( this.beforeLevel < this.actualLevel ) {
             this.actualNode = (Vector) this.nodeStack.peek();
@@ -172,20 +186,30 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if enabled
+     *@param  namespaceURI      URI of the namespace, if
+     *      enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
      *@exception  SAXException
      */
     public void endElement( String namespaceURI, String sName, String qName )
-             throws SAXException {
+        throws SAXException {
         this.actualLevel--;
-        this.nodeStack.pop();
+        if ( !this.nodeStack.empty() ) {
+            this.nodeStack.pop();
+        }
     }
 
 }
 /*
  *  $Log: TreeBuilder.java,v $
+ *  Revision 1.3  2002/09/17 02:11:28  ercmat
+ *  hint thread erweitert
+ *  kontrolle des thread durch hauptklasse erweitert
+ *  übergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
+ *  baum kann jetzt aus xml file aufgebaut werden
+ *  xml file unter html hinzugefuegt
+ *
  *  Revision 1.2  2002/09/16 21:05:42  ercmat
  *  Fehler im TreeBuilder behoben -> sucht nicht mehr nach DummyElement
  *
