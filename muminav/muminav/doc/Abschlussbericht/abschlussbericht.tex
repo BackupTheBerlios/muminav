@@ -18,7 +18,7 @@
 
 \ifpdf
   \usepackage[pdftex,xdvi]{graphicx}
-  \usepackage[pdftex]{hyperref}     % option [colorlinks] erzeugt farbige Links statt
+  \usepackage[pdftex]{hyperref}         % option [colorlinks] erzeugt farbige Links statt
 
   \pdfinfo{
      /Title    (Abschlussbericht Muminav)
@@ -26,7 +26,7 @@
      /Subject  ()
      /Keywords (tu-berlin, open source, java)
   }
-  \usepackage[pdftex]{color} % farbige Umrandungen
+  \usepackage[pdftex]{color}            % farbige Umrandungen
 \else
   \usepackage[dvips,xdvi]{graphicx}
   \usepackage[colorlinks]{hyperref}
@@ -40,15 +40,15 @@
 
 
 % ersetzt, s. o.
-% \usepackage{color}            % um den Text auch farbig zu gestalten
-% \usepackage[dvips]{graphicx}      % zum Einbinden von Grafiken, [<TREIBER>]
+% \usepackage{color}                    % um den Text auch farbig zu gestalten
+% \usepackage[dvips]{graphicx}          % zum Einbinden von Grafiken, [<TREIBER>]
 
 \usepackage{subfigure}                  % mehrere figures in einem floating object
-\usepackage[latin1]{inputenc}       % wofuer?
+\usepackage[latin1]{inputenc}           % für Umlaute
 \usepackage{textcomp}                   % fuer Sonderzeichen wie <Grad Celsius>
-% \usepackage{hyperref}         % zum Einbinden von Querverweisen in pdf (als letztes
-                    % auffuehren!)
-%\graphicspath{{images/}}        % jetzt muss man nicht jedesmal den Pfad angeben
+% \usepackage{hyperref}                 % zum Einbinden von Querverweisen in pdf (als letztes
+                                        % auffuehren!)
+%\graphicspath{{images/}}               % jetzt muss man nicht jedesmal den Pfad angeben
 
 \usepackage{array}
 
@@ -67,8 +67,8 @@
 
 \date{\today}
 
-\begin{document}     % here begins the actual document body
-%\maketitle           % this actually creates the title block
+\begin{document}                        % here begins the actual document body
+%\maketitle                             % this actually creates the title block
 
 
 \include{titel/title}
