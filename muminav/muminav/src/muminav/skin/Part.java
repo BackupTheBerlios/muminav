@@ -5,41 +5,148 @@ import java.awt.*;
 import java.util.Hashtable;
 
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
- * @author unascribed
- * @version 1.0
+ *  <p>
+ *
+ *  Title: </p> <p>
+ *
+ *  Description: </p> <p>
+ *
+ *  Copyright: Copyright (c) 2002</p> <p>
+ *
+ *  Company: </p>
+ *
+ *@author     unascribed
+ *@created    15. September 2002
+ *@version    1.0
  */
 
-public abstract class Part {
+public abstract class Part implements Cloneable {
 
-  private Vector childs = new Vector();
+	/**  set true, if this element have to draw at first (for example connectors) */
+	protected boolean drawFirst = false;
 
-  public String url="";
+	/**  text for element */
+	protected String text;
+	/**  text for element (in zoom mode) */
+	protected String textZoom;
 
-  public String getUrl(){
-    return(url);
-  }
+	/**  center/root point for element */
+	protected Point center;
 
-  public abstract void draw(Graphics g);
+	/**  dimension of the element; best results if values are odd */
+	protected Dimension dimension;
 
-  public abstract void init(Hashtable v);
+	private Vector childs = new Vector();
 
-  public abstract boolean isInside(int x, int y);
+	/**  Description of the Field */
+	public String url = "";
 
-  public int addChild(Part p){
-    childs.add(p);
-    return childs.size();
-  }
 
-  public Vector getChilds(){
-    return childs;
-  }
+	/**
+	 *  Gets the url attribute of the Part object
+	 *
+	 *@return    The url value
+	 */
+	public String getUrl() {
+		return (url);
+	}
 
-  public int size(){
-    return childs.size();
-  }
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  g  Description of the Parameter
+	 */
+	public abstract void draw(Graphics g);
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  g       Description of the Parameter
+	 *@param  scale   scale value of zoom; 1 means no zoom
+	 *@param  center  Description of the Parameter
+	 */
+	public abstract void drawZoomed(Graphics g, Point center, double scale);
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  realDim    Description of the Parameter
+	 *@param  rasterDim  Description of the Parameter
+	 *@return            Description of the Return Value
+	 */
+	public abstract Part fitToRaster(Dimension realDim, Dimension rasterDim);
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  v  Description of the Parameter
+	 */
+	public abstract void init(Hashtable v);
+
+
+	/**
+	 *  Gets the inside attribute of the Part object
+	 *
+	 *@param  point  Description of the Parameter
+	 *@return        The inside value
+	 */
+	public abstract boolean isInside(Point point);
+
+
+	/**
+	 *  Adds a feature to the Child attribute of the Part object
+	 *
+	 *@param  p  The feature to be added to the Child attribute
+	 *@return    Description of the Return Value
+	 */
+	public int addChild(Part p) {
+		childs.add(p);
+		return childs.size();
+	}
+
+
+	/**
+	 *  Gets the childs attribute of the Part object
+	 *
+	 *@return    The childs value
+	 */
+	public Vector getChilds() {
+		return childs;
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@return    Description of the Return Value
+	 */
+	public int size() {
+		return childs.size();
+	}
+
+
+	/**
+	 *  Gets the center attribute of the Part object
+	 *
+	 *@return    returns the center point
+	 */
+	public Point getCenter() {
+		return center;
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@return    returns the drawFirst value
+	 */
+	public boolean drawFirst() {
+		return drawFirst;
+	}
 
 }
+

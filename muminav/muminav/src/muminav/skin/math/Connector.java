@@ -1,89 +1,230 @@
 package muminav.skin.math;
 
-
-/**
- * $Id: Connector.java,v 1.3 2002/09/12 23:54:19 glaessel Exp $
- */
-
 import java.awt.*;
 import java.util.Hashtable;
 import java.awt.FontMetrics;
 
 import muminav.skin.Part;
 
-
 /**
- * <p>Title: </p>
- * <p>Description: </p>
- * <p>Copyright: Copyright (c) 2002</p>
- * <p>Company: </p>
- * @author unascribed
- * @version 1.0
+ *  <p>
+ *
+ *  Title: </p> <p>
+ *
+ *  Description: </p> <p>
+ *
+ *  Copyright: Copyright (c) 2002</p> <p>
+ *
+ *  Company: </p>
+ *
+ *@author     unascribed
+ *@created    15. September 2002
+ *@version    1.0
  */
 
- /**
-  *
-  *
-  *
-  */
 public class Connector extends Part {
 
-  int x1,y1,x2,y2;
-  Color color;
-  int size;
+	private Point start;
+	private Point end;
+	private Color color;
+	// thickness of the line relative to the mean of width and height(in percent)
+	// of the rectangle, where the line is the diagonal
+	private int lineRelSize;
 
-  public Connector(){
-    super();
-  }
 
-  public void draw(Graphics g){
-    g.setColor(color);
-    for(int i=0;i<size;i++)
-      g.drawLine(x1-size/2+i,y1,x2-size/2+i,y2);
-  }
+	/**  Constructor for the Connector object */
+	public Connector() {
+		super();
+		drawFirst = true;
+	}
 
-  public boolean isInside(int x, int y){
-    System.out.println("check Connector");
 
-    return(false);
-  }
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  x0         start x
+	 *@param  y0         start y
+	 *@param  x1         end x
+	 *@param  y1         end y
+	 *@param  g          graphic context
+	 *@param  thickness  Description of the Parameter
+	 */
+	public void drawBresenham(Graphics g, int x0, int y0, int x1, int y1, int thickness) {
 
-  public void init(Hashtable hParams){
-    color = Color.black;
-    size = 1;
+		// we work with fillRect instead of fillOval, because java isn't able
+		// to draw circles with 2 pixels diameter
 
-    if(hParams.containsKey("size")) size = ((Integer) hParams.get("size")).intValue();
-    if(hParams.containsKey("x1")) x1 = ((Integer) hParams.get("x1")).intValue();
-    if(hParams.containsKey("y1")) y1 = ((Integer) hParams.get("y1")).intValue();
-    if(hParams.containsKey("x2")) x2 = ((Integer) hParams.get("x2")).intValue();
-    if(hParams.containsKey("y2")) y2 = ((Integer) hParams.get("y2")).intValue();
-    if(hParams.containsKey("color")) color = ((Color)hParams.get("color"));
-  }
+		int hilf;
+		int negativerAnstieg = 0;
+		int groesser45 = 0;
+
+		if (thickness <= 1) {
+			// anything we wanna se
+			thickness = 1;
+		}
+		else {
+			// compensation of startpoint for fillOval
+			int radius = thickness / 2;
+			x0 -= radius;
+			y0 -= radius;
+			x1 -= radius;
+			y1 -= radius;
+		}
+
+		if (x1 < x0) {  //x1 links von x0?
+			hilf = x0;
+			x0 = x1;
+			x1 = hilf;  //tauschen der Punkte
+			hilf = y0;
+			y0 = y1;
+			y1 = hilf;
+		}
+		int dx = x1 - x0;  //bestimmen des Abstandes in x-Richtung
+		int dy = y1 - y0;  //                        in y-Richtung
+		if (dy < 0) {  //Anstieg negativ?
+			dy = -dy;  //dy wird geaendert, so dass es positiv ist
+			negativerAnstieg = 1;  //fuer Zeichnen im 5.-8.Oktanten
+		}
+		if (dy > dx) {  //im 2.Oktanten?
+			groesser45 = 1;
+			hilf = dx;
+			dx = dy;
+			dy = hilf;  //durch Vertauschung koennen auch Geraden
+		}  //im 2.Oktanten gezeichnet werden
+		int entscheidung = 2 * dy - dx;  //initialisieren der Entscheidungsgroesse
+		int x = x0;
+		int y = y0;
+
+		g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);  //Zeichnen des Anfangswertes
+		for (int i = 0; i < dx; i++) {
+			x++;
+			if (entscheidung > 0) {
+				y++;  //naechster Punkt wird bei x+1,y+1 gesetzt
+				entscheidung += 2 * (dy - dx);
+			}
+			else {
+				entscheidung += 2 * dy;
+			}  //naechster Punkt wird bei x+1,y gesetzt
+
+			if ((groesser45 == 0) && (negativerAnstieg == 0)) {
+				g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);
+			}
+			if ((groesser45 == 1) && (negativerAnstieg == 0)) {
+				g.fillRect((y - y0) + x0 - thickness / 2, (x - x0) + y0 - thickness / 2, thickness, thickness);
+			}
+			if ((groesser45 == 0) && (negativerAnstieg == 1)) {
+				g.fillRect(x - thickness / 2, y0 - (y - y0) - thickness / 2, thickness, thickness);
+			}
+			if ((groesser45 == 1) && (negativerAnstieg == 1)) {
+				g.fillRect((y - y0) + x0 - thickness / 2, y0 - (x - x0) - thickness / 2, thickness, thickness);
+			}
+
+		}
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  g  Description of the Parameter
+	 */
+	public void draw(Graphics g) {
+		int size = (java.lang.Math.abs(start.x - end.x) + java.lang.Math.abs(start.y - end.y)) / 2 * lineRelSize / 100;
+		g.setColor(color);
+		drawBresenham(g, start.x, start.y, end.x, end.y, size);
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  g       Description of the Parameter
+	 *@param  scale   scale value of zoom; 1 means no zoom
+	 *@param  center  Description of the Parameter
+	 */
+	public void drawZoomed(Graphics g, Point center, double scale) {
+		draw(g);
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  realDim    Description of the Parameter
+	 *@param  rasterDim  Description of the Parameter
+	 *@return            Description of the Return Value
+	 */
+	public Part fitToRaster(Dimension realDim, Dimension rasterDim) {
+		Connector con = null;
+		int scale;
+		int xOffset = 0;
+		int yOffset = 0;
+
+		try {
+			con = (Connector) this.clone();
+		}
+		catch (Exception e) {
+			System.out.println(e);
+		}
+
+		if ((double) realDim.width / (double) realDim.height > (double) rasterDim.width / (double) rasterDim.height) {
+			//roster ist smaller than real area(relative)
+			scale = realDim.height / rasterDim.height;
+			xOffset = (realDim.width - rasterDim.width * scale) / 2;
+		}
+		else {
+			// roster ist widther than real area(relative)
+			scale = realDim.width / rasterDim.width;
+			yOffset = (realDim.height - rasterDim.height * scale) / 2;
+		}
+
+		con.start = new Point(start.x * scale + xOffset, start.y * scale + yOffset);
+		con.end = new Point(end.x * scale + xOffset, end.y * scale + yOffset);
+		return con;
+	}
+
+
+	/**
+	 *  Gets the inside attribute of the Connector object
+	 *
+	 *@param  point  Description of the Parameter
+	 *@return        The inside value
+	 */
+	public boolean isInside(Point point) {
+		System.out.println("check Connector");
+
+		return (false);
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  hParams  Description of the Parameter
+	 */
+	public void init(Hashtable hParams) {
+		color = Color.black;
+		// thickness of line relative to length (in percent)
+		lineRelSize = 4;
+
+		if (hParams.containsKey("size")) {
+			lineRelSize = ((Integer) hParams.get("size")).intValue();
+		}
+		if (hParams.containsKey("lineRelSize")) {
+			lineRelSize = ((Integer) hParams.get("lineRelSize")).intValue();
+		}
+		if (hParams.containsKey("startX") && hParams.containsKey("startY")) {
+			start = new Point(((Integer) hParams.get("startX")).intValue()
+					, ((Integer) hParams.get("startY")).intValue());
+		}
+		if (hParams.containsKey("endX") && hParams.containsKey("endY")) {
+			end = new Point(((Integer) hParams.get("endX")).intValue()
+					, ((Integer) hParams.get("endY")).intValue());
+		}
+		if (hParams.containsKey("color")) {
+			color = ((Color) hParams.get("color"));
+		}
+	}
 
 }
 
-/**
- * $Log: Connector.java,v $
- * Revision 1.3  2002/09/12 23:54:19  glaessel
- * no message
- *
- * Revision 1.2  2002/09/12 18:44:17  glaessel
- * Part jetzt abstract (Drawable obsolete)
- *
- * Revision 1.1.1.1  2002/09/02 19:50:08  glaessel
- * neu
- *
- * Revision 1.1  2002/07/05 23:25:14  glaessel
- * no message
- *
- * Revision 1.2  2002/07/05 19:27:09  glaessel
- * jetzt mit Parts als Baum
- *
- * Revision 1.1  2002/07/03 21:36:02  glaessel
- * no message
- *
- * Revision 1.2  2002/06/24 21:41:53  glaessel
- * CVS-Tags eingesetzt
- *
- *
- */
