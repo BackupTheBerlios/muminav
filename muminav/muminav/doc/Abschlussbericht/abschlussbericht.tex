@@ -1,0 +1,193 @@
+% Mit folgendem Header kann ich wahlweise 'latex bla.tex', oder 'pdflatex
+% bla.tex' laufen lassen. Es wird dann eine dvi bzw. pdf Datei erzeugt. Die
+% Bilder, die mit includegraphics importiert werden, werden ohne Dateiendung
+% angegeben. Latex sucht sich dann entweder ein .eps bzw. .pdf/.png/.jpg File
+% heraus...
+%
+%(http://www.techfak.uni-bielefeld.de/ags/ni/lectures/internstuff/howto/howto-la
+%tex/howto-pdflatex.html)
+\newif\ifpdf \ifx\pdfoutput\undefined
+\pdffalse % we are not running pdflatex
+\else
+\pdfoutput=1 % we are running pdflatex
+\pdfcompresslevel=9 % compression level for text and image;
+\pdftrue \fi
+
+
+\documentclass[12pt, headsepline]{scrreprt}
+\usepackage[ngerman]{babel}
+
+\ifpdf
+  \usepackage[pdftex,xdvi]{graphicx}
+  \usepackage[pdftex]{hyperref}     % option [colorlinks] erzeugt farbige Links statt
+
+  \pdfinfo{
+     /Title    (Abschlussbericht Muminav)
+     /Author   (Michael Glässel, Matthias Erche, Jörg Küster)
+     /Subject  ()
+     /Keywords (tu-berlin, open source, java)
+  }
+  \usepackage[pdftex]{color} % farbige Umrandungen
+\else
+  \usepackage[dvips,xdvi]{graphicx}
+  \usepackage[colorlinks]{hyperref}
+  \usepackage{color}
+\fi
+
+\usepackage[automark,headsepline,plainheadsepline]{scrpage2}
+\pagestyle{scrheadings}
+%\ohead[\pagemark]{\pagemark}
+\ohead[\headmark]{\headmark} \chead{\empty}
+
+
+
+% ersetzt, s. o.
+% \usepackage{color}            % um den Text auch farbig zu gestalten
+% \usepackage[dvips]{graphicx}      % zum Einbinden von Grafiken, [<TREIBER>]
+
+\usepackage{subfigure}                  % mehrere figures in einem floating object
+\usepackage[latin1]{inputenc}       % wofuer?
+\usepackage{textcomp}                   % fuer Sonderzeichen wie <Grad Celsius>
+% \usepackage{hyperref}         % zum Einbinden von Querverweisen in pdf (als letztes
+                    % auffuehren!)
+%\graphicspath{{images/}}        % jetzt muss man nicht jedesmal den Pfad angeben
+
+
+
+
+\title{Abschlussbericht \\ Muminav}
+
+\author{
+  Open-Source-Softwareprojekt\\
+  Sommersemester 2002\\
+  Technische Universität Berlin \\ \\
+  \normalsize Michael Glässel \\
+  \normalsize Matthias Erche \\
+  \normalsize Jörg Küster\\
+}
+
+\date{\today}
+
+\begin{document}     % here begins the actual document body
+%\maketitle           % this actually creates the title block
+
+\include{title}
+
+\begin{abstract}
+\textbf{Zusammenfassung} blah \ldots
+\end{abstract}
+
+\tableofcontents
+
+
+%--------------------------------------------------------------------
+
+\chapter{Einleitung}
+
+\section{Der Projektkontext} Mumie\ldots
+
+\subsection{Dezentrale Systementwicklung am Beispiel GNU/Linux}
+
+Das Projekt \glqq Mumie\grqq\ soll nach aktuellem Stand unter
+einer Open Source-Lizenz entwickelt und veröffentlicht werden. Die
+Zusammenarbeit zwischen den Universitäten impliziert eine
+dezentrale Entwicklung, an der auch das Projekt \glqq
+MumieNav\grqq\ beteiligt ist. Das bei der Entwicklung entstehende
+Produkt wird nicht zur \glqq Insellösung\grqq\ , da es in ein
+bestehendes Projekt integriert wird.\\
+ Eine Aussicht auf die
+Verwendung schon existierender Software besteht unter Umständen
+bei der Realisierung der Datenschnittstelle. So gehen erste
+Überlegungen in die Richtung, schon bestehende XML-Software zu
+verwenden, um die vom Server übertragenen Daten auszuwerten.
+
+\subsection{Das Projekt Mumie}
+
+Das Projekt wird vom Bundesministerium für Bildung und Forschung
+gefördert. Es soll eine WWW-basierte, modulare Umgebung entwickelt
+werden, welche sowohl den Lernenden als auch Dozenten eine
+grafisch ansprechende und leicht zu bedienende Oberfläche bietet.
+So wird einerseits durch die Visualisierung mathematischer Inhalte
+und dem interaktiven Umgang mit der Mathematik die Motivation
+gefördert. Zusätzlich werden einige lehr-- und lernbegleitende
+Tools angeboten:
+
+\begin{itemize}
+\raggedright
+\item Darstellung mathematischer Inhalte mit interaktiver
+Multimedia-Unterstützung
+\item Stoffnachbereitung, Wiederholungsunterstützung angeleitete und kommen\-tier\-te
+Übungs\-auf\-gaben
+\item Selbstkontrolle durch individuelle
+Testumgebungen
+\item Einführung in mathematische Standardsoftwarepakete
+\item individuelles Trainingscenter weiterführender
+Inhalte
+\item Informationsplattform in der und vile und in die der es auch
+noch kein wer was wie wo
+\item Kommunikations-- und
+Austauschangebote
+\end{itemize}
+
+Die ursprüngliche Idee hierbei ist, mathematische Inhalte
+darzustellen. Die Umgebung soll allerdings so gestaltet werden,
+dass sie auch in anderen Disziplinen genutzt werden kann. Weitere
+Schwerpunkte liegen auf der Individualisierung der Oberfläche und
+einer intelligenten Benutzerführung, die verhindert, dass man in
+der inhaltlichen Fülle des Gesamtangebotes die Übersicht verliert.
+
+\section{Ziele} Unsere Aufgabe\ldots
+
+
+
+%--------------------------------------------------------------------
+
+\chapter{Organisation des Gesamtprojekts}
+
+Regemäßige Meetings/Treffen
+
+\section{Gruppenaufteilung}
+
+
+
+\section{Vorträge}
+
+\section{Workshops}
+
+%--------------------------------------------------------------------
+
+\chapter{Muminav}
+
+\section{Lizenz}
+
+Vorgabe war, die gesamte Entwicklungsarbeit als Open Source
+Projekt durchzuführen. Dies schließt ein, die
+Projektergebnisse unter einer Open Source Lizenz zu veröffentlichen.\\
+Da wir unser Projekt in Zusammenarbeit mit der Mumie-Gruppe
+entwickeln, mussten wir uns im Vorfeld mit Ihnen auf eine Open
+Source Lizenz verständigen, welche in das Gesamtprojekt Mumie
+integrierbar ist.\\
+Die GPL \cite{GPL} (GNU General Public License)
+
+
+
+LGPL \cite{OpenSourceLicences},\cite{LGPL}.
+
+\section{Entwicklungsumgebung}
+\subsection{Projekthoster}
+\subsection{Enwicklungswerkzeuge} Ant \cite{Ant2002}, JBuilder \cite{BerliOS}
+
+
+%--------------------------------------------------------------------
+
+\chapter{Beurteilung des Projekts}
+
+\section{Diskussion des Status quo}
+
+\section{Ausblick}
+
+\bibliographystyle{bibstyle} % mit custom-bib erzeugter individueller Bibliographie-Style !!
+\bibliography{bibliographie}
+
+
+\end{document}
