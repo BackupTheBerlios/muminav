@@ -1,9 +1,9 @@
 
-\chapter{Muminav -- Das Navigationstools}
-
-Beispiel Progamm, welches zeigt wie man Muminav einbinden kann.
-
-relevante andere Projekte - hoch spezifizierte Anforderungen
+\chapter{Muminav -- Die Umsetzung}
+In den folgenden Kapiteln möchten wir einerseits einen Überblick über die
+technische Realisierung des Projektes geben, aber auch einen Eindruck der
+Entwicklungsmodalitäten und der nötigen Überlegungen, die bei der Realisierung
+eines Open Source Projektes nötig sind, vermitteln.
 
 \section{Lizenz}
 
@@ -24,7 +24,7 @@ Eine Lockerung dieser Politik sieht die LGPL \cite{LGPL1999} (Lesser General
 Public License oder auch Library General Public License) vor. Ursprünglich
 eingeführt, um das Linken von frei verfügbaren Bibliotheken aus proprietären
 Systemen heraus zu ermöglichen, ohne Einfluss auf die ursprüngliche Lizenz zu
-nehmen, wird sie heutzutage überall dort eingesetzt, wo freie Software auch in
+nehmen, wird sie heutzutage überall dort verwendet, wo freie Software auch in
 kommerziellen und nicht freien Umgebungen eingesetzt wird.
 
 Da der Ursprung von \textsc{MumiNav} in der Entwicklung eines Navigationssystems
@@ -36,7 +36,7 @@ vorgesehen, doch ist in Zukunft ein kommerzieller Einsatz nicht ausgeschlossen.
 Um eventuelle Vorhaben in dieser Richtung nicht zu verhindern, haben wir uns
 deshalb dazu entschlossen, \textsc{MumiNav} unter die LGPL zu stellen und somit
 die freie Verfüg- und Benutzbarkeit zu sichern und trotzdem den Entwicklern der
-\textsc{Mumie} alle Möglichkeiten offen zu lassen.
+\textsc{Mumie} alle Möglichkeiten offen zu lassen.\cite{EVERS2000}
 
 \section{Entwicklungsumgebung}
 \subsection{Enwicklungswerkzeuge}
@@ -114,58 +114,146 @@ Aus diesen Gründen haben wir uns für den Berliner Projekthoster
 \textsc{Berlios} \cite{BerliOS} entschieden, der uns mit den
 meisten Diensten unterstützen konnte.
 
-\section{Probleme und ihre Lösungen}
-
-XML-Parser mitliefern - Größe - Entscheidung für Java 1.4 und
-Mozilla
-
 \section{Verwendete Komponenten und Ressourcen}
+Die Aufgabenstellung bzw. die Zielsetzung unseres Projektes sowie dessen hoher
+Spezialisierungsgrad haben die Verwendung bestehender Projekte erschwert. Einzig
+auf dem Gebiet der XML- Verarbeitung  hatten wir die Möglichkeit, auf andere
+Projekte zurückzugreifen.
 
+Wir hatten die Wahl zwischen der JAXP API, JDOM und einigen Sourceforge
+Projekten. Letzlich haben wir uns für die JAXP(Java API for XML
+Processing) entschieden. Einer der grössten Vorteile ist, das diese bereits
+standardmässig ab dem JRE 1.4 enthalten ist. Da der Parser clientseitig
+eingesetzt wird, ist es somit nicht notwendig, einen externen XML- Parser über
+das Internet zu laden. Das erspart zusätzlichen Datentransfer und reduziert
+somit auch die Startzeit. Allerdings beschränkt dieser Ansatz die Nutzergruppe,
+so dass die Herstellung der Kompatibilität zu älteren Java Versionen eines der
+nächsten Umsetzungsziele ist.
+
+Da wir keinen wahlfreien Zugriff auf die einzelnen
+Elemente innerhalb der XML Datei benötigen, sondern das Dokument nur einmal
+komplett abarbeiten, kommt uns der Verabeitungsansatz SAX sehr entgegen. Hierbei
+wird nicht wie bei DOM des gesamte Dokument im Speicher gehalten, sondern nur in
+Stücken geladen. Der daraus resultierende geringere Speicherbedarf kommt unserer
+Zielsetzung ebenfalls zu Gute. Genauere Erläuterungen zu JAXP, JDOM und anderen
+XML Parsern sind in der Ausarbeitung zum 2. Meilenstein auf unserer Projekt
+Homepage zu finden.\cite{MUMINAV}
+
+Im Rahmen der Projektarbeit haben konnten wir auf ein Vielzahl von Ressourcen
+zurückgreifen. Die Wichtigsten sind sicherlich die unseres Projekthosters
+BerliOS. Dieser stellt den Speicherplatz für die Projektdateien und unsere
+Homepage und die Möglichkeit der Nutzung von News- Foren und Mailinglisten.
+
+Hinzu kommen die bereits dargestellten Entwicklungswerkzeuge. Eine weitere,
+nicht zu unterschätzende Ressource ist das Internet. Als wihtigster Punkt
+ist hier die Suche nach Informationen über XML zu nennen. Bei uns allen
+waren keine Erfahrungen damit vorhanden. Sogar ein Posting in die DESE
+interne Mailingliste hat hier weitergeholfen.
+
+Ausserdem findet man Unterstützung während der Konzeption und Programmierung in
+Foren, FAQs und Howtos. Ebenfalls sehr intensiv haben wir die Dokumentation der
+Java API des SDK 1.4 genuzt. Abschliessend wollen wir noch die Mumie
+Teil-Spezifikation des Navigationsframes als Grundlage für unsere gesamte Arbeit
+nennen.
 
 \section{Programm Aufbau}
 
-Muminav ist ein Java Applet und besteht aus folgenden Klassen:\\
+Der Aufbau unseres Applets wurde fordergründig unter dem Gesichtspunkt der Wiederverwendung entwickelt. Es soll jederzeit möglich sein, es innerhalb eines anderen Projektkontextes einzubetten und zu nutzen. Hierfür ist es wichtig, die Navigationsnetze in allgemeingültiger Form zu definieren und ein Datenformat zu nutzen, das weit verbreitet, systemunabhängig und zukunftsorieneniert ist. Daher haben wir uns für XML entschieden. 
 
+Wie die Kommunikation innerhalb des Mumie Projektes und die öffentliche Schnittstelle aussieht, wollen wir im Folgenden kurz darlegen und mit der Abbildung 3.1 illustrieren. In einer Datenbank liegen die Beschreibungsdaten für mehrere Netze. Soll eines von ihnen dargestellt werden, so stellt der Server entsprechende Anfragen an die Datenbank und erzeugt daraus die XML Datei, die alle notwendigen Parameter für das Netz enthält. Das auf dem Client Rechner laufende Applet bekommt lediglich die XML Datei als Parameter und läd diese beim Start vom Server. Sollten im Laufe der Verarbeitung noch nicht auf dem Rechner befindliche Java Klassen benötigt werden, werden diese vom Server nachgeladen.
 
-\begin{tabular}{|l|p{7cm}|}
-    \hline
-    \texttt{Muminav} & die Applet-Klasse (\texttt{JApplet})\\ \hline
-    \texttt{MuminavPanel} & das Panel auf dem gezeichnet wird (\texttt{JPanel})\\ \hline
-    \texttt{MuminavToolTipManager} & steuert das Verhalten der Tooltips\\ \hline
-    \texttt{TreeBuilder} & liest die XML-Dateien und erzeugt einen Baum mit den Elementen aus der Datei\\ \hline
-    & \\ \hline
-    \texttt{Part} & eine abstrakte Klasse von der jedes Element eines Skins abgeleitet wird\\ \hline
-    \texttt{NavNet} & \\ \hline
-    \texttt{DrawLib} & enthält diverse Zeichenmethoden\\ \hline
-    \texttt{UnknownElement} & \\ \hline
-    & \\ \hline
-    \texttt{Connector} & Verbindungselement aus dem Beispielskin des Mathe-Thema\\ \hline
-    \texttt{Mainelement} & Hauptelement aus dem Beispielskin des Mathe-Themas\\ \hline
-\end{tabular}
+Gerade diese unkompliziert Schnittstelle macht es möglich, unser Applet zur Darstellung und Navigation in logischen Navigationsnetzen zu nutzen ohne sich besondere Kenntnisse über den weiteren Aufbau oder die Funktionsweise aneignen zu müssen. Es ist lediglich notwendig, sich das Skin Howto \cite{TUTORIAL} durchzulesen, um zu wissen, wie die XML Datei aufgebaut sein muss. Mit diesen Kenntnissen ist problemlos möglich, unser Applet in ein anderes Projekt zu integrieren und zu nutzen.
 
-
-
-
+Kommen wir nun zum eigentlichen Aufbau unseres Applets. Es besteht aus 4 Hauptteilen die jedoch stark miteinander verbunden sind. Das sind XML Verarbeitung, die Event Engine, die Zeichen Engine und die Layout Klassen. Auf die einzelnen Teilen werden wir nun etwas genauer eingehen.
+\subsection{Die XML Verabeitung}
+Beim Start des Applets wird die XML Datei vom Server geladen und von einem XML
+Parser analysiert. Dieser erstellt aus den gewonnenen Informationen eine interne
+Darstellung des Netzes. Hierbei handelt es sich um eine Baumstruktur, die sowohl
+alle für das Netz wichtige Parameter enthält als auch die hierarchische Struktur
+wiederspiegelt. Die Bestandteile des Baumes sind Instanzen von Skinklassen,
+welchen entsprechend des Skins und der Elemente erzeugt werden. Diese in
+Abbildung 3.1 dargestellte schematisierte Struktur bildet das "Rückrad" unseres
+Applets.
 \begin{figure}[htbp]
-    \centering%
-%   \setcapwidth[c]{12cm}%
-    \includegraphics[width=10cm]{figs/kommunikation}
-    \captionbelow{Kommunikation: Informationsfluss}
-    \label{FIG:kommunikationsfluss}
+\centering% %   \setcapwidth[c]{12cm}%
+\includegraphics[width=10cm]{figs/baumstruktur}
+\captionbelow{Baumstruktur}
+\label{FIG:baumstruktur}
+\end{figure}
+\subsection{Die Layout Klassen} Die Layout
+Klassen sind notwendig, um ein Netz überhaupt darstellen zu können. In einer
+Layout Klasse wird das Aussehen eines Elementes beschrieben, das durch den
+Einsatzt von Parametern sehr vielseitig gestaltet werden kann. In einem Skin
+werden alle zu einem Thema gehörenden Element in einem Paket zusammengefasst. So
+gehören die Elemenete MainElement und Connector zum Mathe Skin und geben den
+Elementen das Aussehen, wie es in der Mumie Vorgabe spezifiziert ist. So ist es
+durch den Einsatz verschiedener Skins möglich, das Aussehen des Netztes den
+jeweiligen Kontexten anzupassen. Es können natürlich auch schon bereits
+bestehende Skins benutzt oder erweitert werden. Auf diese Art und Weise wird die
+graphische Darstellung von der logischen Struktur des Netzes getrennt. Dadurch
+lässt sich das Applet viel flexibler benutzen und der zu leistende Eigenanteil
+beim Entwurf eines neuen Netztes sinkt.
+\subsection{Die Zeichen Engine} Im
+unmittelbaren Zusammenhang mit den Layout Klassen steht die Zeichen Engine.
+Diese ist dafür verantworlich, das Elemente zum richtigen Zeitpunkt, in der
+gewünschten Reihenfolge an der korrekten Position gezeichnet werden. Ihr ist es
+zu verdanken, das jedes Netzt optimal an die Grösse des Applets angepasst wird
+und Zoom und Tooltips realisiert werden können. Hinter ihrer Fassade stecken
+Berechnungen zur Skalierung und Verschiebung von Punkten, die es ermöglichen,
+das Netz auf einem von der realen Ausgabegrösse unabhängigem Raster zu
+definieren. Daher muss man sich beim Entwurf eines Neztes keine Gedanken über
+die Grösse der Darstellungsfläche im Applet und dessen Seitenverhältnis zu
+machen.
+\subsection{Die Event Engine} Die Event Engine ist für die Bearbeitung
+von Ereignissen und Aktionen zuständig. Sie überprüft, ob ein Element angeklickt
+wurde und führt im entsprechenden Fall die notwendigen Operationen durch.
+Ebenfalls erkennt sie das Benutzen der Zoom Funktion, ermittelt und setzt
+notwendige Paramter und veranlasst die Zeichenengine, das Netz gezoomt
+darzustellen. Des weiteren veranlasst sie die Einblendung von Tooltips, wenn die
+Maus über einem Elemnt ruht. Natürlich gehört die Behandlung der Navigations
+Buttons zu ihrem Aufgabengebiet.
+\begin{figure}[htbp]
+\centering% %\setcapwidth[c]{12cm}%
+\includegraphics[width=10cm]{figs/aufbau}
+\captionbelow{Aufbau: Haupteile von Muminav}
+\label{FIG:aufbau}
 \end{figure}
 
-\begin{figure}[htbp]
-    \centering%
-%   \setcapwidth[c]{12cm}%
-    \includegraphics[width=10cm]{figs/baumstruktur}
-    \captionbelow{Baumstruktur}
-    \label{FIG:baumstruktur}
-\end{figure}
+\section{Erfahrungen und Probleme}
 
-\begin{figure}[htbp]
-    \centering%
-%   \setcapwidth[c]{12cm}%
-    \includegraphics[width=10cm]{figs/aufbau}
-    \captionbelow{Aufbau: Haupteile von Muminav}
-    \label{FIG:aufbau}
-\end{figure}
+\subsection{Konzeption und Implementierung}
+Während der Arbeit sind für ein Projekt solchen Umfangs erstaunlich wenig
+Probleme aufgetreten. In den ersten Projektphasen, zeitlich zwischen dem 1. und
+3. Meilenstein einzuordnen, haben wir uns fast ausschlisslich mit dem Konzept
+beschäftigt. Diese gründliche Vorbereitung war die Voraussetzung für eine recht
+komplikationsfreie Implementierungsphase.
+
+Ein grösseres Problem stellte die Umsetzung der Tooltips dar. Hier musste ein
+angedachter Ansatz verworfen und ein neuer Weg eingeschlagen werden. Eine
+Verzögerung von ca. 2 Tagen war die Folge. Hier kamen die Vorteile der Nutzung
+eines CVS Archivs zum Tragen, denn die Verbesserung des Tooltipsystems
+beeinflusste nicht die anderen Entwiklung der restlichen Systemteile.
+
+\subsection{Dezentrale Entwicklung}
+Sehr angenehm wurde von allen Gruppenmitgliedern der Aspekt und die
+Hilfsmittel der dezentralen Entwicklung aufgenommen. Die Konzeptionsphase
+gestaltete sich zwar wie gewohnt über persönliche Treffen, doch lief die gesamte
+Entwicklung eigentlich komplett ohne die sonst üblichen Kommunikationsmittel wie
+Telefon oder Meetings ab.
+
+Vielmehr setzte sich während der Implementierungsphase die intensive Nutzung der
+Projekt- Mailingliste in Verbindung mit der Nutzung von Instant Messaging durch.
+Wir waren alle sehr positiv davon überrascht, wie gut das funktionierte.
+
+Anfangs hatten wir etwas mit den Eigenheiten von CVS zu kämpfen. Die Aufteilung
+in Module ist uns nicht so gut gelungen, wie es hätte sein können. So haben wir
+jetzt ein Archiv, in dem redundante Daten liegen, die teilweise nicht mehr
+genutzt werden. Hier kann man aber nur für die Zukunft lernen und sich vor der
+Implementierungsphase noch intensiver mit der Einrichtung der
+Entwicklungsumgebung beschäftigen.
+
+Alles in allem war die Nutzung von CVS eine riesige Zeitersparnis, denn es wurde
+uns doch viel Arbeit mit der Koordination der Enwticklung von Programmteilen
+abgenommen.
+
+Auch das gemeinsame Schreiben des Abschlussberichtes war uns so möglich.
