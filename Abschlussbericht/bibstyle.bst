@@ -4,9 +4,9 @@
 %%
 %% The original source files were:
 %%
-%% merlin.mbs  (with options: `head,exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
-%% german.mbs  (with options: `exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
-%% merlin.mbs  (with options: `tail,exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% merlin.mbs  (with options: `head,exlang,cite,seq-no,seq-no,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% german.mbs  (with options: `exlang,cite,seq-no,seq-no,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% merlin.mbs  (with options: `tail,exlang,cite,seq-no,seq-no,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
 %% ----------------------------------------
 %% *** Applicable for german medical Dissertation ***
 %% 
@@ -727,7 +727,6 @@ FUNCTION {empty.misc.check}
 { author empty$ title empty$ howpublished empty$
   month empty$ year empty$ note empty$
   and and and and and
-  key empty$ not and
     { "all relevant fields are empty in " cite$ * warning$ }
     'skip$
   if$
@@ -1168,144 +1167,6 @@ FUNCTION {unpublished}
 
 FUNCTION {default.type} { misc }
 READ
-FUNCTION {sortify}
-{ purify$
-  "l" change.case$
-}
-INTEGERS { len }
-FUNCTION {chop.word}
-{ 's :=
-  'len :=
-  s #1 len substring$ =
-    { s len #1 + global.max$ substring$ }
-    's
-  if$
-}
-FUNCTION {sort.format.names}
-{ 's :=
-  #1 'nameptr :=
-  ""
-  s num.names$ 'numnames :=
-  numnames 'namesleft :=
-    { namesleft #0 > }
-    { s nameptr
-      "{ll{ }}{  f{ }}{  jj{ }}"
-      format.name$ 't :=
-      nameptr #1 >
-        {
-          "   "  *
-          namesleft #1 = t "others" = and
-            { "zzzzz" * }
-            { t sortify * }
-          if$
-        }
-        { t sortify * }
-      if$
-      nameptr #1 + 'nameptr :=
-      namesleft #1 - 'namesleft :=
-    }
-  while$
-}
-
-FUNCTION {sort.format.title}
-{ 't :=
-  "A " #2
-    "An " #3
-      "The " #4 t chop.word
-    chop.word
-  chop.word
-  sortify
-  #1 global.max$ substring$
-}
-FUNCTION {author.sort}
-{ author empty$
-    { key empty$
-        { "to sort, need author or key in " cite$ * warning$
-          ""
-        }
-        { key sortify }
-      if$
-    }
-    { author sort.format.names }
-  if$
-}
-FUNCTION {author.editor.sort}
-{ author empty$
-    { editor empty$
-        { key empty$
-            { "to sort, need author, editor, or key in " cite$ * warning$
-              ""
-            }
-            { key sortify }
-          if$
-        }
-        { editor sort.format.names }
-      if$
-    }
-    { author sort.format.names }
-  if$
-}
-FUNCTION {author.organization.sort}
-{ author empty$
-    { organization empty$
-        { key empty$
-            { "to sort, need author, organization, or key in " cite$ * warning$
-              ""
-            }
-            { key sortify }
-          if$
-        }
-        { "The " #4 organization chop.word sortify }
-      if$
-    }
-    { author sort.format.names }
-  if$
-}
-FUNCTION {editor.organization.sort}
-{ editor empty$
-    { organization empty$
-        { key empty$
-            { "to sort, need editor, organization, or key in " cite$ * warning$
-              ""
-            }
-            { key sortify }
-          if$
-        }
-        { "The " #4 organization chop.word sortify }
-      if$
-    }
-    { editor sort.format.names }
-  if$
-}
-FUNCTION {presort}
-{ type$ "book" =
-  type$ "inbook" =
-  or
-    'author.editor.sort
-    { type$ "proceedings" =
-        'editor.organization.sort
-        { type$ "manual" =
-            'author.organization.sort
-            'author.sort
-          if$
-        }
-      if$
-    }
-  if$
-  "    "
-  *
-  year field.or.null sortify
-  *
-  "    "
-  *
-  title field.or.null
-  sort.format.title
-  *
-  #1 entry.max$ substring$
-  'sort.key$ :=
-}
-ITERATE {presort}
-SORT
 STRINGS { longest.label }
 INTEGERS { number.label longest.label.width }
 FUNCTION {initialize.longest.label}

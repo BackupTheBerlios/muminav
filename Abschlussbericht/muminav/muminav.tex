@@ -53,10 +53,46 @@ in der täglichen Arbeite aufraten besorgt.
 %\item \textbf{}
 \end{itemize}
 
-Ant \cite{Ant2002}, JBuilder \cite{BerliOS}
+
+
+Für die Entwicklung der Quellen habe wir folgende Software
+eingesetzt.
+
+\begin{itemize}
+
+\item \textbf{Java\trademark 2 Platform, Standard Edition}
+\item \textbf{Apache Ant} des \textsc{Jakarta Projekt} von Apache,
+als make-Tool.
+\end{itemize}
+
+Leider ist der Javacompiler, den wir eingesetzt haben nicht als
+Open-Source veröffentlicht worden. Aus Kompatibilitäsgründen
+mussten wir uns jedoch für diesen Compiler entscheiden, damit das
+Applet unter möglichst unterschiedlichen Umgebungen läuft ohne,
+dass der Benutzer weitere Software installieren muss.
+
+Als Alternativen zum Java-Compiler von Sun wäre im
+Open-Source-Bereich z.\,B\ \textsc{Jikes} von IBM \cite{JIKES},
+der an der Univeristät von Bosten entwicklete \textsc{Espresso}
+\cite{ESPR} oder der \textsc{GCJ} der \textsc{Free Software
+Foundation} \cite{GJC}, denkbar. Da sich aber jeder bei uns die
+Java Quellcodes herunterladen kann, bleibt es jedem selbst
+überlassen, welchen Kompiler er einsetzt \cite{J2SE} .
+
 \subsection{Projekthoster}
 
-\subsection{Problemen und ihre Lösungen}
+Bei der Wahl des Projekthosters kam für uns \textsc{SourceForge}
+\emph{nicht} in Frage, da sich im Laufe der Zeit die
+Lizenz-Politik \cite{SFORGE} des Hosters immer mehr gegen die
+Ideale der Open-Source-Gemeinde richten. Das Savannah Projket der
+Free Software Foundation war zu Projektbeginn leider noch nicht
+genügend weit entwickelt.
+
+Aus diesen Gründen haben wir uns für den Berliner Projekthoster
+\textsc{Berlios} \cite{BerliOS} entschieden, der uns mit den
+meisten Diensten unterstützen konnte.
+
+\subsection{Probleme und ihre Lösungen}
 
 XML-Parser mitliefern - Größe - Entscheidung für Java 1.4 und
 Mozilla
