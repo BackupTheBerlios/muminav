@@ -1,12 +1,12 @@
 %%
-%% This is file `DrNada2.bst',
+%% This is file `bibstyle.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% merlin.mbs  (with options: `head,exlang,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
-%% german.mbs  (with options: `exlang,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
-%% merlin.mbs  (with options: `tail,exlang,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% merlin.mbs  (with options: `head,exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% german.mbs  (with options: `exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
+%% merlin.mbs  (with options: `tail,exlang,cite,vonx,nm-rvx,ed-rev,jnrlst,nmft,nmft-sc,dt-jnl,yr-blk,xmth,yrp-semi,atit-u,volp-sp,pp-last,num-xser,numser,jnm-x,bkpg-x,pub-date,pub-xpar,pre-edn,edparxc,bkedcap,blk-tit,au-col,in-col,fin-bare,german,ppx,ed,abr,xedn,and-com,xand,{}')
 %% ----------------------------------------
 %% *** Applicable for german medical Dissertation ***
 %% 
@@ -22,20 +22,16 @@
  % version 1 of the License, or any later version.
  % ===============================================================
  % Name and version information of the main mbs file:
- % \ProvidesFile{merlin.mbs}[2002/01/14 4.03 (PWD, AO, DPC)]
+ % \ProvidesFile{merlin.mbs}[2002/09/13 4.04 (PWD, AO, DPC)]
  %   For use with BibTeX version 0.99a or later
  %-------------------------------------------------------------------
  % This bibliography style file is intended for texts in
  %   GERMAN
- % This is a numerical citation style, and as such is standard LaTeX.
+ % This is a special pseudo-numerical bibliography style, intended to be
+ %   used to list all the entries in a bib database
  % It requires no extra package to interface to the main text.
  % The form of the \bibitem entries is
- %   \bibitem{key}...
- % Usage of \cite is as follows:
- %   \cite{key} ==>>          [#]
- %   \cite[chap. 2]{key} ==>> [#, chap. 2]
- % where # is a number determined by the ordering in the reference list.
- % The order in the reference list is alphabetical by authors.
+ %   \bibitem[key]{key}...
  %---------------------------------------------------------------------
 
 ENTRY
@@ -251,10 +247,10 @@ FUNCTION {bbl.etal}
 { "et~al." }
 
 FUNCTION {bbl.editors}
-{ "Hrsg." }
+{ "Hg." }
 
 FUNCTION {bbl.editor}
-{ "Hrsg." }
+{ "Hg." }
 
 FUNCTION {bbl.edby}
 { "herausgegeben von" }
@@ -277,12 +273,12 @@ FUNCTION {bbl.nr}
 FUNCTION {bbl.in}
 { "in" }
 
-FUNCTION {bbl.pages}
-{ "Seiten" }
+%FUNCTION {bbl.pages}
+%{ "Seiten" }
 %{ "" }
 
-FUNCTION {bbl.page}
-{ "Seite" }
+%FUNCTION {bbl.page}
+%{ "Seite" }
 %{ "" }
 
 FUNCTION {bbl.chapter}
@@ -295,7 +291,7 @@ FUNCTION {bbl.mthesis}
 { "Diplomarbeit" }
 
 FUNCTION {bbl.phdthesis}
-{ "Medizinische Dissertation" }
+{ "Dissertation" }
 
 MACRO {jan} {"Jan."}
 
@@ -495,7 +491,7 @@ FUNCTION {format.title}
 }
 FUNCTION {output.bibitem}
 { newline$
-  "\bibitem{" write$
+  "\bibitem[" label * "]{" * write$
   cite$ write$
   "}" write$
   newline$
@@ -1318,8 +1314,7 @@ FUNCTION {initialize.longest.label}
   #0 'longest.label.width :=
 }
 FUNCTION {longest.label.pass}
-{ number.label int.to.str$ 'label :=
-  number.label #1 + 'number.label :=
+{ cite$ 'label :=
   label width$ longest.label.width >
     { label 'longest.label :=
       label width$ 'longest.label.width :=
@@ -1347,4 +1342,4 @@ FUNCTION {end.bib}
 EXECUTE {end.bib}
 %% End of customized bst file
 %%
-%% End of file `DrNada2.bst'.
+%% End of file `bibstyle.bst'.
