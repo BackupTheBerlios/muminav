@@ -101,8 +101,11 @@ public class MuminavPanel extends JPanel {
 		if (manager.isVisible() == true) {
 			Part ttpart = manager.getTooltipPart();
 			if(ttpart != null){
-			  manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
-                            manager.m_lastY, ttpart.getTooltipText());
+                          String ttText = ttpart.getTooltipText();
+			  if(ttText != null){
+                            manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
+                              manager.m_lastY, ttText);
+                          }
                         }
 		}
 	}

@@ -21,7 +21,7 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.11 $
+ *@version    $Revision: 1.12 $
  */
 
 public class Muminav extends JApplet {
@@ -104,8 +104,9 @@ public class Muminav extends JApplet {
 		// TODO: implement a better exception handling
 		try {
 			// load the xml file
+                        System.out.println(super.getParameter("XMLFile"));
 			URL url = new URL(getDocumentBase(), super.getParameter("XMLFile"));
-
+                        System.out.println("zwischen");
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
 			//con.setRequestMethod( "POST" );
@@ -437,6 +438,6 @@ public class Muminav extends JApplet {
 
 }
 /*
-    $Id: Muminav.java,v 1.11 2002/09/19 10:16:49 glaessel Exp $
+    $Id: Muminav.java,v 1.12 2002/09/19 12:36:51 glaessel Exp $
   */
 
