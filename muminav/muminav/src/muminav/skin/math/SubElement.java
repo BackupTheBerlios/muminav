@@ -48,37 +48,6 @@ public class SubElement extends Part {
 
 
 	/**
-	 *  check if coordinates are inside shape of Part
-	 *
-	 *@param  point  Description of the Parameter
-	 *@return        true if inside else false
-	 */
-	public boolean isInside(Point point) {
-		System.out.println("check Sub " + point.x + "," + point.y + "," + (center.x - size / 2 * aspectRatio) + "," + (center.y - size / 2));
-		if (point.x >= center.x - size / 2 * aspectRatio &&
-				point.y >= center.y - size / 2 &&
-				point.x <= center.x + size / 2 * aspectRatio &&
-				point.y <= center.y + size / 2) {
-			bgColor = new Color((int) (Math.random() * 255), (int) (Math.random() * 255), (int) (Math.random() * 255));
-			return (true);
-		}
-		return (false);
-	}
-
-
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  realDim    Description of the Parameter
-	 *@param  rasterDim  Description of the Parameter
-	 *@return            Description of the Return Value
-	 */
-	public Part fitToRaster(Dimension realDim, Dimension rasterDim) {
-		return this;
-	}
-
-
-	/**
 	 *  Description of the Method
 	 *
 	 *@param  g  Description of the Parameter
@@ -107,17 +76,6 @@ public class SubElement extends Part {
 	}
 
 
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  g       Description of the Parameter
-	 *@param  scale   scale value of zoom; 1 means no zoom
-	 *@param  center  Description of the Parameter
-	 */
-	public void drawZoomed(Graphics g, Point center, double scale) {
-		draw(g);
-	}
-
 
 	/**
 	 *  Description of the Method
@@ -134,9 +92,6 @@ public class SubElement extends Part {
 		}
 		if (hParams.containsKey("text")) {
 			text = (String) hParams.get("text");
-		}
-		if (hParams.containsKey("textZoom")) {
-			textZoom = (String) hParams.get("textZoom");
 		}
 		if (hParams.containsKey("posX") && hParams.containsKey("posY")) {
 			center = new Point(this.getIntParam(hParams.get("posX"))

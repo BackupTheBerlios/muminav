@@ -30,8 +30,6 @@ public abstract class Part implements Cloneable {
 
 	/**  text for element */
 	protected String text;
-	/**  text for element (in zoom mode) */
-	protected String textZoom;
 
 	/**  center/root point for element */
 	protected Point center = null;
@@ -66,24 +64,15 @@ public abstract class Part implements Cloneable {
 	/**
 	 *  Description of the Method
 	 *
-	 *@param  g       Description of the Parameter
-	 *@param  scale   scale value of zoom; 1 means no zoom
-	 *@param  center  Description of the Parameter
-	 */
-	public abstract void drawZoomed(Graphics g, Point center, double scale);
-
-
-	/**
-	 *  Description of the Method
-	 *
 	 *@param  point    the point to scale
 	 *@param  scale    scale value
 	 *@param  xOffset  x offset
 	 *@param  yOffset  y offset
 	 *@return          scaled point
 	 */
-	public static Point scalePoint(Point point, int scale, int xOffset, int yOffset) {
-		return new Point(point.x * scale + xOffset, point.y * scale + yOffset);
+	public static Point scalePoint(Point point, double scale, int xOffset, int yOffset) {
+		return new Point(new Double((double) point.x * scale).intValue() + xOffset
+				, new Double((double) point.y * scale).intValue() + yOffset);
 	}
 
 
@@ -95,40 +84,102 @@ public abstract class Part implements Cloneable {
 	 *@param  dimension  dimension to scale
 	 *@return            Description of the Return Value
 	 */
-	public static Dimension scaleDimension(Dimension dimension, int scale) {
-		return new Dimension(dimension.width * scale, dimension.height * scale);
+	public static Dimension scaleDimension(Dimension dimension, double scale) {
+		return new Dimension(new Double((double) dimension.width * scale).intValue()
+				, new Double((double) dimension.height * scale).intValue());
 	}
 
 
 	/**
-	 *  center point and dimension of each element will be scaled; additional each
-	 *  public point and dimension will be scaled; additional each int value its
-	 *  name ends with length (case-insensitive) will be scaled; not only in this
-	 *  class, in all classes who inherit from this one
+	 *  Description of the Method
 	 *
-	 *@param  realDim    dimension of the target raster
-	 *@param  rasterDim  dimension of the source raster
-	 *@return            scaled clone of the object
+	 *@param  realDim     Description of the Parameter
+	 *@param  endPoint    Description of the Parameter
+	 *@param  rasterDim   Description of the Parameter
+	 *@param  startPoint  Description of the Parameter
+	 *@return             Description of the Return Value
 	 */
-	public Part fitToRaster(Dimension realDim, Dimension rasterDim) {
-		int scaleValue;
+	public Part fitToRaster(Dimension realDim, Dimension rasterDim, Point startPoint, Point endPoint) {
+		Dimension zoomDim;
+		Point topLeftZoom;
+		boolean zoom;
+		double scaleValueResize;
+		double scaleValue;
 		int xOffset = 0;
 		int yOffset = 0;
+
+		// if zoom points existing, we switch to zoom mode
+		zoom = startPoint != null && endPoint != null;
 
 		// cloned object with scaled points and dimensions
 		Part part = null;
 
-		if ((double) realDim.width / (double) realDim.height > (double) rasterDim.width / (double) rasterDim.height) {
-			//raster ist smaller than real area(relative)
-			scaleValue = realDim.height / rasterDim.height;
-			xOffset = (realDim.width - rasterDim.width * scaleValue) / 2;
+		if (zoom) {
+			zoomDim = new Dimension(Math.abs(startPoint.x - endPoint.x)
+					, Math.abs(startPoint.y - endPoint.y));
+			// calculate the top left point from zoom window
+			topLeftZoom = new Point();
+			if (startPoint.x < endPoint.x) {
+				topLeftZoom.x = startPoint.x;
+			}
+			else {
+				topLeftZoom.x = endPoint.x;
+			}
+			if (startPoint.y < endPoint.y) {
+				topLeftZoom.y = startPoint.y;
+			}
+			else {
+				topLeftZoom.y = endPoint.y;
+			}
+
+			if ((double) realDim.width / (double) realDim.height > (double) zoomDim.width / (double) zoomDim.height) {
+				// zoom window is higher then real window (ratio)
+				scaleValueResize = (double) realDim.height / (double) zoomDim.height;
+				realDim.width = new Double(realDim.width * scaleValueResize).intValue();
+				realDim.height = new Double(realDim.height * scaleValueResize).intValue();
+
+				// center zoom window
+				xOffset -= new Double(((double) topLeftZoom.x) * scaleValueResize).intValue();
+				xOffset += new Double(((double) realDim.width / scaleValueResize - (double) zoomDim.width * scaleValueResize) / 2).intValue();
+				yOffset -= new Double(topLeftZoom.y * scaleValueResize).intValue();
+			}
+			else {
+				// zoom window is widther then real window (ratio)
+				scaleValueResize = (double) realDim.width / (double) zoomDim.width;
+				realDim.width = new Double(realDim.width * scaleValueResize).intValue();
+				realDim.height = new Double(realDim.height * scaleValueResize).intValue();
+
+				// center zoom window
+				yOffset -= new Double(((double) topLeftZoom.y) * scaleValueResize).intValue();
+				yOffset += new Double(((double) realDim.height / scaleValueResize - (double) zoomDim.height * scaleValueResize) / 2).intValue();
+				xOffset -= new Double(topLeftZoom.x * scaleValueResize).intValue();
+			}
+			if ((double) realDim.width / (double) realDim.height > (double) rasterDim.width / (double) rasterDim.height) {
+				//raster ist smaller than real area (ratio)
+				scaleValue = (double) realDim.height / (double) rasterDim.height;
+				// center raster
+				xOffset += new Double(((double) realDim.width - (double) rasterDim.width * scaleValue) / 2).intValue();
+			}
+			else {
+				//raster ist widther than real area (ratio)
+				scaleValue = (double) realDim.width / (double) rasterDim.width;
+				// center raster
+				yOffset += new Double(((double) realDim.height - (double) rasterDim.height * scaleValue) / 2).intValue();
+			}
 		}
 		else {
-			//raster ist widther than real area(relative)
-			scaleValue = realDim.width / rasterDim.width;
-			yOffset = (realDim.height - rasterDim.height * scaleValue) / 2;
-		}
 
+			if ((double) realDim.width / (double) realDim.height > (double) rasterDim.width / (double) rasterDim.height) {
+				//raster ist smaller than real area (ratio)
+				scaleValue = (double) realDim.height / (double) rasterDim.height;
+				xOffset = new Double(((double) realDim.width - (double) rasterDim.width * scaleValue) / 2).intValue();
+			}
+			else {
+				//raster ist widther than real area (ratio)
+				scaleValue = (double) realDim.width / (double) rasterDim.width;
+				yOffset = new Double(((double) realDim.height - (double) rasterDim.height * scaleValue) / 2).intValue();
+			}
+		}
 		try {
 			// cloning this object to keep the original values
 			part = (Part) this.clone();
@@ -156,10 +207,15 @@ public abstract class Part implements Cloneable {
 					object = typeClass.newInstance();
 				}
 				catch (InstantiationException iE) {
-					if (fieldName.toLowerCase().endsWith("length")) {
-						//System.out.println(fieldType);
+					if ((fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness"))
+							 && fieldType.equals("int")) {
 						Field field = part.getClass().getField(fieldName);
-						field.set(part, new Integer(((Integer) publicFields[i].get(this)).intValue() * scaleValue));
+						field.set(part, new Integer(((Integer) publicFields[i].get(this)).intValue() * (int) scaleValue));
+					}
+					if ((fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness"))
+							 && fieldType.equals("double")) {
+						Field field = part.getClass().getField(fieldName);
+						field.set(part, new Double(((Double) publicFields[i].get(this)).doubleValue() * scaleValue));
 					}
 				}
 

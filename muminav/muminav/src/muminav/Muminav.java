@@ -21,7 +21,7 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.9 $
+ *@version    $Revision: 1.10 $
  */
 
 public class Muminav extends Applet {
@@ -33,6 +33,17 @@ public class Muminav extends Applet {
 	String tooltipText;
 	boolean showTooltip;
 	boolean drawFirst = true;
+
+	// zoom attributes
+	// indicates if we are in zoom mode or not
+	private boolean enableZoom = false;
+	// start point of zoom rectangle
+	private Point startPoint = null;
+	// end point of zoom rectangle
+	private Point endPoint = null;
+	// default size for zoom
+	private int defaultZoom = 100;
+
 	int tooltipX, tooltipY;
 
 	// dimension of the basis raster
@@ -106,6 +117,7 @@ public class Muminav extends Applet {
 	 *@created    15. September 2002
 	 */
 	class MyListener extends MouseInputAdapter {
+
 		/**
 		 *  Description of the Method
 		 *
@@ -116,13 +128,45 @@ public class Muminav extends Applet {
 
 			button = e.getButton();
 			switch (button) {
-							case 1:
-								// left button -> load content
-								handleEvents(new Point(e.getX(), e.getY()));
-								break;
 							case 3:
-								// right button -> zoom in
+								// left button -> load content
+								handleEvents(e.getPoint());
 								break;
+							case 1:
+								// draggin a rectangle with the right button
+								startPoint = e.getPoint();
+								break;
+			}
+		}
+
+
+		/**
+		 *  Description of the Method
+		 *
+		 *@param  e  Description of the Parameter
+		 */
+		public void mouseReleased(MouseEvent e) {
+			if (e.getButton() == 1) {
+				endPoint = e.getPoint();
+				if (enableZoom) {
+					enableZoom = false;
+					startPoint = null;
+					endPoint = null;
+					repaint();
+				}
+				else {
+					Dimension zoomDim = new Dimension(Math.abs(startPoint.x - endPoint.x)
+							, Math.abs(startPoint.y - endPoint.y));
+					// at single klick without move a default zoom window is used
+					if (zoomDim.width + zoomDim.height < 4) {
+						startPoint.x = new Double(startPoint.x - defaultZoom / 2).intValue();
+						startPoint.y = new Double(startPoint.y - defaultZoom / 2).intValue();
+						endPoint.x = new Double(endPoint.x + defaultZoom / 2).intValue();
+						endPoint.y = new Double(endPoint.y + defaultZoom / 2).intValue();
+					}
+					enableZoom = true;
+					repaint();
+				}
 			}
 		}
 	}
@@ -135,6 +179,7 @@ public class Muminav extends Applet {
 	 *@created    15. September 2002
 	 */
 	class MyMotionListener extends MouseMotionAdapter {
+
 		/**
 		 *  Description of the Method
 		 *
@@ -169,7 +214,6 @@ public class Muminav extends Applet {
 				return (true);
 			}
 		}
-
 		return (false);
 	}
 
@@ -183,7 +227,7 @@ public class Muminav extends Applet {
 	 */
 	private boolean handleEventsForTree(Part t, Point point) {
 		// clicked inside Part?
-		if (t.fitToRaster(this.getSize(), rasterDimension).isInside(point)) {
+		if (t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).isInside(point)) {
 			//      repaint();
 			showStatus("MyApplet: Loading image file");
 			System.out.println("you hit me!");
@@ -229,7 +273,7 @@ public class Muminav extends Applet {
 
 		// raster dimension uebergeben
 		// hier noch hardcoded
-		rasterDimension = new Dimension(12, 22);
+		rasterDimension = new Dimension(12, 21);
 
 		// TODO: implement a better exception handling
 		try {
@@ -266,7 +310,6 @@ public class Muminav extends Applet {
 	 *@param  g  Description of the Parameter
 	 */
 	public void paint(Graphics g) {
-
 		// Draw each child of the root
 		//     first cycle
 		drawFirst = true;
@@ -328,7 +371,7 @@ public class Muminav extends Applet {
 		}
 		// draw Part
 		if (t.drawFirst() == drawFirst) {
-			t.fitToRaster(this.getSize(), rasterDimension).draw(g);
+			t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).draw(g);
 		}
 	}
 
@@ -617,6 +660,6 @@ public class Muminav extends Applet {
 
 }
 /*
-    $Id: Muminav.java,v 1.9 2002/09/18 03:14:46 zander Exp $
+    $Id: Muminav.java,v 1.10 2002/09/19 03:22:28 zander Exp $
   */
 

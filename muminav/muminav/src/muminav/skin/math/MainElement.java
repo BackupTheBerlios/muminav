@@ -9,7 +9,7 @@ import muminav.skin.Part;
 /**
  *@author     zander
  *@created    15. September 2002
- *@version    $Revision: 1.6 $
+ *@version    $Revision: 1.7 $
  */
 public class MainElement extends Part {
 
@@ -41,12 +41,14 @@ public class MainElement extends Part {
 
 		//draw border
 		g.setColor(borderColor);
-		g.fillRect(center.x - dimension.width / 2, center.y - dimension.height / 2,
-				dimension.width, dimension.height);
+		g.fillRect(new Double((double) center.x - (double) dimension.width / 2).intValue()
+				, new Double((double) center.y - (double) dimension.height / 2).intValue()
+				, dimension.width, dimension.height);
 
 		//draw background
 		g.setColor(bgColor);
-		g.fillRect(center.x - dimension.width / 2 + border, center.y - dimension.height / 2 + border
+		g.fillRect(new Double((double) center.x - (double) dimension.width / 2 + border).intValue()
+				, new Double((double) center.y - (double) dimension.height / 2 + border).intValue()
 				, dimension.width - 2 * border, dimension.height - 2 * border);
 
 		// draw text
@@ -55,18 +57,6 @@ public class MainElement extends Part {
 		FontMetrics fm = g.getFontMetrics();
 		g.setColor(fontColor);
 		g.drawString(text, center.x - fm.stringWidth(text) / 2, center.y - fm.getHeight() / 2 + fm.getAscent());
-	}
-
-
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  g       Description of the Parameter
-	 *@param  scale   scale value of zoom; 1 means no zoom
-	 *@param  center  Description of the Parameter
-	 */
-	public void drawZoomed(Graphics g, Point center, double scale) {
-		draw(g);
 	}
 
 
@@ -95,9 +85,6 @@ public class MainElement extends Part {
 		if (hParams.containsKey("height") && hParams.containsKey("width")) {
 			dimension = new Dimension(this.getIntParam(hParams.get("width"))
 					, this.getIntParam(hParams.get("height")));
-		}
-		if (hParams.containsKey("textZoom")) {
-			textZoom = this.getStringParam(hParams.get("textZoom"));
 		}
 		if (hParams.containsKey("bgColor")) {
 			bgColor = (this.getColorParam(hParams.get("bgColor")));
