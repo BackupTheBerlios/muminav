@@ -121,6 +121,31 @@ Mozilla
 
 \section{Verwendete Komponenten und Ressourcen}
 
+
+\section{Programm Aufbau}
+
+Muminav ist ein Java Applet und besteht aus folgenden Klassen:\\
+
+
+\begin{tabular}{|l|p{7cm}|}
+    \hline
+    \texttt{Muminav} & die Applet-Klasse (\texttt{JApplet})\\ \hline
+    \texttt{MuminavPanel} & das Panel auf dem gezeichnet wird (\texttt{JPanel})\\ \hline
+    \texttt{MuminavToolTipManager} & steuert das Verhalten der Tooltips\\ \hline
+    \texttt{TreeBuilder} & liest die XML-Dateien und erzeugt einen Baum mit den Elementen aus der Datei\\ \hline
+    & \\ \hline
+    \texttt{Part} & eine abstrakte Klasse von der jedes Element eines Skins abgeleitet wird\\ \hline
+    \texttt{NavNet} & \\ \hline
+    \texttt{DrawLib} & enthält diverse Zeichenmethoden\\ \hline
+    \texttt{UnknownElement} & \\ \hline
+    & \\ \hline
+    \texttt{Connector} & Verbindungselement aus dem Beispielskin des Mathe-Thema\\ \hline
+    \texttt{Mainelement} & Hauptelement aus dem Beispielskin des Mathe-Themas\\ \hline
+\end{tabular}
+
+
+
+
 \begin{figure}[htbp]
     \centering%
 %   \setcapwidth[c]{12cm}%
