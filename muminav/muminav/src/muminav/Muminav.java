@@ -1,7 +1,7 @@
 package muminav;
 
 /**
- * $Id: Muminav.java,v 1.3 2002/09/12 23:54:19 glaessel Exp $
+ * $Id: Muminav.java,v 1.4 2002/09/14 17:08:59 glaessel Exp $
  */
 
 import java.awt.*;
@@ -11,6 +11,7 @@ import java.util.Hashtable;
 import java.util.Vector;
 import java.lang.Class;
 import javax.swing.event.MouseInputAdapter;
+import javax.swing.*;
 
 import muminav.skin.*;
 import muminav.skin.math.MainElement;
@@ -33,6 +34,13 @@ public class Muminav extends Applet {
   String strSkinType;
   Object mySkin;
 
+  String tooltipText;
+  boolean showTooltip;
+  int tooltipX,tooltipY;
+
+  Thread tooltipWatchdog;
+
+
   private AppletContext appletContext;
 
   // Vector for the child parts of the root
@@ -48,13 +56,36 @@ public class Muminav extends Applet {
 
   //Construct the applet
   public Muminav() {
+
+    Panel marquee = new Panel();
+
+
+    showTooltip = false;
     MyListener myListener = new MyListener();
+    MyMotionListener myMotionListener = new MyMotionListener();
+
     addMouseListener(myListener);
+    addMouseMotionListener(myMotionListener);
+
+    tooltipWatchdog = new TooltipWatchdog(this);
+    tooltipWatchdog.start();
   }
 
   class MyListener extends MouseInputAdapter {
     public void mousePressed(MouseEvent e) {
       handleEvents(e.getX(),e.getY());
+    }
+  }
+
+  class MyMotionListener extends MouseMotionAdapter {
+    public void mouseMoved(MouseEvent e){
+      TooltipWatchdog.updatePos(e.getX(),e.getY());
+      if(showTooltip == true){
+         System.out.println("-bewegung");
+         showTooltip = false;
+         tooltipText = "";
+         repaint();
+      }
     }
   }
 
@@ -121,11 +152,31 @@ public class Muminav extends Applet {
     initTree();
   }
 
-
   public void paint(Graphics g){
+
     // Draw each child of the root
     for(int i = 0 ; i < treeRoot.size(); i++){
       drawTree(g, (Part)treeRoot.elementAt(i) );
+    }
+ //   System.out.println("repaint " + tooltipX + "," + tooltipY +" bool " + showTooltip);
+    if(showTooltip == true){
+      g.setColor(Color.black);
+      g.fillRect(tooltipX,tooltipY,60,20);
+    }
+  }
+
+  public void setTooltip(boolean trigger,int posx,int posy){
+    tooltipX = posx;
+    tooltipY = posy;
+    // nur wenn sich der Zustand ändert neu zeichen
+    if(trigger == false) {
+      showTooltip = false;
+      //System.out.println("showTooltip false");
+      repaint();
+    } else {
+      showTooltip = true;
+      //System.out.println("showTooltip true");
+      repaint();
     }
   }
 
@@ -153,11 +204,11 @@ public class Muminav extends Applet {
   }
 
 
-  //Get Applet information
+  // Get Applet information
   public String getAppletInfo() {
     return "Applet Information";
   }
-  //Get parameter info
+  // Get parameter info
   public String[][] getParameterInfo() {
     return null;
   }
@@ -264,6 +315,9 @@ public class Muminav extends Applet {
 
 /**
  * $Log: Muminav.java,v $
+ * Revision 1.4  2002/09/14 17:08:59  glaessel
+ * mit Tooltip-Thread
+ *
  * Revision 1.3  2002/09/12 23:54:19  glaessel
  * no message
  *
