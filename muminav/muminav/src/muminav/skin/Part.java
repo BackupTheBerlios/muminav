@@ -443,9 +443,17 @@ public abstract class Part implements Cloneable {
 		int slen = fm.stringWidth(ttText);
 		int sheight = fm.getHeight();
 
+                // rechts über dem Rand?
 		if ((x + slen + addWidth) > g.getClipBounds().getWidth()) {
 			x = x - (x + slen + addWidth) + (int) g.getClipBounds().getWidth();
 		}
+
+                // unten raus?
+                if((y + voffset + sheight + addHeight) > (int) g.getClipBounds().getHeight()){
+//                  y =  ((int) g.getClipBounds().getHeight()) - addHeight - sheight - voffset;
+                  //voffset = voffset * (-1);
+                  y = y - 2 * voffset;
+                }
 
 		g.setColor(backColor);
 		g.fillRect(x, y + voffset, slen + addWidth, sheight + addHeight);
