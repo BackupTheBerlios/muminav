@@ -1,7 +1,7 @@
 package muminav;
 
 /**
- * $Id: Muminav.java,v 1.2 2002/09/12 18:44:03 glaessel Exp $
+ * $Id: Muminav.java,v 1.3 2002/09/12 23:54:19 glaessel Exp $
  */
 
 import java.awt.*;
@@ -79,7 +79,7 @@ public class Muminav extends Applet {
   private boolean handleEventsForTree(Part t, int x, int y){
     // clicked inside Part?
     if(((Part)t).isInside(x, y)){
-      repaint();
+//      repaint();
       showStatus("MyApplet: Loading image file");
       System.out.println("url?");
       if(((Part)t).getUrl()  != ""){
@@ -264,6 +264,9 @@ public class Muminav extends Applet {
 
 /**
  * $Log: Muminav.java,v $
+ * Revision 1.3  2002/09/12 23:54:19  glaessel
+ * no message
+ *
  * Revision 1.2  2002/09/12 18:44:03  glaessel
  * Part jetzt abstract (Drawable obsolete)
  *
