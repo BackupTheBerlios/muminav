@@ -140,18 +140,15 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@return    The tooltipObject value
 	 */
 	private Part getTooltipObject(int x, int y) {
-                Part rP = null;
 
 		// Events in each child of the root
 		for (int i = 0; i < panel.treeRoot.size(); i++) {
 			Part p = getTooltipObjectRecursive((Part) panel.treeRoot.elementAt(i), x, y);
 			if (p != null) {
-				// return (p);
-                                rP = p;
+				return (p);
 			}
 		}
-		//return (null);
-                return rP;
+		return (null);
 	}
 
 
@@ -164,11 +161,9 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@return    The tooltipObjectRecursive value
 	 */
 	private Part getTooltipObjectRecursive(Part t, int x, int y) {
-                Part rP = null;
 		// inside Part?
 		if (((Part) t).fitToRaster(panel.getSize(), panel.getRasterDimension(), panel.getStartZoom(), panel.getEndZoom()).isInside(new Point(x, y))) {
-			// return ((Part) t);
-                        rP = t;
+			return ((Part) t);
 		}
 		// get Childs
 		Vector childs = ((Part) t).getChilds();
@@ -176,12 +171,10 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		for (int i = 0; i < childs.size(); i++) {
 			Part p = getTooltipObjectRecursive((Part) childs.elementAt(i), x, y);
 			if (p != null) {
-				//return ((Part) p);
-                                rP = p;
+				return ((Part) p);
 			}
 		}
-                // return null;
-		return rP;
+                return null;
 	}
 
 }
