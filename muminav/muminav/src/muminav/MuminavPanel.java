@@ -42,7 +42,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	// current active part
 	private Part activePart = null;
 	/**  root of the tree */
-	public Vector treeRoot;
+	public Part treeRoot;
 	// parent applet
 	private JApplet parent;
 	// applett context from parent applet
@@ -55,28 +55,27 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	 *@param  tr    the tree that dicribes the net
 	 *@param  prnt  the parent applet
 	 */
-	public MuminavPanel(Vector tr, JApplet prnt) {
+	public MuminavPanel(Part tr, JApplet prnt) {
 		super();
 
 		treeRoot = tr;
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.white);
 
-		if (treeRoot.size() != 0) {
+		if (treeRoot != null && treeRoot.getChilds().size() != 0) {
 			manager = new MuminavToolTipManager(prnt, this);
 			appletContext = prnt.getAppletContext();
 			parent = prnt;
 
-			Part first = (Part) tr.elementAt(0);
-			if (first instanceof NavNet) {
+			if (treeRoot instanceof NavNet) {
 				// get the raster dimension out of the NavNet element
-				rasterDimension = ((NavNet) first).getRasterDimension();
+				rasterDimension = ((NavNet) treeRoot).getRasterDimension();
 				if (rasterDimension == null) {
 					System.out.println("\nRaster Dimension not found in NavNet Element (using default [50x50])");
 					rasterDimension = new Dimension(50, 50);
 				}
 				// try to load the introducing html file
-				String url = ((NavNet) first).getUrl();
+				String url = ((NavNet) treeRoot).getUrl();
 				if (!url.equals("")) {
 					try {
 						appletContext.showDocument(new URL(parent.getCodeBase() + url), "Content");
@@ -88,11 +87,12 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			}
 			else {
 				System.out.println("\nNo NavNet Mainelement found to setup the Net");
+				treeRoot = null;
 			}
 
 			addMouseListener(new MyListener());
 			// the redElements hashtable will be filled
-			searchRedElements((Part) treeRoot.elementAt(0));
+			searchRedElements(treeRoot);
 		}
 	}
 
@@ -105,18 +105,17 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	public void paint(Graphics g) {
 		super.paint(g);
 		// we have a net to draw, go to work
-		if (treeRoot.size() != 0) {
+		if (treeRoot != null && treeRoot.getChilds().size() != 0) {
 			// Draw each child of the root
+
+			//TODO: introduce priority system for painting layers; have to be noticed also at event processing
+
 			//     first cycle
 			drawFirst = true;
-			for (int i = 0; i < treeRoot.size(); i++) {
-				drawTree(g, (Part) treeRoot.elementAt(i));
-			}
+			drawTree(g, treeRoot);
 			//     second cycle
 			drawFirst = false;
-			for (int i = 0; i < treeRoot.size(); i++) {
-				drawTree(g, (Part) treeRoot.elementAt(i));
-			}
+			drawTree(g, treeRoot);
 
 			// a small zoom lable will be displayed in the lower right edge in zoom mode
 			if (enableZoom) {
@@ -295,16 +294,16 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			activePart = null;
 		}
 		// events in each child of the root
-		for (int i = 0; i < treeRoot.size(); i++) {
-			Part part = (Part) treeRoot.elementAt(i);
-			if (handleEventsForTree(part, point)) {
-				// my be a element draws somthing depending on isActive
-				repaint();
-				return (true);
-			}
+		//for (int i = 0; i < treeRoot.size(); i++) {
+		//Part part = (Part) treeRoot.elementAt(i);
+		if (handleEventsForTree(treeRoot, point)) {
+			// my be a element draws somthing depending on isActive
+			repaint();
+			return (true);
 		}
+		//}
 		// my be a element draws somthing depending on isActive
-		repaint();
+		//repaint();
 		return (false);
 	}
 
@@ -389,6 +388,9 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	 *@return       number of found red path elements
 	 */
 	private int searchRedElements(Part part) {
+		if (part == null) {
+			return 0;
+		}
 		Vector childs = part.getChilds();
 		if (part.getPosRedPath() >= 0) {
 			redElements.put(new Integer(part.getPosRedPath()), part);

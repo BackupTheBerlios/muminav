@@ -19,7 +19,7 @@ import java.net.MalformedURLException;
 /**
  *  This is the main class where we insert our MuminavPanel
  *
- *@version    $Revision: 1.19 $
+ *@version    $Revision: 1.20 $
  */
 
 public class Muminav extends JApplet {
@@ -27,7 +27,7 @@ public class Muminav extends JApplet {
 	// background color
 	private final Color bgColor = Color.white;
 	// Vector for the child parts of the root
-	private Vector treeRoot = new Vector();
+	private Part treeRoot = null;
 
 	boolean isStandalone = false;
 
@@ -78,7 +78,6 @@ public class Muminav extends JApplet {
 		// TODO: implement a better exception handling
 		try {
 			// load the xml file
-
 			URL url = new URL(getDocumentBase(), super.getParameter("XMLFile"));
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 
@@ -166,6 +165,6 @@ public class Muminav extends JApplet {
 
 }
 /*
-    $Id: Muminav.java,v 1.19 2002/09/30 00:05:10 zander Exp $
+    $Id: Muminav.java,v 1.20 2002/10/31 23:32:35 zander Exp $
   */
 

@@ -65,14 +65,16 @@ class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener
 		return m_visible;
 	}
 
+
 	/**
 	 *  Sets the visible attribute of the MyToolTipManager object
 	 *
-	 *@return    The visible value
+	 *@param  b  The new visible value
 	 */
 	public void setVisible(boolean b) {
 		m_visible = b;
 	}
+
 
 	/**
 	 *  Gets the tooltipPart attribute of the MyToolTipManager object
@@ -144,15 +146,8 @@ class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener
 	 *@return    The tooltipObject value
 	 */
 	private Part getTooltipObject(int x, int y) {
-
 		// Events in each child of the root
-		for (int i = 0; i < panel.treeRoot.size(); i++) {
-			Part p = getTooltipObjectRecursive((Part) panel.treeRoot.elementAt(i), x, y);
-			if (p != null) {
-				return (p);
-			}
-		}
-		return (null);
+		return getTooltipObjectRecursive(panel.treeRoot, x, y);
 	}
 
 
@@ -178,7 +173,7 @@ class MuminavToolTipManager extends MouseMotionAdapter implements ActionListener
 				return ((Part) p);
 			}
 		}
-                return null;
+		return null;
 	}
 
 }
