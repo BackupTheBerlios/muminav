@@ -99,6 +99,7 @@ public class MuminavPanel extends JPanel {
 
 		// Tooltip zeichnen
 		if (manager.isVisible() == true) {
+                        System.out.println("tooltip");
 			Part ttpart = manager.getTooltipPart();
 			if(ttpart != null){
 			  manager.getTooltipPart().drawTooltip(g, manager.m_lastX,

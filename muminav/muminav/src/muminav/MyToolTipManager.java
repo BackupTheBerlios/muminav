@@ -43,7 +43,6 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@param  panel   Description of the Parameter
 	 */
 	public MyToolTipManager(JApplet parent, MuminavPanel panel) {
-		System.out.println("mytooltipmanager constructed");
 
 		//parent.addMouseMotionListener(this);
 		panel.add(m_toolTip);
@@ -54,6 +53,7 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		m_timer = new Timer(1000, this);
 		m_timer.start();
 
+		m_toolTip.setTipText("TEST");
 		m_toolTip.setComponent(panel);
 		this.panel = panel;
 	}
@@ -103,6 +103,7 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@param  e  Description of the Parameter
 	 */
 	public void actionPerformed(ActionEvent e) {
+
 		if (m_moved || m_counter == 0 || m_toolTip.getTipText() == null) {
 			if (m_toolTip.isVisible()) {
 				m_toolTip.setVisible(false);
@@ -115,7 +116,7 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		if (m_counter < 0) {
 			m_counter = 4;
 			m_toolTip.setTipText("! " + (Math.random() * 255));
-                  //     m_toolTip.setVisible(true);
+//     m_toolTip.setVisible(true);
 
 			tooltipPart = getTooltipObject(m_lastX, m_lastY);
 			if (tooltipPart != null) {
