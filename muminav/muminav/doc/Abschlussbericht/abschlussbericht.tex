@@ -13,7 +13,6 @@
 \pdfcompresslevel=9 % compression level for text and image;
 \pdftrue \fi
 
-
 \documentclass[12pt, headsepline]{scrreprt}
 \usepackage[ngerman]{babel}
 
@@ -79,112 +78,13 @@
 
 \tableofcontents
 
-
+%--------------------------------------------------------------------
+\include{einleitung/einleitung}
+\include{organisation/organisation}
+\include{muminav/muminav}
+\include{beurteilung/beurteilung}
 %--------------------------------------------------------------------
 
-\chapter{Einleitung}
-
-\section{Der Projektkontext} Mumie\ldots
-
-\subsection{Dezentrale Systementwicklung am Beispiel GNU/Linux}
-
-Das Projekt \glqq Mumie\grqq\ soll nach aktuellem Stand unter
-einer Open Source-Lizenz entwickelt und veröffentlicht werden. Die
-Zusammenarbeit zwischen den Universitäten impliziert eine
-dezentrale Entwicklung, an der auch das Projekt \glqq
-MumieNav\grqq\ beteiligt ist. Das bei der Entwicklung entstehende
-Produkt wird nicht zur \glqq Insellösung\grqq\ , da es in ein
-bestehendes Projekt integriert wird.\\
- Eine Aussicht auf die
-Verwendung schon existierender Software besteht unter Umständen
-bei der Realisierung der Datenschnittstelle. So gehen erste
-Überlegungen in die Richtung, schon bestehende XML-Software zu
-verwenden, um die vom Server übertragenen Daten auszuwerten.
-
-\subsection{Das Projekt Mumie}
-
-Das Projekt wird vom Bundesministerium für Bildung und Forschung
-gefördert. Es soll eine WWW-basierte, modulare Umgebung entwickelt
-werden, welche sowohl den Lernenden als auch Dozenten eine
-grafisch ansprechende und leicht zu bedienende Oberfläche bietet.
-So wird einerseits durch die Visualisierung mathematischer Inhalte
-und dem interaktiven Umgang mit der Mathematik die Motivation
-gefördert. Zusätzlich werden einige lehr-- und lernbegleitende
-Tools angeboten:
-
-\begin{itemize}
-\raggedright
-\item Darstellung mathematischer Inhalte mit interaktiver
-Multimedia-Unterstützung
-\item Stoffnachbereitung, Wiederholungsunterstützung angeleitete und kommen\-tier\-te
-Übungs\-auf\-gaben
-\item Selbstkontrolle durch individuelle
-Testumgebungen
-\item Einführung in mathematische Standardsoftwarepakete
-\item individuelles Trainingscenter weiterführender
-Inhalte
-\item Informationsplattform in der und vile und in die der es auch
-noch kein wer was wie wo
-\item Kommunikations-- und
-Austauschangebote
-\end{itemize}
-
-Die ursprüngliche Idee hierbei ist, mathematische Inhalte
-darzustellen. Die Umgebung soll allerdings so gestaltet werden,
-dass sie auch in anderen Disziplinen genutzt werden kann. Weitere
-Schwerpunkte liegen auf der Individualisierung der Oberfläche und
-einer intelligenten Benutzerführung, die verhindert, dass man in
-der inhaltlichen Fülle des Gesamtangebotes die Übersicht verliert.
-
-\section{Ziele} Unsere Aufgabe\ldots
-
-
-
-%--------------------------------------------------------------------
-
-\chapter{Organisation des Gesamtprojekts}
-
-Regemäßige Meetings/Treffen
-
-\section{Gruppenaufteilung}
-
-
-
-\section{Vorträge}
-
-\section{Workshops}
-
-%--------------------------------------------------------------------
-
-\chapter{Muminav}
-
-\section{Lizenz}
-
-Vorgabe war, die gesamte Entwicklungsarbeit als Open Source
-Projekt durchzuführen. Dies schließt ein, die
-Projektergebnisse unter einer Open Source Lizenz zu veröffentlichen.\\
-Da wir unser Projekt in Zusammenarbeit mit der Mumie-Gruppe
-entwickeln, mussten wir uns im Vorfeld mit Ihnen auf eine Open
-Source Lizenz verständigen, welche in das Gesamtprojekt Mumie
-integrierbar ist.\\
-Die GPL \cite{GPL} (GNU General Public License)
-
-
-
-LGPL \cite{OpenSourceLicences},\cite{LGPL}.
-
-\section{Entwicklungsumgebung}
-\subsection{Projekthoster}
-\subsection{Enwicklungswerkzeuge} Ant \cite{Ant2002}, JBuilder \cite{BerliOS}
-
-
-%--------------------------------------------------------------------
-
-\chapter{Beurteilung des Projekts}
-
-\section{Diskussion des Status quo}
-
-\section{Ausblick}
 
 \bibliographystyle{bibstyle} % mit custom-bib erzeugter individueller Bibliographie-Style !!
 \bibliography{bibliographie}
