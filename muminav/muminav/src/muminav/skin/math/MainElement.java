@@ -10,7 +10,7 @@ import muminav.skin.DrawLib;
 /**
  *@author     zander
  *@created    15. September 2002
- *@version    $Revision: 1.13 $
+ *@version    $Revision: 1.14 $
  */
 public class MainElement extends Part {
 
@@ -20,7 +20,6 @@ public class MainElement extends Part {
 	public double fontHeight;
 	/**  thickness of the border (in raster points) */
 	public double borderThickness;
-
 	/**  Description of the Field */
 	public double shadowSize;
 
@@ -48,7 +47,13 @@ public class MainElement extends Part {
 		}
 		else {
 			// front
-			DrawLib.drawRectangle(g, center, dimension, bgColor, (int) borderThickness, borderColor, text, (int) fontHeight, fontColor);
+			if (fontHeight > 10) {
+				// only if the text is high enough, it will be displayed
+				DrawLib.drawRectangle(g, center, dimension, bgColor, (int) borderThickness, borderColor, text, (int) fontHeight, fontColor);
+			}
+			else {
+				DrawLib.drawRectangle(g, center, dimension, bgColor, (int) borderThickness, borderColor, null, (int) fontHeight, fontColor);
+			}
 		}
 
 	}
@@ -98,6 +103,9 @@ public class MainElement extends Part {
 		}
 		if (hParams.containsKey("tooltipText")) {
 			tooltipText = this.getStringParam(hParams.get("tooltipText"));
+		}
+		if (hParams.containsKey("posRedPath")) {
+			posRedPath = this.getIntParam(hParams.get("posRedPath"));
 		}
 	}
 

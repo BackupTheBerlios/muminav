@@ -23,6 +23,7 @@ public class MuminavPanel extends JPanel {
 
 	private MyToolTipManager manager;
 
+	// if true, only parts with drawFirst = true were painted, otherwise not
 	boolean drawFirst = true;
 
 	// zoom attributes
@@ -34,9 +35,12 @@ public class MuminavPanel extends JPanel {
 	private Point endPoint = null;
 	// default size for zoom
 	private int defaultZoom = 100;
-
 	// dimension of the basis raster
 	private Dimension rasterDimension;
+	// current position on red path
+	private int curPosRedPath = -1;
+	// last position on red path
+	private int lastPosRedPath = -1;
 
 	/**  Description of the Field */
 	public Vector treeRoot;
@@ -76,7 +80,7 @@ public class MuminavPanel extends JPanel {
 		this.setBackground(Color.white);
 		MyListener myListener = new MyListener();
 		addMouseListener(myListener);
-		this.setLayout(null);
+		//this.setLayout(null);
 
 		manager = new MyToolTipManager(prnt, this);
 
@@ -177,11 +181,12 @@ public class MuminavPanel extends JPanel {
 			manager.setVisible(false);
 			button = e.getButton();
 			switch (button) {
-							case 3:
+							case 1:
 								// left button -> load content
 								handleEvents(e.getPoint());
+								//test();
 								break;
-							case 1:
+							case 3:
 								// draggin a rectangle with the right button
 								startPoint = e.getPoint();
 								break;
@@ -196,7 +201,7 @@ public class MuminavPanel extends JPanel {
 		 */
 		public void mouseReleased(MouseEvent e) {
 			manager.setVisible(false);
-			if (e.getButton() == 1) {
+			if (e.getButton() == 3) {
 				endPoint = e.getPoint();
 				if (enableZoom) {
 					enableZoom = false;
@@ -219,6 +224,21 @@ public class MuminavPanel extends JPanel {
 				}
 			}
 		}
+	}
+
+
+	/**  A unit test for JUnit */
+	public void test() {
+
+		JPopupMenu popup = new JPopupMenu("settings");
+		JMenuItem item = new JMenuItem("Ausführen");
+		popup.add(item);
+		item = new JMenuItem("Beenden");
+		popup.add(item);
+		popup.setBorderPainted(true);
+		popup.setPopupSize(80, 40);
+		popup.show(parent, 50, 50);
+
 	}
 
 
@@ -280,6 +300,10 @@ public class MuminavPanel extends JPanel {
 				catch (Exception ex) {
 					ex.printStackTrace();
 				}
+			}
+			if (t.getPosRedPath() >= 0) {
+				// an part on red Path was klicked
+				curPosRedPath = t.getPosRedPath();
 			}
 			t.setActive(true);
 			return (true);

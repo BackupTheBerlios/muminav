@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <!--
-$Id: NavNet.xml,v 1.10 2002/09/24 00:07:05 ercmat Exp $
+$Id: NavNet.xml,v 1.11 2002/09/25 16:12:06 zander Exp $
 -->
 
 <!--
@@ -9,8 +9,8 @@ $Id: NavNet.xml,v 1.10 2002/09/24 00:07:05 ercmat Exp $
 
 <NavNet
     skin="muminav.skin.math"
-    width="1"
-    height="1"
+    width="15"
+    height="15"
 >
 
     <MainElement
@@ -149,6 +149,11 @@ $Id: NavNet.xml,v 1.10 2002/09/24 00:07:05 ercmat Exp $
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.11  2002/09/25 16:12:06  zander
+- Raster Dimension wird aus xml Datei uebernommen
+- Maustasten gedreht
+- Text in Elementen (math skin) wird erst ab einer bestimmten Groesse dargestellt
+
 Revision 1.10  2002/09/24 00:07:05  ercmat
 Neue Klasse NavNet + Anpassungen an xml files.
 

@@ -29,24 +29,20 @@ public abstract class Part implements Cloneable {
 	 *  set true, if this element have to draw at first (for example connectors)
 	 */
 	protected boolean drawFirst = false;
-
 	/**  true if this is the last klicked element */
 	protected boolean isActive = false;
-
 	/**  text for element */
 	protected String text = "";
-
 	/**  center/root point for element */
 	protected Point center = null;
-
 	/**  dimension of the element */
 	protected Dimension dimension = null;
+	/** position on the red path */
+	protected int posRedPath = -1;
 
 	private Vector childs = new Vector();
-
 	/**  Description of the Field */
 	public String url = "";
-
 
 
 	/**
@@ -420,12 +416,12 @@ public abstract class Part implements Cloneable {
 		Font font = g.getFont();
 		g.setFont(new Font(font.getFamily(), font.getStyle(), 10));
 		FontMetrics fm = g.getFontMetrics();
-	 	int slen = fm.stringWidth(ttText);
+		int slen = fm.stringWidth(ttText);
 		int sheight = fm.getHeight();
 
-                if((x + slen + 20) > g.getClipBounds().getWidth()){
-                  x = x - (x + slen + 20) + (int)g.getClipBounds().getWidth();
-                }
+		if ((x + slen + 20) > g.getClipBounds().getWidth()) {
+			x = x - (x + slen + 20) + (int) g.getClipBounds().getWidth();
+		}
 
 		g.setColor(new Color(0, 0, 127));
 		g.fillRect(x, y + 20, slen + 20, sheight + 2);
@@ -433,6 +429,16 @@ public abstract class Part implements Cloneable {
 		g.drawRect(x, y + 20, slen + 20, sheight + 2);
 		g.setColor(Color.white);
 		g.drawString(ttText, x + 10, y + 20 + 10 + 2);
+	}
+
+
+	/**
+	 *  Gets the posRedPath attribute of the Part object
+	 *
+	 *@return    The posRedPath value
+	 */
+	public int getPosRedPath() {
+		return posRedPath;
 	}
 
 }
