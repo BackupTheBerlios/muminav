@@ -8,18 +8,6 @@ import muminav.skin.Part;
 import muminav.skin.DrawLib;
 
 /**
- *  <p>
- *
- *  Title: </p> <p>
- *
- *  Description: </p> <p>
- *
- *  Copyright: Copyright (c) 2002</p> <p>
- *
- *  Company: </p>
- *
- *@author     unascribed
- *@created    15. September 2002
  *@version    1.0
  */
 
@@ -47,9 +35,9 @@ public class Connector extends Part {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method draws a connector.
 	 *
-	 *@param  g  Description of the Parameter
+	 *@param  g  The graphics to paint.
 	 */
 	public void draw(Graphics g) {
 		g.setColor(color);

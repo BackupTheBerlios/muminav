@@ -9,15 +9,12 @@ import java.awt.FontMetrics;
 
 /**
  *  This Class contains a set of static methods which drawing geometric figures
- *
- *@author     Joerg
- *@created    17. September 2002
  */
 public class DrawLib {
 
 	/**
 	 *  This method draws a filled Rectangle with border and text.
-	 *  If you want no border, set 0. For no text, set "".
+	 *  If you want no border, set 0. For no text, set "" or null.
 	 *
 	 *@param  center       center of the rectangle
 	 *@param  backColor    background color
@@ -66,9 +63,9 @@ public class DrawLib {
 	/**
 	 *  this method draws a line from (xo, y0) to (x1, y1) with a given thickness
 	 *  by using the Bresenenham algorithm
-	 *  to set the color of the line use Graphics.setColor() before you call the method
-	 *  note: use for thickness a public int or double value ending with thickness or length,
-	 *  so the value will be scaled automaticly
+	 *  To set the color of the line use Graphics.setColor() before you call the method
+	 *  note: Use a public int or double value ending with thickness or length for the thickness of the line.
+	 *  So the value will be scaled automaticly
 	 *
 	 *@param  x0         start x
 	 *@param  y0         start y

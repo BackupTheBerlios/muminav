@@ -4,23 +4,19 @@ import java.awt.Graphics;
 import java.awt.Dimension;
 import java.util.Hashtable;
 
-/**
- *  Description of the Class
- *
- *@author     Joerg
- *@created    24. September 2002
- */
+/**  This class represents the basic attributes for an navigation net */
+
 public class NavNet extends Part {
-	/**  Description of the Field */
+	/**  raster dimension of the net */
 	private Dimension rasterDimension = null;
 	// contains the package path to the skin
 	private String skin;
 
 
 	/**
-	 *  Description of the Method
+	 *  overwritten nothing doing draw method
 	 *
-	 *@param  g  Description of the Parameter
+	 *@param  g  graphics to paint
 	 */
 	public void draw(Graphics g) {
 
@@ -28,8 +24,6 @@ public class NavNet extends Part {
 
 
 	/**
-	 *  Gets the rasterDimension attribute of the NavNet object
-	 *
 	 *@return    The rasterDimension value
 	 */
 	public Dimension getRasterDimension() {
@@ -38,7 +32,7 @@ public class NavNet extends Part {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method initializes the NavNet object with the values contained in the give Hashtable
 	 *
 	 *@param  hParams  Description of the Parameter
 	 */

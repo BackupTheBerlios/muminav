@@ -15,19 +15,16 @@ import java.net.URL;
 import java.net.MalformedURLException;
 
 /**
- *  Description of the Class
- *
- *@author     Joerg
- *@created    17. September 2002
+ * This class provides a JPanel which is able to display a navigation net. It can easily be created and
+ * added as component to the context of an applet
  */
 public class MuminavPanel extends JPanel implements ActionListener {
 
 	private MuminavToolTipManager manager;
 
-	// if true, only parts with drawFirst = true were painted, otherwise not
+	// set true, if this element have to draw at first (e.g.: connectors)
 	boolean drawFirst = true;
 
-	// zoom attributes
 	// indicates if we are in zoom mode or not
 	private boolean enableZoom = false;
 	// start point of zoom rectangle
@@ -36,65 +33,67 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	private Point endPoint = null;
 	// default size for zoom
 	private int defaultZoom = 100;
-	// dimension of the basis raster
+	// dimension of the net raster
 	private Dimension rasterDimension;
 	// current position on red path
 	private int curPosRedPath = -1;
 	// hashtable contains all elements on red path
 	private HashMap redElements = new HashMap();
-	// current activePart
+	// current active part
 	private Part activePart = null;
-
-	/**  Description of the Field */
+	/**  root of the tree */
 	public Vector treeRoot;
+	// parent applet
 	private JApplet parent;
+	// applett context from parent applet
 	private AppletContext appletContext;
 
 
 	/**
-	 *  Constructor for the MuminavPanel object
+	 *  Creates a MuminavPanel from a Vector discribing a navigation net
 	 *
-	 *@param  tr    Description of the Parameter
-	 *@param  prnt  Description of the Parameter
-	 *@param  ac    Description of the Parameter
+	 *@param  tr    the tree that dicribes the net
+	 *@param  prnt  the parent applet
 	 */
-	public MuminavPanel(Vector tr, JApplet prnt, AppletContext ac) {
+	public MuminavPanel(Vector tr, JApplet prnt) {
 		super();
 
-		manager = new MuminavToolTipManager(prnt, this);
-		appletContext = ac;
 		treeRoot = tr;
-		parent = prnt;
-
-		Part first = (Part) tr.elementAt(0);
-		if (first instanceof NavNet) {
-			// get the raster dimension out of the NavNet element
-			rasterDimension = ((NavNet) first).getRasterDimension();
-			if (rasterDimension == null) {
-				System.out.println("\nRaster Dimension not found in NavNet Element (using default [50x50])");
-				rasterDimension = new Dimension(50, 50);
-			}
-			// try to load the introducing html file
-			String url = ((NavNet) first).getUrl();
-			System.out.println("url: " + url);
-			if (!url.equals("")) {
-				try {
-					//appletContext.showDocument(new URL(parent.getCodeBase() + t.getUrl()), "Content");
-					appletContext.showDocument(new URL(parent.getCodeBase() + url), "Content");
-				}
-				catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-		}
-		else {
-			System.out.println("\nNo NavNet Mainelement found to setup the Net");
-		}
-
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.white);
-		addMouseListener(new MyListener());
-		searchRedElements((Part) treeRoot.elementAt(0));
+
+		if (treeRoot.size() != 0) {
+			manager = new MuminavToolTipManager(prnt, this);
+			appletContext = prnt.getAppletContext();
+			parent = prnt;
+
+			Part first = (Part) tr.elementAt(0);
+			if (first instanceof NavNet) {
+				// get the raster dimension out of the NavNet element
+				rasterDimension = ((NavNet) first).getRasterDimension();
+				if (rasterDimension == null) {
+					System.out.println("\nRaster Dimension not found in NavNet Element (using default [50x50])");
+					rasterDimension = new Dimension(50, 50);
+				}
+				// try to load the introducing html file
+				String url = ((NavNet) first).getUrl();
+				if (!url.equals("")) {
+					try {
+						appletContext.showDocument(new URL(parent.getCodeBase() + url), "Content");
+					}
+					catch (Exception ex) {
+						ex.printStackTrace();
+					}
+				}
+			}
+			else {
+				System.out.println("\nNo NavNet Mainelement found to setup the Net");
+			}
+
+			addMouseListener(new MyListener());
+			// the redElements hashtable will be filled
+			searchRedElements((Part) treeRoot.elementAt(0));
+		}
 	}
 
 
@@ -105,37 +104,52 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	 */
 	public void paint(Graphics g) {
 		super.paint(g);
-		// Draw each child of the root
-		//     first cycle
-		drawFirst = true;
-		for (int i = 0; i < treeRoot.size(); i++) {
-			drawTree(g, (Part) treeRoot.elementAt(i));
-		}
-		//     second cycle
-		drawFirst = false;
-		for (int i = 0; i < treeRoot.size(); i++) {
-			drawTree(g, (Part) treeRoot.elementAt(i));
-		}
+		// we have a net to draw, go to work
+		if (treeRoot.size() != 0) {
+			// Draw each child of the root
+			//     first cycle
+			drawFirst = true;
+			for (int i = 0; i < treeRoot.size(); i++) {
+				drawTree(g, (Part) treeRoot.elementAt(i));
+			}
+			//     second cycle
+			drawFirst = false;
+			for (int i = 0; i < treeRoot.size(); i++) {
+				drawTree(g, (Part) treeRoot.elementAt(i));
+			}
 
-		if (enableZoom) {
-			Font font = g.getFont();
-			g.setFont(new Font(font.getFamily(), font.getStyle(), 30));
-			FontMetrics fm = g.getFontMetrics();
-			g.setColor(new Color(100, 100, 100, 60));
-			g.drawString("ZOOM", this.getSize().width - fm.stringWidth("ZOOM") - 10
-					, this.getSize().height - 10);
-		}
+			// a small zoom lable will be displayed in the lower right edge in zoom mode
+			if (enableZoom) {
+				Font font = g.getFont();
+				g.setFont(new Font(font.getFamily(), font.getStyle(), 30));
+				FontMetrics fm = g.getFontMetrics();
+				g.setColor(new Color(100, 100, 100, 60));
+				g.drawString("ZOOM", this.getSize().width - fm.stringWidth("ZOOM") - 10
+						, this.getSize().height - 10);
+			}
 
-		// Tooltip zeichnen
-		if (manager.isVisible()) {
-			Part ttpart = manager.getTooltipPart();
-			if (ttpart != null) {
-				String ttText = ttpart.getTooltipText();
-				if (ttText != null) {
-					manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
-							manager.m_lastY, ttText);
+			// draw tooltip
+			if (manager.isVisible()) {
+				Part ttpart = manager.getTooltipPart();
+				if (ttpart != null) {
+					String ttText = ttpart.getTooltipText();
+					if (ttText != null) {
+						manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
+								manager.m_lastY, ttText);
+					}
 				}
 			}
+		}
+		else {
+			// we got an empty net, so we have nothing to draw
+			Font font = g.getFont();
+			g.setFont(new Font(font.getFamily(), font.getStyle(), 20));
+			FontMetrics fm = g.getFontMetrics();
+			g.setColor(new Color(120, 120, 120));
+			Rectangle rect = g.getClipBounds();
+			String text = new String("nothing to draw");
+			g.drawString(text, rect.width / 2 + rect.x - fm.stringWidth(text) / 2
+					, rect.height / 2 + rect.y - fm.getHeight() / 2 + fm.getAscent());
 		}
 	}
 
@@ -147,10 +161,10 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	 *@param  t  Subtree to draw
 	 */
 	private void drawTree(Graphics g, Part t) {
-		// get Childs
+		// get childs
 		Vector childs = t.getChilds();
 
-		// Draw each subtree
+		// draw each subtree
 		for (int i = childs.size() - 1; i >= 0; i--) {
 			drawTree(g, (Part) childs.elementAt(i));
 		}
@@ -162,32 +176,22 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Gets the toolTipText attribute of the MuminavPanel object
-	 *
-	 *@param  event  Description of the Parameter
-	 *@return        The toolTipText value
-	 */
-	public String getToolTipText(MouseEvent event) {
-		return (":" + Math.random() * 100);
-	}
-
-
-	/**
-	 *  Description of the Method
+	 *  needed for ActionListener interface
+	 *  processes the occuring ActionEvents
 	 *
 	 *@param  e  Description of the Parameter
 	 */
 	public void actionPerformed(ActionEvent e) {
+		// the next button was pressed
 		if (e.getActionCommand().equals("forward")) {
-
 			if (activePart != null) {
 				activePart.setActive(false);
 			}
 			activePart = getNextRedElement();
 			activePart.setActive(true);
 			curPosRedPath = activePart.getPosRedPath();
+			// load the content page
 			if (!activePart.getUrl().equals("")) {
-				System.out.println("loading url: " + activePart.getUrl());
 				try {
 					appletContext.showDocument(new URL(parent.getCodeBase() + activePart.getUrl()), "Content");
 				}
@@ -198,6 +202,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			repaint();
 
 		}
+		// the back button was pressed
 		if (e.getActionCommand().equals("backward")) {
 			if (activePart != null) {
 				activePart.setActive(false);
@@ -205,8 +210,8 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			activePart = getPreviousRedElement();
 			activePart.setActive(true);
 			curPosRedPath = activePart.getPosRedPath();
+			// load the content page
 			if (!activePart.getUrl().equals("")) {
-				System.out.println("loading url: " + activePart.getUrl());
 				try {
 					appletContext.showDocument(new URL(parent.getCodeBase() + activePart.getUrl()), "Content");
 				}
@@ -219,17 +224,12 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	}
 
 
-	/**
-	 *  Description of the Class
-	 *
-	 *@author     Joerg
-	 *@created    15. September 2002
-	 */
+	/**  MouseInputAdapter to respond on mouse klicks */
 	class MyListener extends MouseInputAdapter {
 		/**
-		 *  Description of the Method
+		 *  respond to mouse button pressed
 		 *
-		 *@param  e  Description of the Parameter
+		 *@param  e  the mouse event
 		 */
 		public void mousePressed(MouseEvent e) {
 			int button;
@@ -237,12 +237,11 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			button = e.getButton();
 			switch (button) {
 							case 1:
-								// left button -> load content
+								// left button, load content
 								handleEvents(e.getPoint());
-								//test();
 								break;
 							case 3:
-								// draggin a rectangle with the right button
+								// start draggin a rectangle with the right button or single click
 								startPoint = e.getPoint();
 								break;
 			}
@@ -250,14 +249,16 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 		/**
-		 *  Description of the Method
+		 *  respond to mouse button released
 		 *
-		 *@param  e  Description of the Parameter
+		 *@param  e  the mouse event
 		 */
 		public void mouseReleased(MouseEvent e) {
 			manager.setVisible(false);
+			// right button released
 			if (e.getButton() == 3) {
 				endPoint = e.getPoint();
+				// zoom out if just zoomed in
 				if (enableZoom) {
 					enableZoom = false;
 					startPoint = null;
@@ -282,33 +283,18 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	}
 
 
-	/**  A unit test for JUnit */
-	public void test() {
-
-		JPopupMenu popup = new JPopupMenu("settings");
-		JMenuItem item = new JMenuItem("Ausführen");
-		popup.add(item);
-		item = new JMenuItem("Beenden");
-		popup.add(item);
-		popup.setBorderPainted(true);
-		popup.setPopupSize(80, 40);
-		popup.show(parent, 50, 50);
-
-	}
-
-
 	/**
-	 *  handle Events
+	 *  handles mouse clicks on elements/parts
 	 *
-	 *@param  point  Description of the Parameter
-	 *@return
+	 *@param  point  point where the click occured
+	 *@return        true if a element was hit
 	 */
 	private boolean handleEvents(Point point) {
 		if (activePart != null) {
 			activePart.setActive(false);
 			activePart = null;
 		}
-		// Events in each child of the root
+		// events in each child of the root
 		for (int i = 0; i < treeRoot.size(); i++) {
 			Part part = (Part) treeRoot.elementAt(i);
 			if (handleEventsForTree(part, point)) {
@@ -324,21 +310,19 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Description of the Method
+	 *  recursive method to traverse the tree an check if the element was klicked
 	 *
-	 *@param  t      Description of the Parameter
-	 *@param  point  Description of the Parameter
-	 *@return        Description of the Return Value
+	 *@param  t      processed subtree
+	 *@param  point  point where the click occured
+	 *@return        true if a element was hit
 	 */
 	private boolean handleEventsForTree(Part t, Point point) {
-		// clicked inside Part?
+		// checks if the click was inside the part by using the isInside method
 		if (t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).isInside(point)) {
-			//      repaint();
-			//		showStatus("MyApplet: Loading image file");
 			t.setActive(true);
 			activePart = t;
+			// loading the content page
 			if (!t.getUrl().equals("")) {
-				System.out.println("loading url: " + activePart.getUrl());
 				try {
 					appletContext.showDocument(new URL(parent.getCodeBase() + t.getUrl()), "Content");
 				}
@@ -369,7 +353,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Gets the zoomStart attribute of the MuminavPanel object
+	 *  gets the zoomStart attribute of the MuminavPanel object
 	 *
 	 *@return    The zoomStart value
 	 */
@@ -379,7 +363,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Gets the zoomEnd attribute of the MuminavPanel object
+	 *  gets the zoomEnd attribute of the MuminavPanel object
 	 *
 	 *@return    The zoomEnd value
 	 */
@@ -389,7 +373,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Gets the rasterDimension attribute of the MuminavPanel object
+	 *  gets the rasterDimension attribute of the MuminavPanel object
 	 *
 	 *@return    The rasterDimension value
 	 */
@@ -399,7 +383,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  parts with posRedPath set will be stored in a hashtable(redElements)
+	 *  parts on RedPath (posRedPath >= 0) will be stored in a hashtable(redElements)
 	 *
 	 *@param  part  in this tree will be searched
 	 *@return       number of found red path elements
@@ -417,9 +401,9 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *Constructor for the getNextRedElement object
+	 *  This method returns the next element considering the right order
 	 *
-	 *@return    The nextRedElement value
+	 *@return    the next element value
 	 */
 	private Part getNextRedElement() {
 		int nextPos;
@@ -440,9 +424,9 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method returns the previous element considering the right order
 	 *
-	 *@return    Description of the Return Value
+	 *@return    the previous element
 	 */
 	public Part getPreviousRedElement() {
 		int nextPos;
@@ -467,9 +451,9 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Gets the numberOfRedElements attribute of the MuminavPanel object
+	 *  returns the number of elements located on the red path
 	 *
-	 *@return    The numberOfRedElements value
+	 *@return    number of elements
 	 */
 	public int getNumberOfRedElements() {
 		return redElements.size();

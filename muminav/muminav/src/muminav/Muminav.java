@@ -17,31 +17,26 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 
 /**
- *  This is the main class of the applet which controls the other parts.
+ *  This is the main class where we insert our MuminavPanel
  *
- *@author     glaessel
- *@created    15. September 2002
- *@version    $Revision: 1.18 $
+ *@version    $Revision: 1.19 $
  */
 
 public class Muminav extends JApplet {
 
 	// background color
 	private final Color bgColor = Color.white;
-
-	private AppletContext appletContext;
-
 	// Vector for the child parts of the root
 	private Vector treeRoot = new Vector();
 
 	boolean isStandalone = false;
 
-	/**  Description of the Field */
+	/**  the MuminalPanel */
 	public MuminavPanel muminavPanel;
 
 
 	/**
-	 *  Gets the parameter attribute of the Muminav object
+	 *  gets the parameter attribute of the Muminav object
 	 *
 	 *@param  key  Description of the Parameter
 	 *@param  def  Description of the Parameter
@@ -55,7 +50,7 @@ public class Muminav extends JApplet {
 
 	/**  Constructor for the Muminav object */
 	public Muminav() {
-
+		super();
 	}
 
 
@@ -80,8 +75,6 @@ public class Muminav extends JApplet {
 
 	/**  Standard init method for applets. */
 	public void init() {
-		appletContext = getAppletContext();
-
 		// TODO: implement a better exception handling
 		try {
 			// load the xml file
@@ -92,8 +85,8 @@ public class Muminav extends JApplet {
 			//con.setRequestMethod( "POST" );
 			//con.setUseCaches( false );
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
-				System.out.println("Can't use xml file.");
-				this.initTree();
+				System.out.println("Can't establish connection to xml file.");
+				//this.initTree();
 			}
 			else {
 				System.out.println("Using xml file.");
@@ -106,19 +99,19 @@ public class Muminav extends JApplet {
 			}
 		}
 		catch (Exception e) {
-			System.out.println("Can't use xml file.");
+			System.out.println("Can't establish connection to xml file.");
 			e.printStackTrace();
-			this.initTree();
+			//this.initTree();
 		}
 
-		muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
+		muminavPanel = new MuminavPanel(treeRoot, this);
 		this.getContentPane().setLayout(new BorderLayout());
 		this.getContentPane().add(muminavPanel, BorderLayout.CENTER);
 
 		// if there ar elements on the red path, display the navigation buttons
 		if (muminavPanel.getNumberOfRedElements() > 0) {
 			// place the buttons under the MuminavPanel
-			muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
+			muminavPanel = new MuminavPanel(treeRoot, this);
 			this.getContentPane().setLayout(new BorderLayout());
 			this.getContentPane().add(muminavPanel, BorderLayout.CENTER);
 			// button panel
@@ -171,266 +164,8 @@ public class Muminav extends JApplet {
 		return null;
 	}
 
-
-	/**  Description of the Method */
-	private void initTree() {
-		Hashtable hParams = new Hashtable();
-		Object p1 = null;
-		Object p2 = null;
-		Object p3 = null;
-		Object p4 = null;
-		Object p5 = null;
-		Object p6 = null;
-		Object p7 = null;
-
-		// main element theorem
-		hParams.put("posX", "5");
-		hParams.put("posY", "7");
-		hParams.put("width", "5");
-		hParams.put("height", "5");
-		hParams.put("text", "T");
-		hParams.put("tooltipText", "T-Tooltip juchuh");
-		hParams.put("textZoom", "Theorem");
-		hParams.put("url", "contentM1.html");
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", "255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 5 ");
-		hParams.put("fontRelSize", " 70 ");
-		try {
-			p1 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p1).init(hParams);
-		// add as child to root
-		treeRoot.add(p1);
-
-		// subelemnt beweis
-		hParams.clear();
-		hParams.put("posX", " 8 ");
-		hParams.put("posY", " 4 ");
-		hParams.put("width", " 3 ");
-		hParams.put("height", " 3 ");
-		hParams.put("text", new String("B"));
-		hParams.put("textZoom", new String("Bew."));
-		hParams.put("tooltipText", "B-Tooltip juchuh");
-		hParams.put("url", new String("contentM1.html"));
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", " 255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 2 ");
-		hParams.put("fontRelSize", " 40 ");
-		try {
-			p2 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p2).init(hParams);
-		((Part) p1).addChild((Part) p2);
-
-		// subelemnt herleitung
-		hParams.clear();
-		hParams.put("posX", " 10 ");
-		hParams.put("posY", " 2 ");
-		hParams.put("width", " 3 ");
-		hParams.put("height", " 3 ");
-		hParams.put("text", new String("H"));
-		hParams.put("textZoom", new String("Herl."));
-		hParams.put("tooltipText", "H-Tooltip auch juchuh");
-		hParams.put("url", new String("contentM1.html"));
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", " 255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 2 ");
-		hParams.put("fontRelSize", " 40 ");
-		try {
-			p3 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p3).init(hParams);
-		((Part) p2).addChild((Part) p3);
-
-		// subelemnt bemerkung
-		hParams.clear();
-		hParams.put("posX", " 2 ");
-		hParams.put("posY", " 10 ");
-		hParams.put("width", " 3 ");
-		hParams.put("height", " 3 ");
-		hParams.put("text", new String("B"));
-		hParams.put("textZoom", new String("Bem."));
-		hParams.put("tooltipText", "B2-Tooltip juchuh");
-		hParams.put("url", new String("contentM1.html"));
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", " 255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 2 ");
-		hParams.put("fontRelSize", " 40 ");
-		try {
-			p4 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p4).init(hParams);
-		((Part) p1).addChild((Part) p4);
-
-		// subelemnt beispiel
-		hParams.clear();
-		hParams.put("posX", " 8 ");
-		hParams.put("posY", " 10 ");
-		hParams.put("width", " 3 ");
-		hParams.put("height", " 3 ");
-		hParams.put("text", new String("B"));
-		hParams.put("textZoom", new String("Beisp."));
-		hParams.put("tooltipText", "B3-Tooltip juchuh");
-		hParams.put("url", new String("contentM1.html"));
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", " 255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 2 ");
-		hParams.put("fontRelSize", " 40 ");
-		try {
-			p5 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p5).init(hParams);
-		((Part) p1).addChild((Part) p5);
-
-		// connector
-		hParams.clear();
-		hParams.put("startX", " 5 ");
-		hParams.put("startY", " 7 ");
-		hParams.put("endX", " 6 ");
-		hParams.put("endY", " 18 ");
-		hParams.put("lineRelSize", " 3 ");
-		hParams.put("color", " 0, 0, 255 ");
-		try {
-			p6 = Class.forName("muminav.skin.math.Connector").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p6).init(hParams);
-		treeRoot.add(p6);
-
-		// main element noname
-		hParams.put("posX", " 6 ");
-		hParams.put("posY", " 18 ");
-		hParams.put("width", " 10 ");
-		hParams.put("height", " 3 ");
-		hParams.put("text", new String("NN"));
-		hParams.put("textZoom", new String("NoName"));
-		hParams.put("tooltipText", "NN-Tooltip juchuh");
-		hParams.put("url", new String("contentM1.html"));
-		hParams.put("bgColor", " 0, 0, 0 ");
-		hParams.put("fontColor", " 255, 255, 255 ");
-		hParams.put("borderColor", " 255, 0, 0 ");
-		hParams.put("lineRelSize", " 5 ");
-		hParams.put("fontRelSize", " 70 ");
-		try {
-			p7 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Part) p7).init(hParams);
-		// add as child to root
-		treeRoot.add(p7);
-
-		/*
-		    hParams.clear();
-		    hParams.put("posX", "100));
-		    hParams.put("posY", "225));
-		    hParams.put("size", "50));
-		    hParams.put("text", new String("D"));
-		    hParams.put("url", new String("contentM2.html"));
-		    try {
-		    p2 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		    }
-		    catch (Exception e) {
-		    e.printStackTrace();
-		    }
-		    ((Part) p2).init(hParams);
-		    add as child to p1
-		    ((Part) p1).addChild((Part) p2);
-		    hParams.clear();
-		    hParams.put("posX", "250));
-		    hParams.put("posY", "125));
-		    hParams.put("size", "50));
-		    hParams.put("bgColor", Color.yellow);
-		    hParams.put("fontColor", Color.lightGray);
-		    hParams.put("borderColor", Color.green);
-		    hParams.put("text", new String("L"));
-		    try {
-		    p3 = Class.forName("muminav.skin.math.MainElement").newInstance();
-		    }
-		    catch (Exception e) {
-		    e.printStackTrace();
-		    }
-		    ((Part) p3).init(hParams);
-		    add as child to p1
-		    ((Part) p2).addChild((Part) p3);
-		    hParams.clear();
-		    hParams.put("posX", "140));
-		    hParams.put("posY", "110));
-		    hParams.put("pos", "100));
-		    hParams.put("h", "50));
-		    hParams.put("size", "40));
-		    hParams.put("text", new String("S"));
-		    hParams.put("url", new String("contentS1.html"));
-		    try {
-		    p4 = Class.forName("muminav.skin.math.SubElement").newInstance();
-		    }
-		    catch (Exception e) {
-		    e.printStackTrace();
-		    }
-		    ((Part) p4).init(hParams);
-		    add as child to p1
-		    ((Part) p2).addChild((Part) p4);
-		    hParams.clear();
-		    hParams.put("posX", "150));
-		    hParams.put("posY", "100));
-		    hParams.put("pos", "100));
-		    hParams.put("h", "50));
-		    hParams.put("size", "40));
-		    hParams.put("text", new String("S"));
-		    try {
-		    p6 = Class.forName("muminav.skin.math.SubElement").newInstance();
-		    }
-		    catch (Exception e) {
-		    e.printStackTrace();
-		    }
-		    ((Part) p6).init(hParams);
-		    add as child to p1
-		    ((Part) p4).addChild((Part) p6);
-		    hParams.clear();
-		    hParams.put("x1", "100));
-		    hParams.put("y1", "150));
-		    hParams.put("x2", "100));
-		    hParams.put("y2", "200));
-		    hParams.put("size", "3));
-		    hParams.put("color", Color.red);
-		    try {
-		    p5 = Class.forName("muminav.skin.math." + "Connector").newInstance();
-		    }
-		    catch (Exception e) {
-		    e.printStackTrace();
-		    }
-		    ((Part) p5).init(hParams);
-		    add as child to p1
-		    ((Part) p2).addChild((Part) p5);
-		  */
-	}
-
 }
 /*
-    $Id: Muminav.java,v 1.18 2002/09/28 01:03:00 zander Exp $
+    $Id: Muminav.java,v 1.19 2002/09/30 00:05:10 zander Exp $
   */
 

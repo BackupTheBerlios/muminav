@@ -6,28 +6,18 @@ import java.util.Hashtable;
 import java.lang.reflect.Field;
 
 /**
- *  <p>
+ * This class is the basic class for all skin elements/parts. If you want to write your own skin element/part, you
+ * only need to inherit from this class. This way you get some basic features and a structure anderstand by the
+ * MuminavPanel.
  *
- *  Title: </p> <p>
- *
- *  Description: </p> <p>
- *
- *  Copyright: Copyright (c) 2002</p> <p>
- *
- *  Company: </p>
- *
- *@author     unascribed
- *@created    15. September 2002
  *@version    1.0
  */
 
 public abstract class Part implements Cloneable {
 
-	/**  Description of the Field */
+	/**  text shown in the tooltip */
 	protected String tooltipText = null;
-	/**
-	 *  set true, if this element have to draw at first (for example connectors)
-	 */
+	/** set true, if this element have to draw at first (for example connectors) */
 	protected boolean drawFirst = false;
 	/**  true if this is the last klicked element */
 	protected boolean isActive = false;
@@ -39,16 +29,16 @@ public abstract class Part implements Cloneable {
 	protected Dimension dimension = null;
 	/**  position on red path */
 	protected int posRedPath = -1;
-
+	// the children
 	private Vector childs = new Vector();
-	/**  Description of the Field */
+	/**  this url will be loaded if the element/part will be klicked */
 	public String url = "";
 
 
 	/**
 	 *  Sets the active attribute of the Part object
 	 *
-	 *@param  isActive  The new active value
+	 *@param  isActive  the new active value
 	 */
 	public void setActive(boolean isActive) {
 		this.isActive = isActive;
@@ -66,15 +56,15 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method draws the part/element itself.
 	 *
-	 *@param  g  Description of the Parameter
+	 *@param  g  The Graphics to paint.
 	 */
 	public abstract void draw(Graphics g);
 
 
 	/**
-	 *  Description of the Method
+	 *  This method scales and diplace a Point by the given values.
 	 *
 	 *@param  point    the point to scale
 	 *@param  scale    scale value
@@ -90,7 +80,7 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method scales and diplace a Dimension by the given values.
 	 *
 	 *@param  scale      scale value
 	 *@param  dimension  dimension to scale
@@ -103,13 +93,19 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This Method does the main scaling work.
+	 *  Points and Dimensions are measured in raster points. Here they get there real pixel position.
+	 *  The Method needs the dimension of the applet, the dimension of the raster and the start and end
+	 *  point of the zoom window. Based on this values points and dimensions special Points and Dimensions
+	 *  will be scaled and displaced. The method automaticly calculates the new values for the center point
+	 *  and the dimension of a part. If you use/need other points, dimensions or length or so, you only need
+	 *  to declare them public. They will also be scaled by using Reflection. For more details read our manual.
 	 *
-	 *@param  realDim     Description of the Parameter
-	 *@param  endPoint    Description of the Parameter
-	 *@param  rasterDim   Description of the Parameter
-	 *@param  startPoint  Description of the Parameter
-	 *@return             Description of the Return Value
+	 *@param  realDim     The dimension of the panel (in pixels)
+	 *@param  rasterDim   The dimension of the raster (in raster points)
+	 *@param  startPoint  The start point of the zoom window.
+	 *@param  endPoint    The end point of the zoom window.
+	 *@return             A scaled and displaced clone of the part in pixel coordinates.
 	 */
 	public Part fitToRaster(Dimension realDim, Dimension rasterDim, Point startPoint, Point endPoint) {
 		Dimension zoomDim;
@@ -144,6 +140,7 @@ public abstract class Part implements Cloneable {
 				topLeftZoom.y = endPoint.y;
 			}
 
+			// offsets will be calculated
 			if ((double) realDim.width / (double) realDim.height > (double) zoomDim.width / (double) zoomDim.height) {
 				// zoom window is higher then real window (ratio)
 				scaleValueResize = (double) realDim.height / (double) zoomDim.height;
@@ -254,12 +251,12 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Gets the inside attribute of the Part object
+	 *  This method checks if a given point is inside a given rectangle dicribed by dimension and center.
 	 *
-	 *@param  point      Description of the Parameter
-	 *@param  dimension  Description of the Parameter
-	 *@param  center     Description of the Parameter
-	 *@return            The inside value
+	 *@param  point      The point to check.
+	 *@param  dimension  The Dimension of the rectangle
+	 *@param  center     The center of the rectangle.
+	 *@return            Returns true if the point is inside.
 	 */
 	public boolean isInside(Point point, Point center, Dimension dimension) {
 		if (center == null || dimension == null) {
@@ -278,10 +275,11 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Gets the inside attribute of the Part object
+	 *  This method assumes the part as rectangle by using startPoint and dimension and checks
+	 *  if the given point is inside. If your part inn't a rectangle, overwrite this method.
 	 *
-	 *@param  point  Description of the Parameter
-	 *@return        The inside value
+	 *@param  point  The point to check.
+	 *@return        Returns true if the point is inside.
 	 */
 	public boolean isInside(Point point) {
 		return isInside(point, center, dimension);
@@ -289,18 +287,18 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method initializes the object with the values from the given Hashtable
 	 *
-	 *@param  v  Description of the Parameter
+	 *@param  v  The Hashtable which contains the values for the part.
 	 */
 	public abstract void init(Hashtable v);
 
 
 	/**
-	 *  Adds a feature to the Child attribute of the Part object
+	 *  Adds a feature to the child attribute of the part object
 	 *
 	 *@param  p  The feature to be added to the Child attribute
-	 *@return    Description of the Return Value
+	 *@return    number of childs
 	 */
 	public int addChild(Part p) {
 		childs.add(p);
@@ -311,7 +309,7 @@ public abstract class Part implements Cloneable {
 	/**
 	 *  Gets the childs attribute of the Part object
 	 *
-	 *@return    The childs value
+	 *@return    the childs vector
 	 */
 	public Vector getChilds() {
 		return childs;
@@ -319,9 +317,9 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method returns the number of childs
 	 *
-	 *@return    Description of the Return Value
+	 *@return    number of childs
 	 */
 	public int size() {
 		return childs.size();
@@ -339,7 +337,7 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method returns the drawFirst value
 	 *
 	 *@return    returns the drawFirst value
 	 */
@@ -371,7 +369,7 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Tries to convert the object into a String
+	 *  Tries to convert the object into a Double
 	 *
 	 *@param  param  parameter to convert
 	 *@return        The int value of the parameter
@@ -415,27 +413,25 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method draws a tooltip an a specified position
 	 *
-	 *@param  g       Description of the Parameter
-	 *@param  x       Description of the Parameter
-	 *@param  y       Description of the Parameter
-	 *@param  ttText  Description of the Parameter
+	 *@param  g       The graphics to paint.
+	 *@param  x       The x coordinate of the tooltip.
+	 *@param  y       The y coordinate of the tooltip.
+	 *@param  ttText  The text written into the tooltip.
 	 */
 	public void drawTooltip(Graphics g, int x, int y, String ttText) {
-                final Color backColor = new Color(0,0,127);
-                final Color textColor = Color.white;
-                final Color borderColor = new Color(150,150,255);
+		final Color backColor = new Color(0, 0, 127);
+		final Color textColor = Color.white;
+		final Color borderColor = new Color(150, 150, 255);
 
-                /** Vertical Offset from Mouseposition */
-                final int voffset = 20;
-                /** additional width to textwidth */
-                final int addWidth = 20;
-                /** additional height to textheight */
-                final int addHeight = 2;
+		final int voffset = 20;
 
-                final int fontSize = 12;
+		final int addWidth = 20;
 
+		final int addHeight = 2;
+
+		final int fontSize = 12;
 
 		Font font = g.getFont();
 		g.setFont(new Font(font.getFamily(), font.getStyle(), fontSize));
@@ -443,24 +439,24 @@ public abstract class Part implements Cloneable {
 		int slen = fm.stringWidth(ttText);
 		int sheight = fm.getHeight();
 
-                // rechts über dem Rand?
+		// reaches the tooltip over the right border?
 		if ((x + slen + addWidth) > g.getClipBounds().getWidth()) {
 			x = x - (x + slen + addWidth) + (int) g.getClipBounds().getWidth();
 		}
 
-                // unten raus?
-                if((y + voffset + sheight + addHeight) > (int) g.getClipBounds().getHeight()){
-//                  y =  ((int) g.getClipBounds().getHeight()) - addHeight - sheight - voffset;
-                  //voffset = voffset * (-1);
-                  y = y - 2 * voffset;
-                }
+		// reaches the tooltip over the bottom border
+		if ((y + voffset + sheight + addHeight) > (int) g.getClipBounds().getHeight()) {
+			// y =  ((int) g.getClipBounds().getHeight()) - addHeight - sheight - voffset;
+			// voffset = voffset * (-1);
+			y = y - 2 * voffset;
+		}
 
 		g.setColor(backColor);
 		g.fillRect(x, y + voffset, slen + addWidth, sheight + addHeight);
 		g.setColor(borderColor);
 		g.drawRect(x, y + voffset, slen + addWidth, sheight + addHeight);
 		g.setColor(textColor);
-		g.drawString(ttText, x + addWidth/2, y + voffset + fontSize + addHeight);
+		g.drawString(ttText, x + addWidth / 2, y + voffset + fontSize + addHeight);
 	}
 
 }

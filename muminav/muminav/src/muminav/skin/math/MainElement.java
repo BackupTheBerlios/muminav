@@ -8,9 +8,7 @@ import muminav.skin.Part;
 import muminav.skin.DrawLib;
 
 /**
- *@author     zander
- *@created    15. September 2002
- *@version    $Revision: 1.15 $
+ *@version    $Revision: 1.16 $
  */
 public class MainElement extends Part {
 
@@ -31,9 +29,9 @@ public class MainElement extends Part {
 
 
 	/**
-	 *  Description of the Method
+	 *  This method draws an math element
 	 *
-	 *@param  g  Description of the Parameter
+	 *@param  g  The graphics to paint.
 	 */
 	public void draw(Graphics g) {
 		// shadow
