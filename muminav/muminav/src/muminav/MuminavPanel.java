@@ -56,7 +56,7 @@ public class MuminavPanel extends JPanel {
 
 		// raster dimension uebergeben
 		// hier noch hardcoded
-		rasterDimension = new Dimension(12, 21);
+		rasterDimension = new Dimension(14, 21);
 
 //    MyListener myListener = new MyListener();
 //    MyMotionListener myMotionListener = new MyMotionListener();
@@ -100,13 +100,13 @@ public class MuminavPanel extends JPanel {
 		// Tooltip zeichnen
 		if (manager.isVisible() == true) {
 			Part ttpart = manager.getTooltipPart();
-			if(ttpart != null){
-                          String ttText = ttpart.getTooltipText();
-			  if(ttText != null){
-                            manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
-                              manager.m_lastY, ttText);
-                          }
-                        }
+			if (ttpart != null) {
+				String ttText = ttpart.getTooltipText();
+				if (ttText != null) {
+					manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
+							manager.m_lastY, ttText);
+				}
+			}
 		}
 	}
 
@@ -122,7 +122,7 @@ public class MuminavPanel extends JPanel {
 		Vector childs = t.getChilds();
 
 		// Draw each subtree
-		for (int i = 0; i < childs.size(); i++) {
+		for (int i = childs.size() - 1; i >= 0; i--) {
 			drawTree(g, (Part) childs.elementAt(i));
 		}
 		// draw Part
@@ -292,3 +292,4 @@ public class MuminavPanel extends JPanel {
 	}
 
 }
+
