@@ -22,8 +22,6 @@ import java.net.MalformedURLException;
  */
 public class MuminavPanel extends JPanel implements ActionListener {
 
-	private final int CONTROLS_HEIGHT = 30;
-
 	private MuminavToolTipManager manager;
 
 	// if true, only parts with drawFirst = true were painted, otherwise not
@@ -63,13 +61,30 @@ public class MuminavPanel extends JPanel implements ActionListener {
 	public MuminavPanel(Vector tr, JApplet prnt, AppletContext ac) {
 		super();
 
-		// get the raster dimension out of the NavNet element
+		manager = new MuminavToolTipManager(prnt, this);
+		appletContext = ac;
+		treeRoot = tr;
+		parent = prnt;
+
 		Part first = (Part) tr.elementAt(0);
 		if (first instanceof NavNet) {
+			// get the raster dimension out of the NavNet element
 			rasterDimension = ((NavNet) first).getRasterDimension();
 			if (rasterDimension == null) {
 				System.out.println("\nRaster Dimension not found in NavNet Element (using default [50x50])");
 				rasterDimension = new Dimension(50, 50);
+			}
+			// try to load the introducing html file
+			String url = ((NavNet) first).getUrl();
+			System.out.println("url: " + url);
+			if (!url.equals("")) {
+				try {
+					//appletContext.showDocument(new URL(parent.getCodeBase() + t.getUrl()), "Content");
+					appletContext.showDocument(new URL(parent.getCodeBase() + url), "Content");
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
 			}
 		}
 		else {
@@ -79,15 +94,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 		this.setLayout(new BorderLayout());
 		this.setBackground(Color.white);
 		addMouseListener(new MyListener());
-
-		manager = new MuminavToolTipManager(prnt, this);
-		appletContext = ac;
-		treeRoot = tr;
-		parent = prnt;
-
-		for (int i = 0; i < treeRoot.size(); i++) {
-			searchRedElements((Part) treeRoot.elementAt(i));
-		}
+		searchRedElements((Part) treeRoot.elementAt(0));
 	}
 
 
@@ -176,10 +183,18 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			if (activePart != null) {
 				activePart.setActive(false);
 			}
-			Part nextElement = getNextRedElement();
-			nextElement.setActive(true);
-			activePart = nextElement;
-			curPosRedPath = nextElement.getPosRedPath();
+			activePart = getNextRedElement();
+			activePart.setActive(true);
+			curPosRedPath = activePart.getPosRedPath();
+			if (!activePart.getUrl().equals("")) {
+				System.out.println("loading url: " + activePart.getUrl());
+				try {
+					appletContext.showDocument(new URL(parent.getCodeBase() + activePart.getUrl()), "Content");
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 			repaint();
 
 		}
@@ -187,10 +202,18 @@ public class MuminavPanel extends JPanel implements ActionListener {
 			if (activePart != null) {
 				activePart.setActive(false);
 			}
-			Part nextElement = getPreviousRedElement();
-			nextElement.setActive(true);
-			activePart = nextElement;
-			curPosRedPath = nextElement.getPosRedPath();
+			activePart = getPreviousRedElement();
+			activePart.setActive(true);
+			curPosRedPath = activePart.getPosRedPath();
+			if (!activePart.getUrl().equals("")) {
+				System.out.println("loading url: " + activePart.getUrl());
+				try {
+					appletContext.showDocument(new URL(parent.getCodeBase() + activePart.getUrl()), "Content");
+				}
+				catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 			repaint();
 		}
 	}
@@ -312,8 +335,10 @@ public class MuminavPanel extends JPanel implements ActionListener {
 		if (t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).isInside(point)) {
 			//      repaint();
 			//		showStatus("MyApplet: Loading image file");
-
-			if (t.getUrl() != "") {
+			t.setActive(true);
+			activePart = t;
+			if (!t.getUrl().equals("")) {
+				System.out.println("loading url: " + activePart.getUrl());
 				try {
 					appletContext.showDocument(new URL(parent.getCodeBase() + t.getUrl()), "Content");
 				}
@@ -328,8 +353,6 @@ public class MuminavPanel extends JPanel implements ActionListener {
 					curPosRedPath = t.getPosRedPath();
 				}
 			}
-			t.setActive(true);
-			activePart = t;
 			return (true);
 		}
 		// get Childs
@@ -376,10 +399,10 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 
 	/**
-	 *  Description of the Method
+	 *  parts with posRedPath set will be stored in a hashtable(redElements)
 	 *
-	 *@param  part  Description of the Parameter
-	 *@return       Description of the Return Value
+	 *@param  part  in this tree will be searched
+	 *@return       number of found red path elements
 	 */
 	private int searchRedElements(Part part) {
 		Vector childs = part.getChilds();

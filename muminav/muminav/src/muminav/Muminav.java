@@ -21,7 +21,7 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.17 $
+ *@version    $Revision: 1.18 $
  */
 
 public class Muminav extends JApplet {
@@ -82,7 +82,6 @@ public class Muminav extends JApplet {
 	public void init() {
 		appletContext = getAppletContext();
 
-
 		// TODO: implement a better exception handling
 		try {
 			// load the xml file
@@ -118,7 +117,6 @@ public class Muminav extends JApplet {
 
 		// if there ar elements on the red path, display the navigation buttons
 		if (muminavPanel.getNumberOfRedElements() > 0) {
-			System.out.println("RedPathInterface found");
 			// place the buttons under the MuminavPanel
 			muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
 			this.getContentPane().setLayout(new BorderLayout());
@@ -433,6 +431,6 @@ public class Muminav extends JApplet {
 
 }
 /*
-    $Id: Muminav.java,v 1.17 2002/09/26 14:08:10 glaessel Exp $
+    $Id: Muminav.java,v 1.18 2002/09/28 01:03:00 zander Exp $
   */
 
