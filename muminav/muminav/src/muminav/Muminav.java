@@ -21,12 +21,13 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.15 $
+ *@version    $Revision: 1.16 $
  */
 
 public class Muminav extends JApplet {
 
-	private final int CONTROLS_HEIGHT = 30;
+	// background color
+	private final Color bgColor = Color.white;
 
 	boolean showTooltip;
 
@@ -121,11 +122,45 @@ public class Muminav extends JApplet {
 			this.initTree();
 		}
 
-		// Panel
 		muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
-		muminavPanel.setSize(getSize());
-		getContentPane().setLayout(new BorderLayout());
-		getContentPane().add(muminavPanel, BorderLayout.CENTER);
+		this.getContentPane().setLayout(new BorderLayout());
+		this.getContentPane().add(muminavPanel, BorderLayout.CENTER);
+
+		// if there ar elements on the red path, display the navigation buttons
+		if (muminavPanel.getNumberOfRedElements() > 0) {
+			System.out.println("RedPathInterface found");
+			// place the buttons under the MuminavPanel
+			muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
+			this.getContentPane().setLayout(new BorderLayout());
+			this.getContentPane().add(muminavPanel, BorderLayout.CENTER);
+			// button panel
+			JPanel buttonPanel = new JPanel();
+			buttonPanel.setPreferredSize(new Dimension(1, 30));
+			buttonPanel.setBackground(bgColor);
+			// backward button
+			JButton backward = new JButton("back");
+			backward.setActionCommand("backward");
+			backward.addActionListener(muminavPanel);
+			//backward.setBackground(Color.lightGray);
+			// forward button
+			JButton forward = new JButton("next");
+			forward.setActionCommand("forward");
+			forward.addActionListener(muminavPanel);
+			forward.setBackground(Color.lightGray);
+			//spacer panel
+			JPanel spacerPanel = new JPanel();
+			spacerPanel.setPreferredSize(new Dimension(15, 0));  // the space between the buttons
+			buttonPanel.add(backward);
+			buttonPanel.add(spacerPanel);
+			buttonPanel.add(forward);
+			// control panel
+			JPanel controlPanel = new JPanel();
+			controlPanel.setBackground(bgColor);
+			controlPanel.setLayout(new BorderLayout());
+			controlPanel.setPreferredSize(new Dimension(0, 40));
+			controlPanel.add(buttonPanel, BorderLayout.SOUTH);
+			this.getContentPane().add(controlPanel, BorderLayout.SOUTH);
+		}
 	}
 
 
@@ -420,6 +455,6 @@ public class Muminav extends JApplet {
 
 }
 /*
-    $Id: Muminav.java,v 1.15 2002/09/25 16:12:06 zander Exp $
+    $Id: Muminav.java,v 1.16 2002/09/26 03:15:52 zander Exp $
   */
 

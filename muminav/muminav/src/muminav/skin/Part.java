@@ -37,7 +37,7 @@ public abstract class Part implements Cloneable {
 	protected Point center = null;
 	/**  dimension of the element */
 	protected Dimension dimension = null;
-	/** position on the red path */
+	/**  position on red path */
 	protected int posRedPath = -1;
 
 	private Vector childs = new Vector();
@@ -405,6 +405,16 @@ public abstract class Part implements Cloneable {
 
 
 	/**
+	 *  Gets the posRedPath attribute of the Part object
+	 *
+	 *@return    The posRedPath value
+	 */
+	public int getPosRedPath() {
+		return posRedPath;
+	}
+
+
+	/**
 	 *  Description of the Method
 	 *
 	 *@param  g       Description of the Parameter
@@ -429,16 +439,6 @@ public abstract class Part implements Cloneable {
 		g.drawRect(x, y + 20, slen + 20, sheight + 2);
 		g.setColor(Color.white);
 		g.drawString(ttText, x + 10, y + 20 + 10 + 2);
-	}
-
-
-	/**
-	 *  Gets the posRedPath attribute of the Part object
-	 *
-	 *@return    The posRedPath value
-	 */
-	public int getPosRedPath() {
-		return posRedPath;
 	}
 
 }

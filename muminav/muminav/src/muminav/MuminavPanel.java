@@ -4,8 +4,9 @@ import muminav.skin.*;
 
 import java.awt.*;
 import java.applet.*;
-import java.util.Hashtable;
 import java.util.Vector;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.lang.Class;
 import javax.swing.*;
 import java.awt.event.*;
@@ -19,7 +20,9 @@ import java.net.MalformedURLException;
  *@author     Joerg
  *@created    17. September 2002
  */
-public class MuminavPanel extends JPanel {
+public class MuminavPanel extends JPanel implements ActionListener {
+
+	private final int CONTROLS_HEIGHT = 30;
 
 	private MyToolTipManager manager;
 
@@ -39,8 +42,10 @@ public class MuminavPanel extends JPanel {
 	private Dimension rasterDimension;
 	// current position on red path
 	private int curPosRedPath = -1;
-	// last position on red path
-	private int lastPosRedPath = -1;
+	// hashtable contains all elements on red path
+	private HashMap redElements = new HashMap();
+	// current activePart
+	private Part activePart = null;
 
 	/**  Description of the Field */
 	public Vector treeRoot;
@@ -58,6 +63,7 @@ public class MuminavPanel extends JPanel {
 	public MuminavPanel(Vector tr, JApplet prnt, AppletContext ac) {
 		super();
 
+		// get the raster dimension out of the NavNet element
 		Part first = (Part) tr.elementAt(0);
 		if (first instanceof NavNet) {
 			rasterDimension = ((NavNet) first).getRasterDimension();
@@ -70,23 +76,18 @@ public class MuminavPanel extends JPanel {
 			System.out.println("\nNo NavNet Mainelement found to setup the Net");
 		}
 
-//    MyListener myListener = new MyListener();
-//    MyMotionListener myMotionListener = new MyMotionListener();
-
-//    addMouseListener(myListener);
-//    addMouseMotionListener(myMotionListener);
-
-//    this.setOpaque(true);
+		this.setLayout(new BorderLayout());
 		this.setBackground(Color.white);
-		MyListener myListener = new MyListener();
-		addMouseListener(myListener);
-		//this.setLayout(null);
+		addMouseListener(new MyListener());
 
 		manager = new MyToolTipManager(prnt, this);
-
 		appletContext = ac;
 		treeRoot = tr;
 		parent = prnt;
+
+		for (int i = 0; i < treeRoot.size(); i++) {
+			searchRedElements((Part) treeRoot.elementAt(i));
+		}
 	}
 
 
@@ -161,6 +162,37 @@ public class MuminavPanel extends JPanel {
 	 */
 	public String getToolTipText(MouseEvent event) {
 		return (":" + Math.random() * 100);
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  e  Description of the Parameter
+	 */
+	public void actionPerformed(ActionEvent e) {
+		if (e.getActionCommand().equals("forward")) {
+
+			if (activePart != null) {
+				activePart.setActive(false);
+			}
+			Part nextElement = getNextRedElement();
+			nextElement.setActive(true);
+			activePart = nextElement;
+			curPosRedPath = nextElement.getPosRedPath();
+			repaint();
+
+		}
+		if (e.getActionCommand().equals("backward")) {
+			if (activePart != null) {
+				activePart.setActive(false);
+			}
+			Part nextElement = getPreviousRedElement();
+			nextElement.setActive(true);
+			activePart = nextElement;
+			curPosRedPath = nextElement.getPosRedPath();
+			repaint();
+		}
 	}
 
 
@@ -243,30 +275,19 @@ public class MuminavPanel extends JPanel {
 
 
 	/**
-	 *  sets the isActive attribute in all parts in the given tree to false
-	 *
-	 *@param  part  Description of the Parameter
-	 */
-	private void clearActive(Part part) {
-		part.setActive(false);
-		for (int i = 0; i < part.size(); i++) {
-			clearActive((Part) part.getChilds().elementAt(i));
-		}
-	}
-
-
-	/**
 	 *  handle Events
 	 *
 	 *@param  point  Description of the Parameter
 	 *@return
 	 */
 	private boolean handleEvents(Point point) {
-
+		if (activePart != null) {
+			activePart.setActive(false);
+			activePart = null;
+		}
 		// Events in each child of the root
 		for (int i = 0; i < treeRoot.size(); i++) {
 			Part part = (Part) treeRoot.elementAt(i);
-			clearActive(part);
 			if (handleEventsForTree(part, point)) {
 				// my be a element draws somthing depending on isActive
 				repaint();
@@ -290,10 +311,9 @@ public class MuminavPanel extends JPanel {
 		// clicked inside Part?
 		if (t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).isInside(point)) {
 			//      repaint();
-//			showStatus("MyApplet: Loading image file");
-			System.out.println("you hit me!");
+			//		showStatus("MyApplet: Loading image file");
+
 			if (t.getUrl() != "") {
-				System.out.println("loading " + t.getUrl());
 				try {
 					appletContext.showDocument(new URL(parent.getCodeBase() + t.getUrl()), "Content");
 				}
@@ -301,11 +321,15 @@ public class MuminavPanel extends JPanel {
 					ex.printStackTrace();
 				}
 			}
+			// what is with the red path
 			if (t.getPosRedPath() >= 0) {
 				// an part on red Path was klicked
-				curPosRedPath = t.getPosRedPath();
+				if (t.getPosRedPath() != curPosRedPath) {
+					curPosRedPath = t.getPosRedPath();
+				}
 			}
 			t.setActive(true);
+			activePart = t;
 			return (true);
 		}
 		// get Childs
@@ -348,6 +372,84 @@ public class MuminavPanel extends JPanel {
 	 */
 	public Dimension getRasterDimension() {
 		return rasterDimension;
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@param  part  Description of the Parameter
+	 *@return       Description of the Return Value
+	 */
+	private int searchRedElements(Part part) {
+		Vector childs = part.getChilds();
+		if (part.getPosRedPath() >= 0) {
+			redElements.put(new Integer(part.getPosRedPath()), part);
+		}
+		for (int i = childs.size() - 1; i >= 0; i--) {
+			searchRedElements((Part) childs.elementAt(i));
+		}
+		return redElements.size();
+	}
+
+
+	/**
+	 *Constructor for the getNextRedElement object
+	 *
+	 *@return    The nextRedElement value
+	 */
+	private Part getNextRedElement() {
+		int nextPos;
+		int pos = Integer.MAX_VALUE;
+
+		Iterator iter = redElements.keySet().iterator();
+		while (iter.hasNext()) {
+			nextPos = ((Integer) iter.next()).intValue();
+			if (nextPos > curPosRedPath && nextPos < pos) {
+				pos = nextPos;
+			}
+		}
+		if (pos == Integer.MAX_VALUE) {
+			pos = curPosRedPath;
+		}
+		return (Part) redElements.get(new Integer(pos));
+	}
+
+
+	/**
+	 *  Description of the Method
+	 *
+	 *@return    Description of the Return Value
+	 */
+	public Part getPreviousRedElement() {
+		int nextPos;
+		int pos = -1;
+
+		if (curPosRedPath == -1) {
+			curPosRedPath = Integer.MAX_VALUE;
+		}
+
+		Iterator iter = redElements.keySet().iterator();
+		while (iter.hasNext()) {
+			nextPos = ((Integer) iter.next()).intValue();
+			if (nextPos < curPosRedPath && nextPos > pos) {
+				pos = nextPos;
+			}
+		}
+		if (pos == -1) {
+			pos = curPosRedPath;
+		}
+		return (Part) redElements.get(new Integer(pos));
+	}
+
+
+	/**
+	 *  Gets the numberOfRedElements attribute of the MuminavPanel object
+	 *
+	 *@return    The numberOfRedElements value
+	 */
+	public int getNumberOfRedElements() {
+		return redElements.size();
 	}
 
 }

@@ -227,7 +227,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="4">
 		
 		<MainElement
         posX=" 17 "
@@ -256,7 +257,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="5" >
 		
 		<MainElement
         posX=" 6 "
@@ -652,7 +654,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="6" >
 
         <MainElement
         posX=" 22 "
@@ -731,7 +734,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="7" >
 
         <MainElement
         posX=" 6 "
@@ -783,7 +787,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="8" >
 
         <MainElement
         posX=" 22 "
@@ -835,7 +840,8 @@
     fontColor="0, 0, 0 "
     borderColor=" 0, 0, 0 "
     borderThickness =" 0.2 "
-    fontHeight=" 2.5 ">
+    fontHeight=" 2.5 "
+	posRedPath="9" >
 
         <MainElement
         posX=" 32 "

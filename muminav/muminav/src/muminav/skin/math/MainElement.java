@@ -10,7 +10,7 @@ import muminav.skin.DrawLib;
 /**
  *@author     zander
  *@created    15. September 2002
- *@version    $Revision: 1.14 $
+ *@version    $Revision: 1.15 $
  */
 public class MainElement extends Part {
 
@@ -42,8 +42,14 @@ public class MainElement extends Part {
 
 		if (isActive) {
 			// front
-			DrawLib.drawRectangle(g, center, dimension, new Color(255, 255, 150), (int) borderThickness, borderColor
-					, text, (int) fontHeight, fontColor);
+			if (fontHeight > 10) {
+				DrawLib.drawRectangle(g, center, dimension, new Color(255, 255, 150), (int) borderThickness, borderColor
+						, text, (int) fontHeight, fontColor);
+			}
+			else {
+				DrawLib.drawRectangle(g, center, dimension, new Color(255, 255, 150), (int) borderThickness, borderColor
+						, null, (int) fontHeight, fontColor);
+			}
 		}
 		else {
 			// front
