@@ -24,7 +24,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 
 	private final int CONTROLS_HEIGHT = 30;
 
-	private MyToolTipManager manager;
+	private MuminavToolTipManager manager;
 
 	// if true, only parts with drawFirst = true were painted, otherwise not
 	boolean drawFirst = true;
@@ -80,7 +80,7 @@ public class MuminavPanel extends JPanel implements ActionListener {
 		this.setBackground(Color.white);
 		addMouseListener(new MyListener());
 
-		manager = new MyToolTipManager(prnt, this);
+		manager = new MuminavToolTipManager(prnt, this);
 		appletContext = ac;
 		treeRoot = tr;
 		parent = prnt;

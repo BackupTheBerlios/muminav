@@ -423,22 +423,36 @@ public abstract class Part implements Cloneable {
 	 *@param  ttText  Description of the Parameter
 	 */
 	public void drawTooltip(Graphics g, int x, int y, String ttText) {
+                final Color backColor = new Color(0,0,127);
+                final Color textColor = Color.white;
+                final Color borderColor = new Color(150,150,255);
+
+                /** Vertical Offset from Mouseposition */
+                final int voffset = 20;
+                /** additional width to textwidth */
+                final int addWidth = 20;
+                /** additional height to textheight */
+                final int addHeight = 2;
+
+                final int fontSize = 12;
+
+
 		Font font = g.getFont();
-		g.setFont(new Font(font.getFamily(), font.getStyle(), 10));
+		g.setFont(new Font(font.getFamily(), font.getStyle(), fontSize));
 		FontMetrics fm = g.getFontMetrics();
 		int slen = fm.stringWidth(ttText);
 		int sheight = fm.getHeight();
 
-		if ((x + slen + 20) > g.getClipBounds().getWidth()) {
-			x = x - (x + slen + 20) + (int) g.getClipBounds().getWidth();
+		if ((x + slen + addWidth) > g.getClipBounds().getWidth()) {
+			x = x - (x + slen + addWidth) + (int) g.getClipBounds().getWidth();
 		}
 
-		g.setColor(new Color(0, 0, 127));
-		g.fillRect(x, y + 20, slen + 20, sheight + 2);
-		g.setColor(new Color(150, 150, 255));
-		g.drawRect(x, y + 20, slen + 20, sheight + 2);
-		g.setColor(Color.white);
-		g.drawString(ttText, x + 10, y + 20 + 10 + 2);
+		g.setColor(backColor);
+		g.fillRect(x, y + voffset, slen + addWidth, sheight + addHeight);
+		g.setColor(borderColor);
+		g.drawRect(x, y + voffset, slen + addWidth, sheight + addHeight);
+		g.setColor(textColor);
+		g.drawString(ttText, x + addWidth/2, y + voffset + fontSize + addHeight);
 	}
 
 }
