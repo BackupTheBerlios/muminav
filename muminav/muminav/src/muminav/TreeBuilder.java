@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.3 2002/09/17 02:11:28 ercmat Exp $
+ *  $Id: TreeBuilder.java,v 1.4 2002/09/21 22:58:35 ercmat Exp $
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,12 +15,11 @@ import java.util.Hashtable;
 import java.io.*;
 
 /**
- *  Reads the XML input and generates a tree representing
- *  the graph.
+ *  Reads the XML input and generates a tree representing the graph.
  *
  *@author     ercmat
  *@created    2. September 2002
- *@version    $Revision: 1.3 $
+ *@version    $Revision: 1.4 $
  */
 public class TreeBuilder extends DefaultHandler {
 
@@ -34,7 +33,7 @@ public class TreeBuilder extends DefaultHandler {
     // the topmost element will be the next actuaNode
     private Stack nodeStack = null;
     // the package which represents the skin
-    private static String skin = "muminav.skin.math.";
+    private static String skin = "";
 
 
     /**
@@ -50,12 +49,17 @@ public class TreeBuilder extends DefaultHandler {
      *
      *@param  xml            xml representation of the graph
      *@param  skin           Description of the Parameter
-     *@exception  Exception  Thrown in case of problems
-     *      while configurating a new parser
+     *@exception  Exception  Thrown in case of problems while configurating a
+     *      new parser
      */
     public void init( InputStream xml, String skin )
-        throws Exception {
+             throws Exception {
 
+        if ( skin.endsWith( "." ) ) {
+            this.skin = skin;
+        } else {
+            this.skin = skin + ".";
+        }
         // using myself as the handler
         DefaultHandler handler = new TreeBuilder();
 
@@ -66,24 +70,32 @@ public class TreeBuilder extends DefaultHandler {
         SAXParser saxParser = factory.newSAXParser();
 
         saxParser.parse( xml, handler );
-        /*
-         *  if ( skin.endsWith( "." ) ) {
-         *  this.skin = skin;
-         *  } else {
-         *  this.skin = skin + ".";
-         *  }
-         */
+
     }
 
 
     /**
-     *  Returns the tree which represents the graph, defined
-     *  by the xml input.
+     *  Returns the tree which represents the graph, defined by the xml input.
      *
      *@return    The tree which represents the graph
      */
     public Vector getTree() {
         return this.actualNode;
+    }
+
+
+    /**
+     *  Prints debugging infos to standard out
+     *
+     *@param  node  Description of the Parameter
+     */
+    private void debugInfos( Vector node ) {
+
+        for ( int i = 0; i < node.size(); i++ ) {
+            System.out.println( "Part: " + (Part) node.get( i ) + " Childs: " + ( (Part) node.get( i ) ).size() );
+            this.debugInfos( (Vector) ( (Part) node.get( i ) ).getChilds() );
+        }
+
     }
 
 
@@ -97,9 +109,9 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void startDocument()
-        throws SAXException {
+             throws SAXException {
         this.nodeStack = new Stack();
-        //this.nodeStack.push( new Vector() );
+        this.nodeStack.push( new Vector() );
     }
 
 
@@ -109,7 +121,7 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void endDocument()
-        throws SAXException {
+             throws SAXException {
         Vector part = null;
 
         while ( !this.nodeStack.empty() ) {
@@ -124,16 +136,14 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if
-     *      enabled
+     *@param  namespaceURI      URI of the namespace, if enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
-     *@param  attrs             The attributes of this
-     *      element
+     *@param  attrs             The attributes of this element
      *@exception  SAXException
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs )
-        throws SAXException {
+             throws SAXException {
         // the new drawable element
         Part element = null;
         // name of the element
@@ -145,20 +155,18 @@ public class TreeBuilder extends DefaultHandler {
         if ( "".equals( eName ) ) {
             eName = qName;
         }
-
         try {
             element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
         } catch ( Exception e ) {
             // TODO: decide what to do with the topmost element in the xml file
             // TODO: decide what to do with onknown elements in the xml file
-            this.nodeStack.push( new Vector() );
-            return;
+            element = new muminav.skin.UnknownElement();
         }
 
         this.actualLevel++;
 
         // create a new level in the tree
-        if ( this.beforeLevel < this.actualLevel ) {
+        if ( this.beforeLevel != this.actualLevel ) {
             this.actualNode = (Vector) this.nodeStack.peek();
         }
 
@@ -186,14 +194,13 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if
-     *      enabled
+     *@param  namespaceURI      URI of the namespace, if enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
      *@exception  SAXException
      */
     public void endElement( String namespaceURI, String sName, String qName )
-        throws SAXException {
+             throws SAXException {
         this.actualLevel--;
         if ( !this.nodeStack.empty() ) {
             this.nodeStack.pop();
@@ -203,10 +210,15 @@ public class TreeBuilder extends DefaultHandler {
 }
 /*
  *  $Log: TreeBuilder.java,v $
+ *  Revision 1.4  2002/09/21 22:58:35  ercmat
+ *  fehler im baumaufbau behoben
+ *  struktur des xml file angepasst
+ *  UnknownElement hinzugefuegt
+ *
  *  Revision 1.3  2002/09/17 02:11:28  ercmat
  *  hint thread erweitert
  *  kontrolle des thread durch hauptklasse erweitert
- *  übergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
+ *  ?bergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
  *  baum kann jetzt aus xml file aufgebaut werden
  *  xml file unter html hinzugefuegt
  *

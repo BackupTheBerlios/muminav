@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <!--
-$Id: NavNet.xml,v 1.5 2002/09/19 21:14:50 zander Exp $
+$Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
 -->
 
 <!--
@@ -9,129 +9,126 @@ $Id: NavNet.xml,v 1.5 2002/09/19 21:14:50 zander Exp $
 
 <NavNet>
 
-  <MainElement
-    posX=" 5 "
-    posY=" 7 "
-    width=" 5 "
-    height=" 5 "
-    text="T"
-    tooltipText="T-Tooltip"
+    <MainElement
+    posX="5"
+    posY="7"
+    width="5"
+    height="5"
+    text="1"
+    tooltipText="T-Tooltip juchuh"
+    textZoom="Theorem"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
     fontColor="255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    borderThickness=" 0.2 "
-    fontHeight=" 4 "
-  >
+    lineRelSize=" 5 "
+    fontRelSize=" 70 ">
 
+        <MainElement
+        posX=" 8 "
+        posY=" 4 "
+        width=" 3 "
+        height=" 3 "
+        text="S1_1"
+        textZoom="Bew."
+        tooltipText="B-Tooltip juchuh"
+        url="contentM1.html"
+        bgColor=" 0, 0, 0 "
+        fontColor=" 255, 255, 255 "
+        borderColor=" 255, 0, 0 "
+        lineRelSize=" 2 "
+        fontRelSize=" 40 ">
 
-  <MainElement
-    posX=" 5 "
-    posY=" 7 "
-    width=" 5 "
-    height=" 5 "
-    text="T"
-    tooltipText="T-Tooltip"
+            <MainElement
+            posX=" 10 "
+            posY=" 2 "
+            width=" 3 "
+            height=" 3 "
+            text="S1_2"
+            textZoom="Herl."
+            tooltipText="H-Tooltip auch juchuh"
+            url="contentM1.html"
+            bgColor=" 0, 0, 0 "
+            fontColor=" 255, 255, 255 "
+            borderColor=" 255, 0, 0 "
+            lineRelSize=" 2 "
+            fontRelSize=" 40 "/>
+    
+        </MainElement>
+        
+        <MainElement
+        posX=" 2 "
+        posY=" 10 "
+        width=" 3 "
+        height=" 3 "
+        text="S1_3"
+        textZoom="Bem."
+        tooltipText="B2-Tooltip juchuh"
+        url="contentM1.html"
+        bgColor=" 0, 0, 0 "
+        fontColor=" 255, 255, 255 "
+        borderColor=" 255, 0, 0 "
+        lineRelSize=" 2 "
+        fontRelSize=" 40 "
+        />    
+
+        <MainElement
+        posX=" 8 "
+        posY=" 10 "
+        width=" 3 "
+        height=" 3 "
+        text="S1_4"
+        textZoom="Beisp."
+        tooltipText="B3-Tooltip juchuh"
+        url="contentM1.html"
+        bgColor=" 0, 0, 0 "
+        fontColor=" 255, 255, 255 "
+        borderColor=" 255, 0, 0 "
+        lineRelSize=" 2 "
+        fontRelSize=" 40 "/>
+
+    </MainElement>
+
+    <MainElement
+    posX=" 6 "
+    posY=" 18 "
+    width=" 10 "
+    height=" 3 "
+    text="muminav kicks ass!"
+    textZoom="NoName"
+    tooltipText="NN-Tooltip juchuh"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
-    fontColor="255, 255, 255 "
+    fontColor=" 255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    borderThickness=" 0.2 "
-    fontHeight=" 4 "
-  >
-    </MainElement>
-
-      <MainElement
-     posX=" 8 "
-     posY=" 4 "
-     width=" 3 "
-     height=" 3 "
-     text= "B"
-     tooltipText="B-Tooltip"
-     url= "contentM1.html"
-     bgColor=" 0, 0, 0 "
-     fontColor=" 255, 255, 255 "
-     borderColor=" 255, 0, 0 "
-     borderThickness=" 0.2 "
-     fontHeight=" 2 "
-    >
-    </MainElement>
-
-    <MainElement
-     posX=" 10 "
-     posY=" 2 "
-     width=" 3 "
-     height=" 3 "
-     text= "H"
-     tooltipText="H-Tooltip"
-     url= "contentM1.html"
-     bgColor=" 0, 0, 0 "
-     fontColor=" 255, 255, 255 "
-     borderColor=" 255, 0, 0 "
-     borderThickness=" 0.2 "
-     fontHeight=" 2 "
-    >
-    </MainElement>
-
-    <MainElement
-     posX=" 2 "
-     posY=" 10 "
-     width=" 3 "
-     height=" 3 "
-     text= "B"
-     tooltipText="B2-Tooltip"
-     url= "contentM1.html"
-     bgColor=" 0, 0, 0 "
-     fontColor=" 255, 255, 255 "
-     borderColor=" 255, 0, 0 "
-     borderThickness=" 0.2 "
-     fontHeight=" 2 "
-    ></MainElement>
-
-    <MainElement
-     posX=" 8 "
-     posY=" 10 "
-     width=" 3 "
-     height=" 3 "
-     text= "B"
-     tooltipText="B3-Tooltip"
-     url= "contentM1.html"
-     bgColor=" 0, 0, 0 "
-     fontColor=" 255, 255, 255 "
-     borderColor=" 255, 0, 0 "
-     borderThickness=" 0.2 "
-	 fontHeight=" 2 "    >
-    </MainElement>
-
-    </MainElement>
+    lineRelSize=" 5 "
+    fontRelSize=" 70 "/>    
 
     <Connector
-     startX=" 5 "
-     startY=" 7 "
-     endX=" 6 "
-     endY=" 18 "
-     lineThickness=" 0.2 "
-     color=" 0, 0, 255 "
-    ></Connector>
+    startX=" 5 "
+    startY=" 7 "
+    endX=" 6 "
+    endY=" 18 "
+    lineRelSize=" 3 "
+    color=" 0, 0, 255 "/>
+    
+     <Connector
+    startX=" 7 "
+    startY=" 9 "
+    endX=" 8 "
+    endY=" 18 "
+    lineRelSize=" 13 "
+    color=" 0, 0, 255 "/>
 
- 	<MainElement
-     posX=" 6 "
-     posY=" 18 "
-     width=" 10 "
-     height=" 3 "
-     text= ":-)"
-     tooltipText=":--) -Tooltip"
-     url= "contentM1.html"
-     bgColor=" 100, 100, 100 "
-     fontColor=" 255, 255, 255 "
-     borderColor=" 255, 0, 0 "
-     borderThickness=" 0.2 "
-     fontHeight=" 2 "
-    ></MainElement>
 </NavNet>
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.6  2002/09/21 22:58:35  ercmat
+fehler im baumaufbau behoben
+struktur des xml file angepasst
+UnknownElement hinzugefuegt
+
 Revision 1.5  2002/09/19 21:14:50  zander
 - angepasste version fuer geanderte skin klassen
 
