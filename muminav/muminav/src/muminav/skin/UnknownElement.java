@@ -11,8 +11,7 @@ import muminav.skin.DrawLib;
  *  Used if the xml file contains an unknown element and for the root element.
  *
  *@author     ercmat
- *@created    21. September 2002
- *@version    $Revision: 1.1 $
+ *@version    $Revision: 1.2 $
  */
 public class UnknownElement extends Part {
 

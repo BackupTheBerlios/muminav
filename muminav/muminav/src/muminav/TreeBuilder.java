@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.5 2002/09/24 00:07:05 ercmat Exp $
+ *  $Id: TreeBuilder.java,v 1.6 2002/09/30 17:02:14 ercmat Exp $
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -19,8 +19,7 @@ import java.io.*;
  *  the graph.
  *
  *@author     ercmat
- *@created    2. September 2002
- *@version    $Revision: 1.5 $
+ *@version    $Revision: 1.6 $
  */
 public class TreeBuilder extends DefaultHandler {
 
@@ -222,6 +221,9 @@ public class TreeBuilder extends DefaultHandler {
 }
 /*
  *  $Log: TreeBuilder.java,v $
+ *  Revision 1.6  2002/09/30 17:02:14  ercmat
+ *  - aktuelle Testumgebung ergaenzt
+ *
  *  Revision 1.5  2002/09/24 00:07:05  ercmat
  *  Neue Klasse NavNet + Anpassungen an xml files.
  *
