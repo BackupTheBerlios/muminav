@@ -1,0 +1,31 @@
+%!PS-Adobe-2.0
+%%BoundingBox: 0 0 336 243 %
+72 72 scale                                 % 1 unit == 1 inch
+[1 0 0.1 1 0 0] concat                      % "Scherung"
+newpath
+0.5 2.375 moveto                            % das senkrechte Element
+0.5 2.875 0.5 270 90 arcn                   % des 'T' hat eine Laenge
+2.75 3.375 lineto                           % von 2 units.
+2.75 2.875 0.5 90 0 arcn                    % 
+3.25 0 lineto                               % 'T' Querstrich und linkes
+3.3125 1.0625 1.0625 260 180 arcn           % Element von 'U'
+2.25 2.375 lineto                          
+0.5 2.375 lineto                           
+1 0.25 moveto                               % senkrechtes Element von 'T'
+1 2.25 lineto
+2 2.25 lineto
+2 0.25 lineto
+1 0.25 lineto
+3.375 0 moveto                              % rechtes Element von 'U'
+3.3125 1.0625 1.0625 280 0 arc
+4.375 3.125 lineto
+3.375 3.125 lineto
+3.375 0 lineto
+fill
+1 setgray                                   % "berlin" im rechten Element
+4.3125 1.25 moveto                          % von 'U'
+/AvantGarde-Demi findfont 0.675 scalefont setfont 
+90 rotate
+(berlin) show
+fill
+% showpage

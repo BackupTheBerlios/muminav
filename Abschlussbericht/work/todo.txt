@@ -1,0 +1,27 @@
+In der Ausarbeitung erwähnen:
+	Mailinglisten.
+	Berlios-Seiten (Technik)
+	Verwendete Software (bei Berlios, und geg. wo anders)
+	Lizenz (nach Absprache mit Mumie) begründen!
+	Screenshots
+
+	Mittel:
+		Java	
+		Jbuilder
+		Ant jakarta.apache.org
+
+	TimeTable
+
+	Ant - Build File
+
+
+
+	Betreuung Steffen Evers
+
+
+auf die Homepage: 
+	folien in HTml-form, pdf
+	Aufforderung zum Mitmachen
+	Java-Doc
+	Mumie-spezifikation
+	Screenshots

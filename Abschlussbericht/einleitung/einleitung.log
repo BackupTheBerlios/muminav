@@ -1,0 +1,16 @@
+This is pdfTeX, Version 3.14159-1.00c-pretest-20020426 (MiKTeX 2.2) (preloaded format=latex 2000.11.28)  20 SEP 2002 14:22
+**einleitung.tex
+(einleitung.tex{pdftex.cfg}
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+! Undefined control sequence.
+l.1 \chapter
+            {Einleitung}
+? 
+! Emergency stop.
+l.1 \chapter
+            {Einleitung}
+End of file on the terminal!
+
+No pages of output.

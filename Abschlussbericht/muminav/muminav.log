@@ -1,0 +1,16 @@
+This is TeX, Version 3.14159 (MiKTeX 2.2) (preloaded format=latex 2000.11.28)  19 SEP 2002 15:19
+**muminav.tex
+(muminav.tex
+LaTeX2e <2001/06/01>
+Babel <v3.7h> and hyphenation patterns for english, french, german, ngerman, du
+mylang, nohyphenation, loaded.
+! Undefined control sequence.
+l.2 \chapter
+            {Muminav}
+? 
+! Emergency stop.
+l.2 \chapter
+            {Muminav}
+End of file on the terminal!
+
+No pages of output.

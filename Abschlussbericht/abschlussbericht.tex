@@ -1,0 +1,94 @@
+% Mit folgendem Header kann ich wahlweise 'latex bla.tex', oder 'pdflatex
+% bla.tex' laufen lassen. Es wird dann eine dvi bzw. pdf Datei erzeugt. Die
+% Bilder, die mit includegraphics importiert werden, werden ohne Dateiendung
+% angegeben. Latex sucht sich dann entweder ein .eps bzw. .pdf/.png/.jpg File
+% heraus...
+%
+%(http://www.techfak.uni-bielefeld.de/ags/ni/lectures/internstuff/howto/howto-la
+%tex/howto-pdflatex.html)
+\newif\ifpdf \ifx\pdfoutput\undefined
+\pdffalse % we are not running pdflatex
+\else
+\pdfoutput=1 % we are running pdflatex
+\pdfcompresslevel=9 % compression level for text and image;
+\pdftrue \fi
+
+\documentclass[12pt, headsepline]{scrreprt}
+\usepackage[ngerman]{babel}
+
+\ifpdf
+  \usepackage[pdftex,xdvi]{graphicx}
+  \usepackage[pdftex]{hyperref}         % option [colorlinks] erzeugt farbige Links statt
+
+  \pdfinfo{
+     /Title    (Abschlussbericht Muminav)
+     /Author   (Michael Glässel, Matthias Erche, Jörg Küster)
+     /Subject  ()
+     /Keywords (tu-berlin, open source, java)
+  }
+  \usepackage[pdftex]{color}            % farbige Umrandungen
+\else
+  \usepackage[dvips,xdvi]{graphicx}
+  \usepackage[colorlinks]{hyperref}
+  \usepackage{color}
+\fi
+
+\usepackage[automark,headsepline,plainheadsepline]{scrpage2}
+\pagestyle{scrheadings}
+%\ohead[\pagemark]{\pagemark}
+\ohead[\headmark]{\headmark} \chead{\empty}
+
+
+% ersetzt, s. o.
+% \usepackage{color}                    % um den Text auch farbig zu gestalten
+% \usepackage[dvips]{graphicx}          % zum Einbinden von Grafiken, [<TREIBER>]
+
+\usepackage{subfigure}                  % mehrere figures in einem floating object
+\usepackage[latin1]{inputenc}           % für Umlaute
+\usepackage{textcomp}                   % fuer Sonderzeichen wie <Grad Celsius>
+% \usepackage{hyperref}                 % zum Einbinden von Querverweisen in pdf (als letztes
+                                        % auffuehren!)
+%\graphicspath{{figs/}}               % jetzt muss man nicht jedesmal den Pfad angeben
+
+\usepackage{array}
+
+
+
+\title{Abschlussbericht \\ Muminav}
+
+\author{
+  Open-Source-Softwareprojekt\\
+  Sommersemester 2002\\
+  Technische Universität Berlin \\ \\
+  \normalsize Michael Glässel \\
+  \normalsize Matthias Erche \\
+  \normalsize Jörg Küster\\
+}
+
+\date{\today}
+
+\begin{document}                        % here begins the actual document body
+%\maketitle                             % this actually creates the title block
+
+
+\include{titel/title}
+
+\begin{abstract}
+\textbf{Zusammenfassung} blah \ldots
+\end{abstract}
+
+\tableofcontents
+
+%--------------------------------------------------------------------
+\include{einleitung/einleitung}
+\include{organisation/organisation}
+\include{muminav/muminav}
+\include{beurteilung/beurteilung}
+%--------------------------------------------------------------------
+
+
+\bibliographystyle{bibstyle} % mit custom-bib erzeugter individueller Bibliographie-Style !!
+\bibliography{bibliographie}
+
+
+\end{document}

@@ -1,0 +1,31 @@
+\begin{thebibliography}{1}
+
+\bibitem{Ant2002}
+{\sc {Apache Software Foundation}}: {Apache Ant 1.5} Manual.
+  \url{http://jakarta.apache.org/ant/manual/index.html} 2002, version 1.15.2.2
+
+\bibitem{BerliOS}
+{\sc {BerliOS}}: {BerliOS Site Documentation}.
+  \url{http://developer.berlios.de/docs/site/} 2002
+
+\bibitem{Mumie}
+{\sc {Dominik Eberlein, Andreas Hoffmann}}: {Die Mumie - Projekthomepage}.
+  \url{http://www.mumie.org/}
+
+\bibitem{GPL}
+{\sc {Free Software Foundation, Inc}}: {The GNU General Public License (GPL)}.
+  \url{http://www.opensource.org/licenses/gpl-license.php} 1991, version 2,
+
+\bibitem{LGPL}
+{\sc {Free Software Foundation, Inc}}: {GNU Lesser Public License}.
+  \url{http://www.opensource.org/licenses/lgpl-license.php} 1999, version 2.1,
+
+\bibitem{CVSRedbook}
+{\sc {Karl Fogel}}: {Open Source Development with CVS}.
+  \url{http://cvsbook.red-bean.com/} 2000, version 1.2
+
+\bibitem{OpenSourceLicences}
+{\sc {Open Source Initiative}}: {The Approved Licenses}.
+  \url{http://www.opensource.org/licenses/} 2002
+
+\end{thebibliography}
