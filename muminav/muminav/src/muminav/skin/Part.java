@@ -30,6 +30,9 @@ public abstract class Part implements Cloneable {
 	 */
 	protected boolean drawFirst = false;
 
+	/**  true if this is the last klicked element */
+	protected boolean isActive = false;
+
 	/**  text for element */
 	protected String text = "";
 
@@ -43,6 +46,17 @@ public abstract class Part implements Cloneable {
 
 	/**  Description of the Field */
 	public String url = "";
+
+
+
+	/**
+	 *  Sets the active attribute of the Part object
+	 *
+	 *@param  isActive  The new active value
+	 */
+	public void setActive(boolean isActive) {
+		this.isActive = isActive;
+	}
 
 
 	/**
@@ -211,7 +225,8 @@ public abstract class Part implements Cloneable {
 				catch (InstantiationException iE) {
 					// checking for public int aund double values
 					if (fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness")
-							 || fieldName.toLowerCase().endsWith("width") || fieldName.toLowerCase().endsWith("height")) {
+							 || fieldName.toLowerCase().endsWith("width") || fieldName.toLowerCase().endsWith("height")
+							 || fieldName.toLowerCase().endsWith("size")) {
 
 						if (fieldType.equals("int")) {
 							Field field = part.getClass().getField(fieldName);
@@ -245,10 +260,12 @@ public abstract class Part implements Cloneable {
 	/**
 	 *  Gets the inside attribute of the Part object
 	 *
-	 *@param  point  Description of the Parameter
-	 *@return        The inside value
+	 *@param  point      Description of the Parameter
+	 *@param  dimension  Description of the Parameter
+	 *@param  center     Description of the Parameter
+	 *@return            The inside value
 	 */
-	public boolean isInside(Point point) {
+	public boolean isInside(Point point, Point center, Dimension dimension) {
 		if (center == null || dimension == null) {
 			// no calculation possible
 			return false;
@@ -261,6 +278,17 @@ public abstract class Part implements Cloneable {
 			return (true);
 		}
 		return (false);
+	}
+
+
+	/**
+	 *  Gets the inside attribute of the Part object
+	 *
+	 *@param  point  Description of the Parameter
+	 *@return        The inside value
+	 */
+	public boolean isInside(Point point) {
+		return isInside(point, center, dimension);
 	}
 
 

@@ -30,6 +30,9 @@ public class Connector extends Part {
 	/**  line end point */
 	public Point end;
 
+	/**  size of the shadow */
+	public double shadowSize;
+
 	private Color color;
 
 	/**  line thickness (in raster points */
@@ -51,20 +54,8 @@ public class Connector extends Part {
 	public void draw(Graphics g) {
 		g.setColor(color);
 		DrawLib.drawLine(g, start.x, start.y, end.x, end.y, (int) lineThickness);
+
 	}
-
-
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  g       Description of the Parameter
-	 *@param  scale   scale value of zoom; 1 means no zoom
-	 *@param  center  Description of the Parameter
-	 */
-	public void drawZoomed(Graphics g, Point center, double scale) {
-		draw(g);
-	}
-
 
 
 	/**
@@ -75,6 +66,7 @@ public class Connector extends Part {
 	public void init(Hashtable hParams) {
 		color = Color.black;
 		lineThickness = 0.3;
+		shadowSize = 0.5;
 
 		if (hParams.containsKey("lineThickness")) {
 			lineThickness = this.getDoubleParam(hParams.get("lineThickness"));

@@ -10,18 +10,19 @@ import muminav.skin.DrawLib;
 /**
  *@author     zander
  *@created    15. September 2002
- *@version    $Revision: 1.12 $
+ *@version    $Revision: 1.13 $
  */
 public class MainElement extends Part {
 
 	// colors for backgroud,font and border
 	private Color bgColor, fontColor, borderColor;
-	// size of the font relative to the height(in percent)
 	/**  font height (in raster points) */
 	public double fontHeight;
-	// thickness of the line relative to the mean of width and height(in percent)
 	/**  thickness of the border (in raster points) */
 	public double borderThickness;
+
+	/**  Description of the Field */
+	public double shadowSize;
 
 
 	/**  Constructor for the MainElement object */
@@ -36,26 +37,20 @@ public class MainElement extends Part {
 	 *@param  g  Description of the Parameter
 	 */
 	public void draw(Graphics g) {
-		DrawLib.drawRectangle(g, center, dimension, bgColor, (int) borderThickness, borderColor, text, (int) fontHeight, fontColor);
+		// shadow
+		DrawLib.drawRectangle(g, new Point(center.x - (int) shadowSize, center.y + (int) shadowSize)
+				, dimension, new Color(110, 110, 110, 128), 0, null, "", 0, null);
 
-		/*
-		    draw border
-		    g.setColor(borderColor);
-		    g.fillRect(new Double((double) center.x - (double) dimension.width / 2).intValue()
-		    , new Double((double) center.y - (double) dimension.height / 2).intValue()
-		    , dimension.width, dimension.height);
-		    draw background
-		    g.setColor(bgColor);
-		    g.fillRect(new Double((double) center.x - (double) dimension.width / 2 + border).intValue()
-		    , new Double((double) center.y - (double) dimension.height / 2 + border).intValue()
-		    , dimension.width - 2 * border, dimension.height - 2 * border);
-		    draw text
-		    Font font = g.getFont();
-		    g.setFont(new Font(font.getFamily(), font.getStyle(), dimension.height * fontRelSize / 100));
-		    FontMetrics fm = g.getFontMetrics();
-		    g.setColor(fontColor);
-		    g.drawString(text, center.x - fm.stringWidth(text) / 2, center.y - fm.getHeight() / 2 + fm.getAscent());
-		  */
+		if (isActive) {
+			// front
+			DrawLib.drawRectangle(g, center, dimension, new Color(255, 255, 150), (int) borderThickness, borderColor
+					, text, (int) fontHeight, fontColor);
+		}
+		else {
+			// front
+			DrawLib.drawRectangle(g, center, dimension, bgColor, (int) borderThickness, borderColor, text, (int) fontHeight, fontColor);
+		}
+
 	}
 
 
@@ -70,6 +65,7 @@ public class MainElement extends Part {
 		borderColor = Color.black;
 		fontHeight = 0.5;
 		borderThickness = 0.2;
+		shadowSize = 0.5;
 
 		if (hParams.containsKey("url")) {
 			url = getStringParam(hParams.get("url"));

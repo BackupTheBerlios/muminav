@@ -56,7 +56,7 @@ public class MuminavPanel extends JPanel {
 
 		// raster dimension uebergeben
 		// hier noch hardcoded
-		rasterDimension = new Dimension(14, 21);
+		rasterDimension = new Dimension(35, 78);
 
 //    MyListener myListener = new MyListener();
 //    MyMotionListener myMotionListener = new MyMotionListener();
@@ -97,8 +97,17 @@ public class MuminavPanel extends JPanel {
 			drawTree(g, (Part) treeRoot.elementAt(i));
 		}
 
+		if (enableZoom) {
+			Font font = g.getFont();
+			g.setFont(new Font(font.getFamily(), font.getStyle(), 30));
+			FontMetrics fm = g.getFontMetrics();
+			g.setColor(new Color(100, 100, 100, 60));
+			g.drawString("ZOOM", this.getSize().width - fm.stringWidth("ZOOM") - 10
+					, this.getSize().height - 10);
+		}
+
 		// Tooltip zeichnen
-		if (manager.isVisible() == true) {
+		if (manager.isVisible()) {
 			Part ttpart = manager.getTooltipPart();
 			if (ttpart != null) {
 				String ttText = ttpart.getTooltipText();
@@ -202,9 +211,19 @@ public class MuminavPanel extends JPanel {
 		}
 	}
 
-//  public Point getToolTipLocation(MouseEvent e) {
-//    return new Point(20, 30);
-//  }
+
+	/**
+	 *  sets the isActive attribute in all parts in the given tree to false
+	 *
+	 *@param  part  Description of the Parameter
+	 */
+	private void clearActive(Part part) {
+		part.setActive(false);
+		for (int i = 0; i < part.size(); i++) {
+			clearActive((Part) part.getChilds().elementAt(i));
+		}
+	}
+
 
 	/**
 	 *  handle Events
@@ -216,10 +235,16 @@ public class MuminavPanel extends JPanel {
 
 		// Events in each child of the root
 		for (int i = 0; i < treeRoot.size(); i++) {
-			if (handleEventsForTree((Part) treeRoot.elementAt(i), point)) {
+			Part part = (Part) treeRoot.elementAt(i);
+			clearActive(part);
+			if (handleEventsForTree(part, point)) {
+				// my be a element draws somthing depending on isActive
+				repaint();
 				return (true);
 			}
 		}
+		// my be a element draws somthing depending on isActive
+		repaint();
 		return (false);
 	}
 
@@ -246,7 +271,7 @@ public class MuminavPanel extends JPanel {
 					ex.printStackTrace();
 				}
 			}
-
+			t.setActive(true);
 			return (true);
 		}
 		// get Childs

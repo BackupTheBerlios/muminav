@@ -53,13 +53,12 @@ public class DrawLib {
 		}
 
 		// drawing text
-		if (!text.equals("")) {
+		if (text != null && !text.equals("")) {
 			Font font = g.getFont();
 			g.setFont(new Font(font.getFamily(), font.getStyle(), textHeight));
 			FontMetrics fm = g.getFontMetrics();
 			g.setColor(fontColor);
 			g.drawString(text, center.x - fm.stringWidth(text) / 2, center.y - fm.getHeight() / 2 + fm.getAscent());
-			System.out.println("fontHeight: " + textHeight + "\nfm.getHeight(): " + fm.getHeight());
 		}
 	}
 
@@ -87,14 +86,6 @@ public class DrawLib {
 		int groesser45 = 0;
 
 		if (thickness > 0) {
-			// compensation of startpoint
-			int radius = thickness / 2;
-			x0 -= radius;
-			y0 -= radius;
-			x1 -= radius;
-			y1 -= radius;
-
-			// -------------------------------------------------
 
 			if (x1 < x0) {
 				//x1 links von x0?
