@@ -1,7 +1,7 @@
 package muminav.skin;
 
 /**
- * $Id: Drawable.java,v 1.1 2002/09/02 19:50:08 glaessel Exp $
+ * $Id: Drawable.java,v 1.2 2002/09/12 18:43:48 glaessel Exp $
  */
 
 import java.awt.*;
@@ -31,8 +31,11 @@ public interface Drawable {
 
 /**
  * $Log: Drawable.java,v $
- * Revision 1.1  2002/09/02 19:50:08  glaessel
- * Initial revision
+ * Revision 1.2  2002/09/12 18:43:48  glaessel
+ * Part jetzt abstract (Drawable obsolete)
+ *
+ * Revision 1.1.1.1  2002/09/02 19:50:08  glaessel
+ * neu
  *
  * Revision 1.2  2002/07/06 11:09:45  glaessel
  * mit ULR laden

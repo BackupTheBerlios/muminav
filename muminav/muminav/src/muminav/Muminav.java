@@ -1,7 +1,7 @@
 package muminav;
 
 /**
- * $Id: Muminav.java,v 1.1 2002/09/02 19:50:08 glaessel Exp $
+ * $Id: Muminav.java,v 1.2 2002/09/12 18:44:03 glaessel Exp $
  */
 
 import java.awt.*;
@@ -69,20 +69,21 @@ public class Muminav extends Applet {
 
     // Events in each child of the root
     for(int i = 0 ; i < treeRoot.size(); i++){
-      if (handleEventsForTree((Drawable)treeRoot.elementAt(i), x, y))
+      if (handleEventsForTree((Part)treeRoot.elementAt(i), x, y))
         return(true);
     }
 
     return(false);
   }
 
-  private boolean handleEventsForTree(Drawable t, int x, int y){
+  private boolean handleEventsForTree(Part t, int x, int y){
     // clicked inside Part?
-    if(((Drawable)t).isInside(x, y)){
+    if(((Part)t).isInside(x, y)){
       repaint();
       showStatus("MyApplet: Loading image file");
-
+      System.out.println("url?");
       if(((Part)t).getUrl()  != ""){
+        System.out.println("url!");
         try {
          appletContext.showDocument(new URL(getCodeBase() + ((Part)t).getUrl()) , "Content");
         } catch (Exception ex) { ex.printStackTrace(); }
@@ -94,7 +95,7 @@ public class Muminav extends Applet {
     Vector childs = ((Part)t).getChilds();
     // Events in each subtree
     for(int i = 0; i < childs.size(); i++){
-      if (handleEventsForTree((Drawable)childs.elementAt(i), x, y))
+      if (handleEventsForTree((Part)childs.elementAt(i), x, y))
         return(true);
     }
     return(false);
@@ -124,7 +125,7 @@ public class Muminav extends Applet {
   public void paint(Graphics g){
     // Draw each child of the root
     for(int i = 0 ; i < treeRoot.size(); i++){
-      drawTree(g, (Drawable)treeRoot.elementAt(i) );
+      drawTree(g, (Part)treeRoot.elementAt(i) );
     }
   }
 
@@ -135,21 +136,22 @@ public class Muminav extends Applet {
    * @param g Graphic-Object
    * @param t Subtree to draw
    */
-  private void drawTree(Graphics g, Drawable t){
+  private void drawTree(Graphics g, Part t){
     // get Childs
     Vector childs = ((Part)t).getChilds();
     // Draw each subtree
     for(int i = 0; i < childs.size(); i++){
-      drawTree(g, (Drawable)childs.elementAt(i));
+      drawTree(g, (Part)childs.elementAt(i));
     }
     // draw Part
-    ((Drawable)t).draw(g);
+    ((Part)t).draw(g);
   }
 
   //Component initialization
   private void jbInit() throws Exception {
 
   }
+
 
   //Get Applet information
   public String getAppletInfo() {
@@ -179,7 +181,7 @@ public class Muminav extends Applet {
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p1).init(hParams);
+    ((Part) p1).init(hParams);
     // add as child to root
     treeRoot.add(p1);
 
@@ -193,7 +195,7 @@ public class Muminav extends Applet {
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p2).init(hParams);
+    ((Part) p2).init(hParams);
     // add as child to p1
     ((Part) p1).addChild((Part) p2);
 
@@ -204,12 +206,13 @@ public class Muminav extends Applet {
     hParams.put("fontColor",Color.lightGray);
     hParams.put("borderColor",Color.green);
     hParams.put("text",new String("L"));
-    try {
+
+   try {
       p3 = Class.forName("muminav.skin.math.MainElement").newInstance();
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p3).init(hParams);
+    ((Part) p3).init(hParams);
     // add as child to p1
     ((Part) p2).addChild((Part) p3);
 
@@ -224,7 +227,7 @@ public class Muminav extends Applet {
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p4).init(hParams);
+    ((Part) p4).init(hParams);
     // add as child to p1
     ((Part) p2).addChild((Part) p4);
 
@@ -238,7 +241,7 @@ public class Muminav extends Applet {
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p6).init(hParams);
+    ((Part) p6).init(hParams);
     // add as child to p1
     ((Part) p4).addChild((Part) p6);
 
@@ -252,7 +255,7 @@ public class Muminav extends Applet {
     } catch(Exception e) {
       e.printStackTrace();
     }
-    ((Drawable) p5).init(hParams);
+    ((Part) p5).init(hParams);
     // add as child to p1
     ((Part) p2).addChild((Part) p5);
   }
@@ -261,8 +264,11 @@ public class Muminav extends Applet {
 
 /**
  * $Log: Muminav.java,v $
- * Revision 1.1  2002/09/02 19:50:08  glaessel
- * Initial revision
+ * Revision 1.2  2002/09/12 18:44:03  glaessel
+ * Part jetzt abstract (Drawable obsolete)
+ *
+ * Revision 1.1.1.1  2002/09/02 19:50:08  glaessel
+ * neu
  *
  * Revision 1.8  2002/07/06 11:08:56  glaessel
  * mit ULR laden

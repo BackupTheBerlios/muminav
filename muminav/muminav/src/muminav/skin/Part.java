@@ -1,7 +1,8 @@
 package muminav.skin;
 
 import java.util.Vector;
-import muminav.skin.Drawable;
+import java.awt.*;
+import java.util.Hashtable;
 
 /**
  * <p>Title: </p>
@@ -12,7 +13,7 @@ import muminav.skin.Drawable;
  * @version 1.0
  */
 
-public class Part {
+public abstract class Part {
 
   private Vector childs = new Vector();
 
@@ -21,6 +22,12 @@ public class Part {
   public String getUrl(){
     return(url);
   }
+
+  public abstract void draw(Graphics g);
+
+  public abstract void init(Hashtable v);
+
+  public abstract boolean isInside(int x, int y);
 
   public int addChild(Part p){
     childs.add(p);
