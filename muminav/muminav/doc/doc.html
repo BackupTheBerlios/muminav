@@ -1,0 +1,355 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Muminav - Docs</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<link rel="stylesheet" type="text/css" href="stylesheet.css">
+</head>
+<body>
+<div align="center"> 
+  <table width="100%" height="100%" border="0" cellpadding="5" cellspacing="0" bordercolor="#000000">    
+    <tr> 
+      <td height="66%" colspan="7"> 
+        <table height="100%" width="100%" class="content" border="0" cellspacing="0" cellpadding="0">
+          <tr> 
+            <td align="center" valign="middle"> <br>              
+              
+              <a name="client"></a> 
+              <!-- content table start-->
+              <p> 
+              <table class="border" width="90%" border="0" cellspacing="0" cellpadding="1">
+                <tr> 
+                  <td> 
+                    <table class="content" width="100%" border="0" cellpadding="3" cellspacing="0">
+                      <tr> 
+                        <td class="header">Client [<a href="#server">Server</a> 
+                          <a href="#dev">Entwickler</a> ]</td>
+                      </tr>
+                      <tr> 
+                        <td> <br>
+                          <h4 class="header">Clientseitige Systemvoraussetzungen:</h4>
+                          <p> Da als Zielsystem Mozilla mit installiertem Sun 
+                            Java Plugin 1.4 fur das Projekt Mumie gilt, wird momentan 
+                            letzteres auf jeden Fall benotigt. <a href="http://java.sun.com" target="_blank">Zur 
+                            Sun Seite</a></p>
+                          <h4 class="header">Getestete Konfigurationen: </h4>
+                          <p>Fur alle, bei denen das Applet nicht im Browser lauft, 
+                            die aber die JRE von Sun in einer Version ab 1.4 installiert 
+                            haben, last sich ein Test auch mit dem Appletviewer 
+                            und folgendem Aufruf durchfuhren:</p>
+                          <p><code>appletviewer http://muminav.berlios.de/test/Applet.html</code></p>
+                          <p>Dabei sieht man nur das Applet und kann nicht auf 
+                            die von diesem aufgerufenen Webseiten zugreifen!</p>
+                          <p> 
+                          <p>Die folgenden Angaben entsprechen nur den eigenen 
+                            Erfahrungen und sind unter Vorbehalt zu betrachten. 
+                            Wir sind dankbar uber jeden Hinweis, den wir von Benutzern 
+                            des Applets erhalten.</p>
+                          <table class="content" cellspacing="2">
+                            <tr bgcolor="#CCCCCC"> 
+                              <td>Betriebssystem</td>
+                              <td>Browser</td>
+                              <td>Java(TM) Plugin</td>
+                              <td>lauft?</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>SuSE Linux 8.0</td>
+                              <td>Mozilla 1.0.0</td>
+                              <td>1.4.0 fur Netscape</td>
+                              <td>ja</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>Windows 2000</td>
+                              <td>Mozilla 1.0.0</td>
+                              <td>1.4.0 fur Netscape</td>
+                              <td>ja</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>Windows 2000</td>
+                              <td>IE 5.0</td>
+                              <td>1.4.0</td>
+                              <td>ja</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>Windows 2000</td>
+                              <td>Opera 6.04</td>
+                              <td>1.4.0</td>
+                              <td>nein</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>Debian 3.0</td>
+                              <td>Mozilla 1.0.0</td>
+                              <td>1.4.0</td>
+                              <td>nein (kann aber auch an Plugin- Installation 
+                                liegen)</td>
+                            </tr>
+                          </table></p>
+                          <h4 class="header">Benutzung:</h4>
+                          <p>Zur Veranschaulichung der Benutzung des Applets im 
+                            Browserfenster haben wir eine Testumgebung installiert, 
+                            die ein kurzes Tutorial mit Erklarungen zu allen wichtigen 
+                            Features enthalt. Das Tutorial ist uber die <a href="demo.html">Demo 
+                            Seite</a> erreichbar oder last sich ohne Applet direkt 
+                            <a href="test/content.html" target="_blank">hier</a> 
+                            aufrufen</p>
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td align="right"><a href="#top" title="top">top</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table></p>
+              <!-- content table end -->
+              <a name="server"></a> 
+              <!-- content table start-->
+              <p> 
+              <table class="border" width="90%" border="0" cellspacing="0" cellpadding="1">
+                <tr> 
+                  <td> 
+                    <table class="content" width="100%" border="0" cellpadding="3" cellspacing="0">
+                      <tr> 
+                        <td class="header">Server [<a href="#client">Client</a> 
+                          <a href="#dev">Entwickler</a> ]</td>
+                      </tr>
+                      <tr> 
+                        <td> 
+                          <p>Eigentlich ist es vorgesehen, dass das Applet eine 
+                            Anfrage an ein Servlet stellt, welches die Daten aus 
+                            einer Datenbank liest, entsprechend aufbereitet und 
+                            an das Applet sendet.</p>
+                          <p>Momentan exisitiert aber eine entsprechende Testumgebung 
+                            noch nicht, so dass die XML Files noch per Hand geschrieben 
+                            werden mussen.</p>
+                          <p> Mit den Releases liefern wir auch eine Testumgebung 
+                            mit (Verzeichnis html), die aus folgenden Dateien 
+                            besteht: </p>
+                          <table class="content" cellspacing="2">
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>*.xml</td>
+                              <td>Navigationsnetzdefinitionen</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>Applet.html</td>
+                              <td>enthalt das Applet</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>content*.html</td>
+                              <td>Inhaltseiten, die vom Applet aufgerufen werden.</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>frameset.html</td>
+                              <td>baut das Frameset aus Applet und Inhaltsseiten 
+                                zusammen</td>
+                            </tr>
+                          </table>
+                          <h4 class="header">Was wird fur die Installation benotigt:</h4>
+                          <ul>
+                            <li> 
+                              <p>Auf jeden Fall eine html- Datei, die das Applet 
+                                einbindet.</p>
+                              <p>Dieses erhalt uber den Parameter <code>XMLFile</code> 
+                                den Pfad zur XML- Datei mit der Netzdefinition</p>
+                            </li>
+                            <li> 
+                              <p>Die XML- Datei, die dem Applet als Parameter 
+                                ubergeben wurde.</p>
+                            </li>
+                            <li> 
+                              <p>Ein Webserver, der das ganze bereitstellt. Es 
+                                geht nicht ohne! Die Daten werden per http geladen!</p>
+                              <p>Die XML- Datei muss dabei auf dem gleichen Server 
+                                liegen, von dem aus das Applet geladen wird.</p>
+                              <p>Die Konfiguration des Webservers ist den Anleitungen 
+                                zu diesem zu entnehmen.</p>
+                            </li>
+                          </ul>
+                          <h4 class="header">Die Installation</h4>
+                          <p> Zur Installation der Testumgebung kopiert man den 
+                            Inhalt des Verzeichnisses <code>html</code> in das 
+                            vom Webserver bereitgestellte Directory. Entweder 
+                            man passt jetzt in der Datei <code>Applet.html</code> 
+                            den Pfad zur Klasse <code>muminav.Muminav.class</code> 
+                            an oder kopiert einfach den Inhalt des Verzeichnisses 
+                            <code>classes</code> in den Ordner, in dem die HTML 
+                            Dateien liegen. </p>
+                          <h4 class="header">Anforderungen an die XML- Datei:</h4>
+                          <ul>
+                            <li>Es sollten nur Elemente definiert werden, zu den 
+                              unter dem skin Package auch Klassen existieren.</li>
+                            <li>Das oberste Element muss NavNet heissen und als 
+                              Attribute den Skin (<code>skin="muminav.skin.math"</code>) 
+                              und die Dimension des Netzes (<code>width="35" height="78"</code>) 
+                              ubergeben bekommen. </li>
+                            <li>Texte zwischen den Elementen konnen definiert 
+                              werden, finden aber keine Beachtung. Alle Parameter 
+                              zum Zeichnen des Netzes werden den Elementen per 
+                              Attribut ubergeben.</li>
+                          </ul>
+                          <p>Detailliertere Angabe sind im <a href="tutorial.html" target="_blank">Skin- 
+                            Tutorial</a> zu finden.</p>
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td align="right"><a href="#top" title="top">top</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table></p>
+              <!-- content table end -->
+              <a name="dev"></a> 
+              <!-- content table start-->
+              <p> 
+              <table class="border" width="90%" border="0" cellspacing="0" cellpadding="1">
+                <tr> 
+                  <td> 
+                    <table class="content" width="100%" border="0" cellpadding="3" cellspacing="0">
+                      <tr> 
+                        <td class="header">Entwickler [<a href="#server">Server</a> 
+                          <a href="#client">Client</a> ]</td>
+                      </tr>
+                      <tr> 
+                        <td> 
+                          <h4 class="header">Aktulle ToDo Liste</h4>
+							  <table class="content" cellspacing="2">
+							  <tr bgcolor="#CCCCCC"> 
+                              <td >task</td><td>Prioritat (1-hoch ... 3-niedrig)</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Element zur Beeinflussung des Applet- Hintergrundes</td>
+                              <td>1</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>Liste aller Features auf die Website stellen</td>
+                              <td>1</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>Realisierung des Kontextmenus</td>
+                              <td>1</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>Veroffentlichung als jar File</td>
+                              <td>1</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>Kompatibilitat zu JRE Versionen < 1.4 herstellen</td>
+                              <td>2</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Laden eines Skins vom Applet per ClassLoader 
+                                (ermoglicht Wechseln des Skins wahrend Betrachtung 
+                                im Browser)</td>
+                              <td>2</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Lauffahigkeit als Applikation ermoglichen</td>
+                              <td>2</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>UML Skin</td>
+                              <td>2</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Einsatzmoglichkeiten als Bean prufen</td>
+                              <td>3</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Moglichkeit der Anbindung an verschiedene CASE 
+                                Tools finden</td>
+                              <td>3</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Navigation per Tastatur im Zoom Modus</td>
+                              <td>3</td>
+                            </tr>
+							<tr  bgcolor="#DDDDDD"> 
+                              <td>Ubersetzung der Website ins Englische</td>
+                              <td>3</td>
+                            </tr>
+                          </table>
+                          <h4 class="header">Die Dateien</h4>
+                          <table class="content" cellspacing="2">
+                            <tr bgcolor="#CCCCCC"> 
+                              <td colspan="2">Package muminav</td>
+                            </tr>
+                            <tr  bgcolor="#DDDDDD"> 
+                              <td>muminav.Muminav</td>
+                              <td>die Applet-Klasse (JApplet)</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.MuminavPanel</td>
+                              <td>das Panel auf dem gezeichnet wird. (JPanel)</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.MuminavToolTipManager</td>
+                              <td>steurt das Verhalten der Tooltips</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.TreeBuilder</td>
+                              <td>liest die XML-Dateien und erzeugt einen Baum 
+                                mit den Elementen aus der Datei</td>
+                            </tr>
+                            <tr bgcolor="#CCCCCC"> 
+                              <td colspan="2">Package muminav.skin</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.Part</td>
+                              <td>eine Abstrakte Klasse von der Jedes Element 
+                                eines Skins abgeleitet wird</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.NavNet</td>
+                              <td>Kapselt wichtige Informationen fur das gesamte 
+                                Netz</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.DrawLib</td>
+                              <td>enthalt diverse Zeichenmethoden/td> </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.UnknownElement</td>
+                              <td>Wird benutzt, wenn im XML File unbekannte Elemente 
+                                definiert sind.</td>
+                            </tr>
+                            <tr bgcolor="#CCCCCC"> 
+                              <td colspan="2">Package muminav.skin.math (Beispielskin)</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.math.Connector</td>
+                              <td>Verbindungselement aus dem Beispielskin des 
+                                Mathe-Thema</td>
+                            </tr>
+                            <tr bgcolor="#DDDDDD"> 
+                              <td>muminav.skin.math.Mainelement</td>
+                              <td>Hauptelement aus dem BeispielSkin des Mathe-Themas</td>
+                            </tr>
+                          </table>
+                          <h4 class="header">Tutorial</h4>
+                          <p>Um Interessierten einen einfacheren Zugang zu Muminav 
+                            zu verschaffen, gibt es ein Tutorial zum Erstellen 
+                            eines eigenen Skin, dass auf alle Dateien und die 
+                            Zusammenhange zwischen ihnen eingeht.</p>
+                          <p><a href="tutorial.html" target="_blank">Tutorial 
+                            laden...</a></p>
+                        </td>
+                      </tr>
+                      <tr> 
+                        <td align="right"><a href="#top" title="top">top</a></td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table></p>
+              <!-- content table end -->
+              <br>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+    
+  </table>
+</div>
+</body>
+</html>

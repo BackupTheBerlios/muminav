@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<title>Tutorial - Erstellen eines Skins für das Muminav Applet</title>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+</head>
+<body>
+<h1>Wie erstelle ich einen Skin für das Muminav Applet?</h1>
+<h3>Einleitung</h3>
+<p>Wer sich selbst oder anderen diese Frage schon einmal gestellt hat, ist hier 
+  genau richtig. Da unser Applet vordergründig der Darstellung von Navigationsnetzen 
+  dient, ist deren grafische Repräsetation von grosser Bedeutung. Wit Hilfe der 
+  Skins ist es auf einfache Weise möglich, den Netzen ein individülles und dem 
+  Verwendungs- bzw. Einsatzzweckes angemessenes Aussehen zu verleihen. </p>
+<p>Im Folgenden werden wir eine Anleitung geben, die es nahezu jedem ermöglicht, 
+  einen Skin zu verändern, zu erstellen oder einfach nur dessen Aufbau zu verstehen. 
+  Als Voraussetzungen sind lediglich Grundkenntnisse der Programmiersprache Java 
+  zu nennen. Zum besseren Verständnis ziehen wir in dieser Anleitung den bereits 
+  implementierten Mathematik Skin und das dazugehörige Netz MathNet heran.</p>
+  <h3>Aufbau der XML Datei</h3>
+<p>Fangen wir also an. Vorerst sollten wir uns ein wenig mit dem Aufbau der XML 
+  Datei vertraut machen. Diese muss ein Hauptelement namens NavNet beinhalten. 
+  Es beschreibt mit seinen Parametern skin, width, height und url (optional) die 
+  globalen Attribute des Netzes.</p>
+<p>Schaün wir uns dazu als Beispiel die Datei MathNet.xml aus dem html Verzeichnis 
+  an. Mit "skin="muminav.skin.math" wird der f&uuml;r das Netzt zu verwendende 
+  Skin festgelegt. Um eine Unabhängigkeit von der Grösse des Zeichenausschnittes 
+  des Applet zu erreichen, beziehen sich alle Positionsangaben auf ein beliebig 
+  grosses Raster. Mit width und heigth werden Breite und Höhe des Rasters beschrieben. 
+  In unserem Beispiel hat es eine Grösse von 35x78 Rasterpunkten. </p>
+<p>Soll beim ersten Start des Applets im Inhaltsfenster eine html Datei geladen 
+  werden, so kann man diese mit Hilfe von url="URL Name" angeben. Nun kommen in 
+  hierarchischer Anordnung die Elemente des Skins mit ihren Parametern. Die Hierarchie 
+  bestimmt die Zeichenreihenfolge (Hauptemelemte überdecken Unterelemente) und 
+  spiegelt den logischen Zusammenhang des Netzes wieder. </p>
+<p>Unser Beispielnetzt beginnt mit einem Hauptelement M und einem Unterelement 
+  V. Diese Unterordnung ist wichtig, da das Hauptelement das Unterelement überdecken 
+  soll und die Logik des Netzes und somit auch die Übersichtlichkeit gewahrt bleibt.</p>
+<h3>Von XML nach JAVA</h3>
+<p>Für jeden Skin gibt es ein extra Paket, innerhalb dessen sich alle zum Skin 
+  gehörende Klassen befinden. Jede Klasse beschreibt ein anders aussehendes Element. 
+  Bei unserem Beispiel sind das die beiden Dateien Connector.java und MainElement.java 
+  im Paket muminav.skin.math. Wird in der XML Datei nun ein MainElement gefunden, 
+  so wird ein Objekt aus der gleichnamigen Klassendatei erzeugt.</p>
+<p>Die Klassendatei wird im mit "skin" (siehe oben) deklarierten Packet gesucht. 
+  Alle Skin Klassen sind von der Klasse Part im Paket muminav.skin abgeleitet. 
+  Diese ist abstrakt deklariert und beinhaltet bereits einen Grossteil der benötigten 
+  Funktionalität.</p>
+<p> Da die Zeichenengine darauf zurückgreift und deklarierte Attribute benutzt, 
+  ist es unbedingt notwendig, das alle Skin Klassen von der Klasse Part oder einer 
+  ihrer Unterklasse erben. Deren wichtigsten Attribute wollen wir nun kurz vorstellen.</p>
+<p>Der Punkt <code>center</code> bezeichnet den Mittelpunkt des Elementes auf 
+  dem Raster und die Dimension <code>dimension </code>beinhaltet die Ausdehnung. 
+  Doch wie kommen diese Parameter aus der XML Datei in die Objekte? Wird in der 
+  XML Datei ein Element gefunden, werden dessen Attribute in einer HashTable gespeichert. 
+  Dann wird, wie bereits geschildert, ein entsprechendes Objekt erzeugt. Anschliessend 
+  wird dessen von Part geerbte init Methode mit der HashTable aufgerufen. Hier 
+  werden die Attribute des Objektes mit den entsprechenden Werten der HashTable 
+  belegt. Hierzu kann man die in Part.java enthaltenen Funktionen zur Umwandlung 
+  benutzen. Deren Anwendung kann man in der init Methode von Mainelement.java 
+  mit verschiedensten Datentypen nachvollziehen.</p>
+  <h3>Die Zeichenengine</h3>
+<p>Nun wo wir von allen Elementen des Netzes ein Objekt erzeugt haben, müssen 
+  sie nur noch auf die Zeichenfläche. Dies bewerkställigt die <code>draw </code>Methode, 
+  welche zum entsprechenden Zeitpunkt von der Zeichenengine aufgerufen wird. Hier 
+  kann man seiner Kreativität nun endlich freien Lauf lassen. Man kann sich mit 
+  allen Methoden die java.awt.Graphics bietet, austoben. </p>
+<p>Kreise, Rechtecke, Lienien, beliebige Formen und Farben. Man kann natürlich 
+  mit absoluten Pixelwerten arbeiten, was aber spätestens bei einer Grössenänderung 
+  des Applets nicht mehr sonderlich schön aussieht. Doch wie soll man mit Rasterpunkten 
+  malen? Der Hacken an der Geschichte ist, das center und dimension (siehe oben) 
+  automatisch skaliert und verschoben werden. Egal welche Grösse und welches Seitenverhaeltnis 
+  das Applet hat, es werden die absoluten Pixelwerte für eine optimale Positionierung 
+  unter Beibehaltung des Seitenverhältnisses des Rasters berechnet. Da center 
+  und dimension innerhalb der draw Methode Pixelwerte repräsentieren, können diese 
+  nun direkt in den Zeichenfunktionen von Graphics eingesetzt werden. </p>
+<p> Was aber, wenn man ausser der Ausbreitung und der Zentrums-Position eines 
+  Elementes noch zusätzliche Dimensionen, Punkte oder Abstände benötigt? In diesem 
+  Falle definiert man sich einfach belibeig viele Dimensionen(Dimension) und/oder 
+  Punkte(Point) mit beliebigem Name "public". Diese werden dann mit Hilfe von 
+  "Reflection" ebenfalls automatische in PixelWerte umgerechnet. Ebenfalls werden 
+  alle public deklarierten int und double Attribute deren Namen mit "length", 
+  "thickness", "width", "height" oder "size" enden umgerechnet. </p>
+<p>Unter Beachtung dieser Konventionen ist es möglich, sehr komplexe Elemente 
+  zu Zeichnen, ohne auch nur einen Gedanken an Skalierung oder Umrechung zu verschenken. 
+  Wie einfach man solche selbst erstellten Elemente zeichen lassen kann, sehen 
+  wir in der draw Methode von MainElement.java des <code>math </code> Paketes. 
+  Hier wird auch auf Methoden der Klasse DrawLib aus dem skin Paket zurückgegriffen. 
+</p>
+<p>Dies ist eine Sammlung von Standard Funktionen zum Zeichen geometrische Figuren, 
+  wie etwa eines Rechteckes mit Rand und Beschriftung oder einer Linie mit beliebiger 
+  Dicke. Da man innerhalb einer draw Methode auf alle Attribute eines Elementes 
+  zugreifen kann, ist auch möglich, abhängig derer Belegung unterschiedliche Zeichenoperation 
+  durchzuführen. In unserem Beispiel wird so gewährleistet, das ein aktives Element 
+  mit anderer Farbe gezeichnet wird als ein inaktives.</p>
+<h3>Gibt es sonst noch was zu beachten?</h3>
+<p> Ob ein Element mit der Maus angeklickt wurde, wird mit der bereits in Part 
+  enthaltenen Methode isInside geprüft. Diese nimmt an, das das Element ein Rechteck 
+  der Groesse <code>dimension </code>und einen Mittelpunkt <code>center</code> 
+  hat. Ist diese Annäherung genau genug, ist man an dieser Stelle schon fertig 
+  mit dem Skin. Reicht diese Genauigkeit nicht aus oder hat man komplexe Figuren, 
+  so muss man diese Methode überschreiben, um zu gewährleisten, das das Element 
+  bei einem Mausklick auch wirklich "getroffen" wird. </p>
+<p>Es gibt auch noch einen roten Faden. So kann man den Elementen ein Attribut 
+  "posRedPath" "unterjubeln" und eine Zahl zuweisen. Hat man diese Attribute im 
+  Skin verwendet, werden 2 Navigationsknöpfe eingeblendet. Mit diesen kann man 
+  in der sich durch die Zahlen ergebende Reihenfolge durch das Netz navigieren. 
+</p>
+</body>
+</html>
