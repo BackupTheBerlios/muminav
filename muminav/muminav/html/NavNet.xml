@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <!--
-$Id: NavNet.xml,v 1.3 2002/09/19 12:37:57 glaessel Exp $
+$Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
 -->
 
 <!--
@@ -9,92 +9,109 @@ $Id: NavNet.xml,v 1.3 2002/09/19 12:37:57 glaessel Exp $
 
 <NavNet>
 
-      
-  <MainElement 
-    posX="5"
-    posY="7" 
-    width="5" 
-    height="5" 
-    text="T" 
+  <MainElement
+    posX=" 5 "
+    posY=" 7 "
+    width=" 5 "
+    height=" 5 "
+    text="T"
     tooltipText="T-Tooltip"
-    textZoom="Theorem" 
-    url="contentM1.html" 
-    bgColor=" 0, 0, 0 " 
-    fontColor="255, 255, 255 " 
-    borderColor=" 255, 0, 0 " 
-    lineRelSize=" 5 " 
-    fontRelSize=" 70 " 
-  >  
-  
-    <MainElement 
+    textZoom="Theorem"
+    url="contentM1.html"
+    bgColor=" 0, 0, 0 "
+    fontColor="255, 255, 255 "
+    borderColor=" 255, 0, 0 "
+    lineRelSize=" 5 "
+    fontRelSize=" 70 "
+  >
+
+
+  <MainElement
+    posX=" 5 "
+    posY=" 7 "
+    width=" 5 "
+    height=" 5 "
+    text="T"
+    tooltipText="T-Tooltip"
+    textZoom="Theorem"
+    url="contentM1.html"
+    bgColor=" 0, 0, 0 "
+    fontColor="255, 255, 255 "
+    borderColor=" 255, 0, 0 "
+    lineRelSize=" 5 "
+    fontRelSize=" 70 "
+  >
+    </MainElement>
+
+      <MainElement
      posX=" 8 "
      posY=" 4 "
      width=" 3 "
      height=" 3 "
-     text= "B" 
-     textZoom= "Bew." 
+     text= "B"
+     textZoom= "Bew."
      tooltipText="B-Tooltip"
-     url= "contentM1.html" 
+     url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
      lineRelSize=" 2 "
      fontRelSize=" 40 "
-    >  
+    >
     </MainElement>
-    
-    <MainElement 
+
+    <MainElement
      posX=" 10 "
      posY=" 2 "
      width=" 3 "
      height=" 3 "
-     text= "H" 
-     textZoom= "Herl." 
+     text= "H"
+     textZoom= "Herl."
      tooltipText="H-Tooltip"
-     url= "contentM1.html" 
+     url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
      lineRelSize=" 2 "
      fontRelSize=" 40 "
-    >  
+    >
     </MainElement>
-    
-    <MainElement 
+
+    <MainElement
      posX=" 2 "
      posY=" 10 "
      width=" 3 "
      height=" 3 "
-     text= "B" 
-     textZoom= "Bem." 
+     text= "B"
+     textZoom= "Bem."
      tooltipText="B2-Tooltip"
-     url= "contentM1.html" 
+     url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
      lineRelSize=" 2 "
      fontRelSize=" 40 "
     ></MainElement>
-    
-    <MainElement 
+
+    <MainElement
      posX=" 8 "
      posY=" 10 "
      width=" 3 "
      height=" 3 "
-     text= "B" 
-     textZoom= "Beisp." 
+     text= "B"
+     textZoom= "Beisp."
      tooltipText="B3-Tooltip"
-     url= "contentM1.html" 
+     url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
      lineRelSize=" 2 "
-     fontRelSize=" 40 "    >  
+     fontRelSize=" 40 "    >
     </MainElement>
-    
+
     </MainElement>
-  
-    <Connector 
+
+    <Connector
      startX=" 5 "
      startY=" 7 "
      endX=" 6 "
@@ -102,16 +119,16 @@ $Id: NavNet.xml,v 1.3 2002/09/19 12:37:57 glaessel Exp $
      lineRelSize=" 3 "
      color=" 0, 0, 255 "
     ></Connector>
- 
- 	<MainElement 
+
+ 	<MainElement
      posX=" 6 "
      posY=" 18 "
      width=" 10 "
      height=" 3 "
-     text= ":-)" 
-     textZoom= "NoName" 
+     text= ":-)"
+     textZoom= "NoName"
      tooltipText=":--) -Tooltip"
-     url= "contentM1.html" 
+     url= "contentM1.html"
      bgColor=" 100, 100, 100 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
@@ -122,6 +139,9 @@ $Id: NavNet.xml,v 1.3 2002/09/19 12:37:57 glaessel Exp $
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.4  2002/09/19 14:51:02  glaessel
+no message
+
 Revision 1.3  2002/09/19 12:37:57  glaessel
 XML-encoding
 
