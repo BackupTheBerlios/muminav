@@ -36,6 +36,8 @@ public class TreeBuilder extends DefaultHandler {
     private static String skin = "";
     // the result to return
     private Part resultTree;
+    // flag for detection of the first element
+    boolean notFirst = false;
 
 
     /**
@@ -148,8 +150,6 @@ public class TreeBuilder extends DefaultHandler {
         String eName = sName;
         // parameters for drawing the element
         Hashtable hParams = null;
-        // flag for detection of the first element
-        boolean notFirst = true;
 
         // namespaceAware = false
 
@@ -175,7 +175,6 @@ public class TreeBuilder extends DefaultHandler {
             element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
         } catch ( Exception e ) {
             if ( eName.equals( "NavNet" ) ) {
-                notFirst = false;
                 element = new muminav.skin.NavNet();
                 if ( hParams.containsKey( "skin" ) ) {
                     this.skin = ( (String) hParams.get( "skin" ) ).trim();
@@ -200,10 +199,11 @@ public class TreeBuilder extends DefaultHandler {
         if ( hParams != null ) {
             ( (Part) element ).init( hParams );
         }
-        if ( notFirst ) {
+        if ( this.notFirst ) {
             this.actualNode.add( element );
         } else {
             this.resultTree = element;
+            this.notFirst = true;
         }
         this.nodeStack.push( element.getChilds() );
     }
