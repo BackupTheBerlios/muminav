@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <!--
-$Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
+$Id: NavNet.xml,v 1.5 2002/09/19 21:14:50 zander Exp $
 -->
 
 <!--
@@ -16,13 +16,12 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
     height=" 5 "
     text="T"
     tooltipText="T-Tooltip"
-    textZoom="Theorem"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
     fontColor="255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    lineRelSize=" 5 "
-    fontRelSize=" 70 "
+    borderThickness=" 0.2 "
+    fontHeight=" 4 "
   >
 
 
@@ -33,13 +32,12 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
     height=" 5 "
     text="T"
     tooltipText="T-Tooltip"
-    textZoom="Theorem"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
     fontColor="255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    lineRelSize=" 5 "
-    fontRelSize=" 70 "
+    borderThickness=" 0.2 "
+    fontHeight=" 4 "
   >
     </MainElement>
 
@@ -49,14 +47,13 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      width=" 3 "
      height=" 3 "
      text= "B"
-     textZoom= "Bew."
      tooltipText="B-Tooltip"
      url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
-     lineRelSize=" 2 "
-     fontRelSize=" 40 "
+     borderThickness=" 0.2 "
+     fontHeight=" 2 "
     >
     </MainElement>
 
@@ -66,14 +63,13 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      width=" 3 "
      height=" 3 "
      text= "H"
-     textZoom= "Herl."
      tooltipText="H-Tooltip"
      url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
-     lineRelSize=" 2 "
-     fontRelSize=" 40 "
+     borderThickness=" 0.2 "
+     fontHeight=" 2 "
     >
     </MainElement>
 
@@ -83,14 +79,13 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      width=" 3 "
      height=" 3 "
      text= "B"
-     textZoom= "Bem."
      tooltipText="B2-Tooltip"
      url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
-     lineRelSize=" 2 "
-     fontRelSize=" 40 "
+     borderThickness=" 0.2 "
+     fontHeight=" 2 "
     ></MainElement>
 
     <MainElement
@@ -99,14 +94,13 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      width=" 3 "
      height=" 3 "
      text= "B"
-     textZoom= "Beisp."
      tooltipText="B3-Tooltip"
      url= "contentM1.html"
      bgColor=" 0, 0, 0 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
-     lineRelSize=" 2 "
-     fontRelSize=" 40 "    >
+     borderThickness=" 0.2 "
+	 fontHeight=" 2 "    >
     </MainElement>
 
     </MainElement>
@@ -116,7 +110,7 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      startY=" 7 "
      endX=" 6 "
      endY=" 18 "
-     lineRelSize=" 3 "
+     lineThickness=" 0.2 "
      color=" 0, 0, 255 "
     ></Connector>
 
@@ -126,19 +120,21 @@ $Id: NavNet.xml,v 1.4 2002/09/19 14:51:02 glaessel Exp $
      width=" 10 "
      height=" 3 "
      text= ":-)"
-     textZoom= "NoName"
      tooltipText=":--) -Tooltip"
      url= "contentM1.html"
      bgColor=" 100, 100, 100 "
      fontColor=" 255, 255, 255 "
      borderColor=" 255, 0, 0 "
-     lineRelSize=" 5 "
-     fontRelSize=" 70 "
+     borderThickness=" 0.2 "
+     fontHeight=" 2 "
     ></MainElement>
 </NavNet>
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.5  2002/09/19 21:14:50  zander
+- angepasste version fuer geanderte skin klassen
+
 Revision 1.4  2002/09/19 14:51:02  glaessel
 no message
 
