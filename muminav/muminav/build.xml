@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 
 <!-- =================================================================== -->
-<!-- $Id: build.xml,v 1.4 2002/09/18 03:14:46 zander Exp $              -->
+<!-- $Id: build.xml,v 1.5 2002/09/22 20:51:54 zander Exp $              -->
 <!-- =================================================================== -->
 
 <project name="muminav" default="all" basedir=".">
@@ -80,6 +80,7 @@
     <copy file="html/contentM2.html" todir="classes/"/>
     <copy file="html/contentS1.html" todir="classes/"/>
 	<copy file="html/NavNet.xml" todir="classes/"/>
+	<copy file="html/MathNet.xml" todir="classes/"/>
   </target>
 
   <target name="all" depends="compile,copyhtml" />
