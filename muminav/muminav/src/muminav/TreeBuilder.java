@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.6 2002/09/30 17:02:14 ercmat Exp $
+ *  TreeBuilder.java,v 1.6 2002/09/30 17:02:14 ercmat Exp
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -19,7 +19,8 @@ import java.io.*;
  *  the graph.
  *
  *@author     ercmat
- *@version    $Revision: 1.6 $
+ *@created    31. Oktober 2002
+ *@version    1.6
  */
 public class TreeBuilder extends DefaultHandler {
 
@@ -30,10 +31,11 @@ public class TreeBuilder extends DefaultHandler {
     // level in the last startElement() call
     private int beforeLevel = 0;
     // this Stack holds all nodes (means Vectors of Parts)
-    // the topmost element will be the next actuaNode
     private Stack nodeStack = null;
     // the package which represents the skin
     private static String skin = "";
+    // the result to return
+    private Part resultTree;
 
 
     /**
@@ -74,8 +76,8 @@ public class TreeBuilder extends DefaultHandler {
      *
      *@return    The tree which represents the graph
      */
-    public Vector getTree() {
-        return this.actualNode;
+    public Part getTree() {
+        return this.resultTree;
     }
 
 
@@ -106,7 +108,6 @@ public class TreeBuilder extends DefaultHandler {
     public void startDocument()
         throws SAXException {
         this.nodeStack = new Stack();
-        this.nodeStack.push( new Vector() );
     }
 
 
@@ -147,6 +148,8 @@ public class TreeBuilder extends DefaultHandler {
         String eName = sName;
         // parameters for drawing the element
         Hashtable hParams = null;
+        // flag for detection of the first element
+        boolean notFirst = true;
 
         // namespaceAware = false
 
@@ -172,6 +175,7 @@ public class TreeBuilder extends DefaultHandler {
             element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
         } catch ( Exception e ) {
             if ( eName.equals( "NavNet" ) ) {
+                notFirst = false;
                 element = new muminav.skin.NavNet();
                 if ( hParams.containsKey( "skin" ) ) {
                     this.skin = ( (String) hParams.get( "skin" ) ).trim();
@@ -196,7 +200,11 @@ public class TreeBuilder extends DefaultHandler {
         if ( hParams != null ) {
             ( (Part) element ).init( hParams );
         }
-        this.actualNode.add( element );
+        if ( notFirst ) {
+            this.actualNode.add( element );
+        } else {
+            this.resultTree = element;
+        }
         this.nodeStack.push( element.getChilds() );
     }
 
@@ -220,7 +228,7 @@ public class TreeBuilder extends DefaultHandler {
 
 }
 /*
- *  $Log: TreeBuilder.java,v $
+ *  TreeBuilder.java,v
  *  Revision 1.6  2002/09/30 17:02:14  ercmat
  *  - aktuelle Testumgebung ergaenzt
  *
