@@ -54,9 +54,17 @@ public class MuminavPanel extends JPanel {
 	public MuminavPanel(Vector tr, JApplet prnt, AppletContext ac) {
 		super();
 
-		// raster dimension uebergeben
-		// hier noch hardcoded
-		rasterDimension = new Dimension(35, 78);
+		Part first = (Part) tr.elementAt(0);
+		if (first instanceof NavNet) {
+			rasterDimension = ((NavNet) first).getRasterDimension();
+			if (rasterDimension == null) {
+				System.out.println("\nRaster Dimension not found in NavNet Element (using default [50x50])");
+				rasterDimension = new Dimension(50, 50);
+			}
+		}
+		else {
+			System.out.println("\nNo NavNet Mainelement found to setup the Net");
+		}
 
 //    MyListener myListener = new MyListener();
 //    MyMotionListener myMotionListener = new MyMotionListener();
@@ -166,7 +174,7 @@ public class MuminavPanel extends JPanel {
 		 */
 		public void mousePressed(MouseEvent e) {
 			int button;
-                        manager.setVisible(false);
+			manager.setVisible(false);
 			button = e.getButton();
 			switch (button) {
 							case 3:
@@ -187,7 +195,7 @@ public class MuminavPanel extends JPanel {
 		 *@param  e  Description of the Parameter
 		 */
 		public void mouseReleased(MouseEvent e) {
-                        manager.setVisible(false);
+			manager.setVisible(false);
 			if (e.getButton() == 1) {
 				endPoint = e.getPoint();
 				if (enableZoom) {
