@@ -33,11 +33,11 @@ public class TreeBuilder extends DefaultHandler {
     // this Stack holds all nodes (means Vectors of Parts)
     private Stack nodeStack = null;
     // the package which represents the skin
-    private static String skin = "";
+    private String skin = "";
     // the result to return
-    private Part resultTree;
+    private static Part resultTree;
     // flag for detection of the first element
-    boolean notFirst = false;
+    private boolean notFirst = false;
 
 
     /**
@@ -86,13 +86,13 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Prints debugging infos to standard out
      *
-     *@param  node  Description of the Parameter
+     *@param  part  Description of the Parameter
      */
-    private void debugInfos( Vector node ) {
-
-        for ( int i = 0; i < node.size(); i++ ) {
-            System.out.println( "Part: " + (Part) node.get( i ) + " Childs: " + ( (Part) node.get( i ) ).size() );
-            this.debugInfos( (Vector) ( (Part) node.get( i ) ).getChilds() );
+    private void debugInfos( Part part ) {
+        System.out.println( "\n---" );
+        System.out.println( part.getClass() + " childs: " + part.getChilds().size() );
+        for ( int i = 0; i < part.getChilds().size(); i++ ) {
+            this.debugInfos( (Part) part.getChilds().get( i ) );
         }
 
     }
@@ -190,7 +190,7 @@ public class TreeBuilder extends DefaultHandler {
         // change beforeLevel for the next call of startElement
         this.actualLevel++;
         // create a new level in the tree
-        if ( this.beforeLevel != this.actualLevel ) {
+        if ( ( this.beforeLevel != this.actualLevel ) && this.notFirst ) {
             this.actualNode = (Vector) this.nodeStack.peek();
         }
 
@@ -199,12 +199,15 @@ public class TreeBuilder extends DefaultHandler {
         if ( hParams != null ) {
             ( (Part) element ).init( hParams );
         }
+        // if we have the first element, make it the return value
+        // otherwise add it to the actual node vector
         if ( this.notFirst ) {
             this.actualNode.add( element );
         } else {
             this.resultTree = element;
             this.notFirst = true;
         }
+
         this.nodeStack.push( element.getChilds() );
     }
 
