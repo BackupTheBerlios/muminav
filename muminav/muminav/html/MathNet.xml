@@ -1,4 +1,9 @@
-<MathNet>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
+<NavNet
+    skin="muminav.skin.math"
+    width="1"
+    height="1"
+>
 
     <MainElement
     posX="19"
@@ -844,4 +849,4 @@
         fontHeight=" 0.6 "/>
     </MainElement>
 	
-</MathNet>
+</NavNet>

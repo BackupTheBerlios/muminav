@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.4 2002/09/21 22:58:35 ercmat Exp $
+ *  $Id: TreeBuilder.java,v 1.5 2002/09/24 00:07:05 ercmat Exp $
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -15,11 +15,12 @@ import java.util.Hashtable;
 import java.io.*;
 
 /**
- *  Reads the XML input and generates a tree representing the graph.
+ *  Reads the XML input and generates a tree representing
+ *  the graph.
  *
  *@author     ercmat
  *@created    2. September 2002
- *@version    $Revision: 1.4 $
+ *@version    $Revision: 1.5 $
  */
 public class TreeBuilder extends DefaultHandler {
 
@@ -48,18 +49,12 @@ public class TreeBuilder extends DefaultHandler {
      *  Does some inits for the xml parser.
      *
      *@param  xml            xml representation of the graph
-     *@param  skin           Description of the Parameter
-     *@exception  Exception  Thrown in case of problems while configurating a
-     *      new parser
+     *@exception  Exception  Thrown in case of problems
+     *      while configurating a new parser
      */
-    public void init( InputStream xml, String skin )
-             throws Exception {
+    public void init( InputStream xml )
+        throws Exception {
 
-        if ( skin.endsWith( "." ) ) {
-            this.skin = skin;
-        } else {
-            this.skin = skin + ".";
-        }
         // using myself as the handler
         DefaultHandler handler = new TreeBuilder();
 
@@ -75,7 +70,8 @@ public class TreeBuilder extends DefaultHandler {
 
 
     /**
-     *  Returns the tree which represents the graph, defined by the xml input.
+     *  Returns the tree which represents the graph, defined
+     *  by the xml input.
      *
      *@return    The tree which represents the graph
      */
@@ -109,7 +105,7 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void startDocument()
-             throws SAXException {
+        throws SAXException {
         this.nodeStack = new Stack();
         this.nodeStack.push( new Vector() );
     }
@@ -121,7 +117,7 @@ public class TreeBuilder extends DefaultHandler {
      *@exception  SAXException
      */
     public void endDocument()
-             throws SAXException {
+        throws SAXException {
         Vector part = null;
 
         while ( !this.nodeStack.empty() ) {
@@ -136,45 +132,28 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if enabled
+     *@param  namespaceURI      URI of the namespace, if
+     *      enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
-     *@param  attrs             The attributes of this element
+     *@param  attrs             The attributes of this
+     *      element
      *@exception  SAXException
      */
     public void startElement( String namespaceURI, String sName, String qName, Attributes attrs )
-             throws SAXException {
+        throws SAXException {
         // the new drawable element
         Part element = null;
         // name of the element
         String eName = sName;
         // parameters for drawing the element
-        Hashtable hParams = new Hashtable();
-
-        // element name
-        if ( "".equals( eName ) ) {
-            eName = qName;
-        }
-        try {
-            element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
-        } catch ( Exception e ) {
-            // TODO: decide what to do with the topmost element in the xml file
-            // TODO: decide what to do with onknown elements in the xml file
-            element = new muminav.skin.UnknownElement();
-        }
-
-        this.actualLevel++;
-
-        // create a new level in the tree
-        if ( this.beforeLevel != this.actualLevel ) {
-            this.actualNode = (Vector) this.nodeStack.peek();
-        }
-
-        // change beforeLevel for the next call of startElement
-        this.beforeLevel = this.actualLevel;
+        Hashtable hParams = null;
 
         // namespaceAware = false
+
+        // reading attributes for the element
         if ( attrs != null ) {
+            hParams = new Hashtable();
             for ( int i = 0; i < attrs.getLength(); i++ ) {
                 // Attr name
                 String aName = attrs.getLocalName( i );
@@ -184,6 +163,38 @@ public class TreeBuilder extends DefaultHandler {
                 }
                 hParams.put( aName, attrs.getValue( i ) );
             }
+        }
+
+        // element name
+        if ( "".equals( eName ) ) {
+            eName = qName;
+        }
+        try {
+            element = (Part) Class.forName( this.skin + eName.trim() ).newInstance();
+        } catch ( Exception e ) {
+            if ( eName.equals( "NavNet" ) ) {
+                element = new muminav.skin.NavNet();
+                if ( hParams.containsKey( "skin" ) ) {
+                    this.skin = ( (String) hParams.get( "skin" ) ).trim();
+                    if ( !this.skin.endsWith( "." ) ) {
+                        this.skin += ".";
+                    }
+                }
+            } else {
+                element = new muminav.skin.UnknownElement();
+            }
+        }
+
+        // change beforeLevel for the next call of startElement
+        this.actualLevel++;
+        // create a new level in the tree
+        if ( this.beforeLevel != this.actualLevel ) {
+            this.actualNode = (Vector) this.nodeStack.peek();
+        }
+
+        this.beforeLevel = this.actualLevel;
+        // init the new element with its parameters
+        if ( hParams != null ) {
             ( (Part) element ).init( hParams );
         }
         this.actualNode.add( element );
@@ -194,13 +205,14 @@ public class TreeBuilder extends DefaultHandler {
     /**
      *  Actions for the start of an element.
      *
-     *@param  namespaceURI      URI of the namespace, if enabled
+     *@param  namespaceURI      URI of the namespace, if
+     *      enabled
      *@param  sName             simple name (localName)
      *@param  qName             qualified name
      *@exception  SAXException
      */
     public void endElement( String namespaceURI, String sName, String qName )
-             throws SAXException {
+        throws SAXException {
         this.actualLevel--;
         if ( !this.nodeStack.empty() ) {
             this.nodeStack.pop();
@@ -210,6 +222,9 @@ public class TreeBuilder extends DefaultHandler {
 }
 /*
  *  $Log: TreeBuilder.java,v $
+ *  Revision 1.5  2002/09/24 00:07:05  ercmat
+ *  Neue Klasse NavNet + Anpassungen an xml files.
+ *
  *  Revision 1.4  2002/09/21 22:58:35  ercmat
  *  fehler im baumaufbau behoben
  *  struktur des xml file angepasst

@@ -21,14 +21,10 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.13 $
+ *@version    $Revision: 1.14 $
  */
 
 public class Muminav extends JApplet {
-
-    String skin;
-    String skinType;
-    Object mySkin;
 
     boolean showTooltip;
 
@@ -99,9 +95,6 @@ public class Muminav extends JApplet {
             e.printStackTrace();
         }
 
-        // which package is the skin package?
-        this.skin = super.getParameter( "Skin" );
-
         // TODO: implement a better exception handling
         try {
             // load the xml file
@@ -119,7 +112,7 @@ public class Muminav extends JApplet {
                 //build tree
                 TreeBuilder tb = new TreeBuilder();
 
-                tb.init( con.getInputStream(), this.skin );
+                tb.init( con.getInputStream() );
                 this.treeRoot = tb.getTree();
 
             }
@@ -425,6 +418,6 @@ public class Muminav extends JApplet {
 
 }
 /*
- *  $Id: Muminav.java,v 1.13 2002/09/21 22:58:35 ercmat Exp $
+ *  $Id: Muminav.java,v 1.14 2002/09/24 00:07:05 ercmat Exp $
  */
 

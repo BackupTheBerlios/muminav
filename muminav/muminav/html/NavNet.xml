@@ -1,13 +1,17 @@
-<?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes"?>
 <!--
-$Id: NavNet.xml,v 1.9 2002/09/22 20:47:15 zander Exp $
+$Id: NavNet.xml,v 1.10 2002/09/24 00:07:05 ercmat Exp $
 -->
 
 <!--
 <!DOCTYPE NavNet SYSTEM "NavNet.dtd">
 -->
 
-<NavNet>
+<NavNet
+    skin="muminav.skin.math"
+    width="1"
+    height="1"
+>
 
     <MainElement
     posX="5"
@@ -145,6 +149,9 @@ $Id: NavNet.xml,v 1.9 2002/09/22 20:47:15 zander Exp $
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.10  2002/09/24 00:07:05  ercmat
+Neue Klasse NavNet + Anpassungen an xml files.
+
 Revision 1.9  2002/09/22 20:47:15  zander
 kleine Aenderungen zu Testzwecken
 
@@ -174,7 +181,7 @@ no message
 Revision 1.1  2002/09/17 02:11:28  ercmat
 hint thread erweitert
 kontrolle des thread durch hauptklasse erweitert
-übergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
+ubergabe der parameter jetzt fuer alle als strings -> auswertung angepasst
 baum kann jetzt aus xml file aufgebaut werden
 xml file unter html hinzugefuegt
 
