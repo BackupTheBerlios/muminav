@@ -166,6 +166,7 @@ public class MuminavPanel extends JPanel {
 		 */
 		public void mousePressed(MouseEvent e) {
 			int button;
+                        manager.setVisible(false);
 			button = e.getButton();
 			switch (button) {
 							case 3:
@@ -186,6 +187,7 @@ public class MuminavPanel extends JPanel {
 		 *@param  e  Description of the Parameter
 		 */
 		public void mouseReleased(MouseEvent e) {
+                        manager.setVisible(false);
 			if (e.getButton() == 1) {
 				endPoint = e.getPoint();
 				if (enableZoom) {

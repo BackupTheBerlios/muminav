@@ -420,8 +420,12 @@ public abstract class Part implements Cloneable {
 		Font font = g.getFont();
 		g.setFont(new Font(font.getFamily(), font.getStyle(), 10));
 		FontMetrics fm = g.getFontMetrics();
-		int slen = fm.stringWidth(ttText);
+	 	int slen = fm.stringWidth(ttText);
 		int sheight = fm.getHeight();
+
+                if((x + slen + 20) > g.getClipBounds().getWidth()){
+                  x = x - (x + slen + 20) + (int)g.getClipBounds().getWidth();
+                }
 
 		g.setColor(new Color(0, 0, 127));
 		g.fillRect(x, y + 20, slen + 20, sheight + 2);

@@ -68,6 +68,14 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		return m_visible;
 	}
 
+	/**
+	 *  Sets the visible attribute of the MyToolTipManager object
+	 *
+	 *@return    The visible value
+	 */
+	public void setVisible(boolean b) {
+		m_visible = b;
+	}
 
 	/**
 	 *  Gets the tooltipPart attribute of the MyToolTipManager object
