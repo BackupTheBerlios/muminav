@@ -1,7 +1,7 @@
 package muminav;
 
 /*
- *  $Id: TreeBuilder.java,v 1.1 2002/09/16 20:16:05 ercmat Exp $
+ *  $Id: TreeBuilder.java,v 1.2 2002/09/16 21:05:42 ercmat Exp $
  */
 import muminav.skin.Part;
 import org.xml.sax.helpers.DefaultHandler;
@@ -141,7 +141,7 @@ public class TreeBuilder extends DefaultHandler {
             element = (Part) Class.forName( pack + eName.trim() ).newInstance();
         } catch ( Exception e ) {
             // TODO: decide what to do with the topmost element in the xml file
-            element = new muminav.skin.math.DummyElement();
+            element = new muminav.skin.math.MainElement();
         }
         // create a new level in the tree
         if ( this.beforeLevel < this.actualLevel ) {
@@ -186,6 +186,9 @@ public class TreeBuilder extends DefaultHandler {
 }
 /*
  *  $Log: TreeBuilder.java,v $
+ *  Revision 1.2  2002/09/16 21:05:42  ercmat
+ *  Fehler im TreeBuilder behoben -> sucht nicht mehr nach DummyElement
+ *
  *  Revision 1.1  2002/09/16 20:16:05  ercmat
  *  TreeBuilder.java hinzugefuegt aber noch nicht benutzt.
  *
