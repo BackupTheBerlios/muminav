@@ -1,6 +1,24 @@
 \chapter{Einleitung}
 
-\section{Der Projektkontext} Mumie\ldots
+\section{Der Projektkontext}
+
+Für eine moderne mathematische Ausbildung von Ingenieuren ist
+mittlerweile nicht nur der Umfang des erworbenen Wissens wichtig,
+vielmehr muss neben der reinen Vermittlung von Fachwissen Wert auf
+das Verständnis von Zusammenhängen gelegt werden. Heutzutage ist
+es durch immer schneller anwachsendes Wissen mehr denn je
+erforderlich, dass sich Ingenieure einem ständigen Lernprozess
+unterziehen. Die Unterstützung dieses Prozesses durch zeitgemäße,
+multimediale Technologien ist dabei nur folgerichtig. Es werden
+neue Möglichkeiten eröffnet, Zusammenhänge darzustellen, die
+Kommunikation zwischen Dozent und Lernenden und das selbstständige
+Aneignen von Lehrstoff zu fördern.
+
+So haben sich vier deutsche Universitäten im Projekt \glqq
+Multimediale Mathematikausbildung für Ingenieure\grqq\
+\footnote{kurz: \textsc{Mumie}} \cite{Mumie} zusammengeschlossen,
+um die Idee von einer \glqq modernen Mathematikausbildung\grqq\ zu
+verwirklichen.
 
 \subsection{Dezentrale Systementwicklung am Beispiel GNU/Linux}
 
@@ -8,8 +26,9 @@ Das Projekt \glqq Mumie\grqq\ soll nach aktuellem Stand unter
 einer Open Source-Lizenz entwickelt und veröffentlicht werden. Die
 Zusammenarbeit zwischen den Universitäten impliziert eine
 dezentrale Entwicklung, an der auch das Projekt \glqq
-MumieNav\grqq\ beteiligt ist. Das bei der Entwicklung entstehende
-Produkt wird nicht zur \glqq Insellösung\grqq\ , da es in ein
+\textsc{MumiNav}\grqq\ beteiligt ist. Das bei der Entwicklung
+entstehende Produkt wird nicht zur \glqq Insellösung\grqq\ , da es
+in ein
 bestehendes Projekt integriert wird.\\
  Eine Aussicht auf die
 Verwendung schon existierender Software besteht unter Umständen
@@ -40,7 +59,7 @@ Testumgebungen
 \item individuelles Trainingscenter weiterführender
 Inhalte
 \item Informationsplattform in der und vile und in die der es auch
-noch kein wer was wie wo
+noch kein wer, was, wie, wo
 \item Kommunikations-- und
 Austauschangebote
 \end{itemize}
@@ -52,4 +71,71 @@ Schwerpunkte liegen auf der Individualisierung der Oberfläche und
 einer intelligenten Benutzerführung, die verhindert, dass man in
 der inhaltlichen Fülle des Gesamtangebotes die Übersicht verliert.
 
-\section{Ziele} Unsere Aufgabe\ldots
+\section{Ziele}
+
+Der Dozent soll die Möglichkeit haben, aus einer Auswahl an
+Elementen \footnote{Motivation, Definition, Theorem, Lemma,
+Algorithmus, Anwendung}, die in einer Datenbank gespeichert sind,
+die Zusammenstellung für einen Kurs zu erstellen. Dies soll durch
+einfaches Ziehen und Ablegen von Elementsymbolen auf einer
+Zeichenfläche erfolgen. Zusammenhänge zwischen Elementen werden
+dabei durch Verbindungslinien dargestellt, die der Verfasser
+positionieren kann. Zusätzlich kann es zu den Elementen
+Subelemente \footnote{Herleitung, Beweis, Motivation, Bemerkung,
+Historisches, Visualisierung, Beispiel, Tabelle} geben. Es
+entsteht durch die Zusammenstellung eine Repräsentation der
+mathematischen Zusammenhänge mittels eines gerichteten Graphen.
+Der Dozent kann zur Darstellung des Kursverlaufes eine Art \glqq
+roten Faden\grqq\ festlegen, der allerdings nicht entlang der
+angelegten Verbindungen laufen muss \footnote{Aktueller Stand,
+Änderungen möglich}.
+
+Die Aufgabe für das Projekt \textsc{MumiNav} besteht darin, dieses
+vorgegebene Netz mit Hilfe eines Java-Applets in einem
+Navigationsframe darzustellen und somit den Zugriff auf die
+Inhalte zu ermöglichen. Die Darstellung der Elemente erfolgt durch
+unterschiedlich farbige, leicht dreidimensional angedeutete
+Kästen. Subelemente werden nach vorgeschriebenen Regeln an diesen
+Kästen angeordnet und sind standardmäßig nicht mit
+Unterscheidungsmerkmalen versehen.
+
+\begin{figure}[htbp]
+    \centering%
+%   \setcapwidth[c]{12cm}%
+    \includegraphics[width=8cm]{figs/haupframe}
+    \captionbelow{Layout der Hauptansicht}
+    \label{FIG:Hauptansicht}
+\end{figure}
+
+Die Abbildung des logischen Netzes geschieht, wie vorher
+beschrieben, durch Verbindungslinien zwischen den Elementsymbolen.
+Es wird ein \glqq roter Faden\grqq\ entsprechend der linearen
+Anordnung der Kursinhalte gelegt.
+
+\begin{figure}[htbp]
+    \centering%
+%   \setcapwidth[c]{12cm}%
+    \includegraphics[height=7cm]{figs/navinetz}
+    \captionbelow{Kurspfade und roter Faden}
+    \label{FIG:roterFaden}
+\end{figure}
+
+
+
+Die Darstellung soll auf mehrere Maus-Aktionen reagieren. Wird die
+Maus über ein Element bewegt, soll dieses vergrößert dargestellt
+werden und die Subelemente werden unterscheidbar durch
+Beschriftung. Bei Klick mit der linken Maustaste soll der Inhalt
+des jeweiligen (Sub-)Elementes im zentralen Inhaltsfenster
+dargestellt werden. Dieselbe Aktion auf der mittleren Maustaste
+führt zu einem Öffnen des Inhalts in einem externen Fenster und
+schließlich ist es zukünftig vorgesehen, mit der rechten Maustaste
+eine Liste von Optionen anzubieten.
+
+\begin{figure}[htbp]
+    \centering%
+%   \setcapwidth[c]{12cm}%
+    \includegraphics[width=10cm]{figs/zoom_element}
+    \captionbelow{Detailansicht bei Zoom}
+    \label{FIG:zoomElement}
+\end{figure}
