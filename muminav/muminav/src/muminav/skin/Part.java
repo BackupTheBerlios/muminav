@@ -31,7 +31,7 @@ public abstract class Part implements Cloneable {
 	protected boolean drawFirst = false;
 
 	/**  text for element */
-	protected String text;
+	protected String text = "";
 
 	/**  center/root point for element */
 	protected Point center = null;
@@ -209,15 +209,18 @@ public abstract class Part implements Cloneable {
 					object = typeClass.newInstance();
 				}
 				catch (InstantiationException iE) {
-					if ((fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness"))
-							 && fieldType.equals("int")) {
-						Field field = part.getClass().getField(fieldName);
-						field.set(part, new Integer(((Integer) publicFields[i].get(this)).intValue() * (int) scaleValue));
-					}
-					if ((fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness"))
-							 && fieldType.equals("double")) {
-						Field field = part.getClass().getField(fieldName);
-						field.set(part, new Double(((Double) publicFields[i].get(this)).doubleValue() * scaleValue));
+					// checking for public int aund double values
+					if (fieldName.toLowerCase().endsWith("length") || fieldName.toLowerCase().endsWith("thickness")
+							 || fieldName.toLowerCase().endsWith("width") || fieldName.toLowerCase().endsWith("height")) {
+
+						if (fieldType.equals("int")) {
+							Field field = part.getClass().getField(fieldName);
+							field.set(part, new Integer(((Integer) publicFields[i].get(this)).intValue() * (int) scaleValue));
+						}
+						if (fieldType.equals("double")) {
+							Field field = part.getClass().getField(fieldName);
+							field.set(part, new Double(((Double) publicFields[i].get(this)).doubleValue() * scaleValue));
+						}
 					}
 				}
 
@@ -333,7 +336,7 @@ public abstract class Part implements Cloneable {
 
 
 	/**
-	 *  Tries to convert the object into a String
+	 *  Tries to convert the object into a int
 	 *
 	 *@param  param  parameter to convert
 	 *@return        The int value of the parameter
@@ -345,6 +348,17 @@ public abstract class Part implements Cloneable {
 
 	/**
 	 *  Tries to convert the object into a String
+	 *
+	 *@param  param  parameter to convert
+	 *@return        The int value of the parameter
+	 */
+	public double getDoubleParam(Object param) {
+		return (new Double(((String) param).trim())).doubleValue();
+	}
+
+
+	/**
+	 *  Tries to convert the object into a Color
 	 *
 	 *@param  param  parameter to convert
 	 *@return        the Color
