@@ -117,6 +117,9 @@ public class SubElement extends Part {
 		if (hParams.containsKey("borderColor")) {
 			borderColor = (this.getColorParam(hParams.get("borderColor")));
 		}
+		if (hParams.containsKey("tooltipText")) {
+			tooltipText = (this.getStringParam(hParams.get("tooltipText")));
+		}
 	}
 
 }

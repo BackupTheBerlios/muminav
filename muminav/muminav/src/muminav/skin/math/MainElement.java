@@ -9,7 +9,7 @@ import muminav.skin.Part;
 /**
  *@author     zander
  *@created    15. September 2002
- *@version    $Revision: 1.7 $
+ *@version    $Revision: 1.8 $
  */
 public class MainElement extends Part {
 
@@ -76,6 +76,7 @@ public class MainElement extends Part {
 			url = this.getStringParam(hParams.get("url"));
 		}
 		if (hParams.containsKey("text")) {
+                        System.out.println("text initialized");
 			text = this.getStringParam(hParams.get("text"));
 		}
 		if (hParams.containsKey("posX") && hParams.containsKey("posY")) {
@@ -100,6 +101,10 @@ public class MainElement extends Part {
 		}
 		if (hParams.containsKey("borderColor")) {
 			borderColor = (this.getColorParam(hParams.get("borderColor")));
+		}
+		if (hParams.containsKey("tooltipText")) {
+                        System.out.println("tooltiptext initialized");
+			tooltipText = (this.getStringParam(hParams.get("tooltipText")));
 		}
 	}
 

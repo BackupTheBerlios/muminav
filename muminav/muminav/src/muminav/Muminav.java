@@ -21,36 +21,17 @@ import java.net.MalformedURLException;
  *
  *@author     glaessel
  *@created    15. September 2002
- *@version    $Revision: 1.10 $
+ *@version    $Revision: 1.11 $
  */
 
-public class Muminav extends Applet {
+public class Muminav extends JApplet {
 
 	String skin;
 	String skinType;
 	Object mySkin;
 
-	String tooltipText;
 	boolean showTooltip;
-	boolean drawFirst = true;
 
-	// zoom attributes
-	// indicates if we are in zoom mode or not
-	private boolean enableZoom = false;
-	// start point of zoom rectangle
-	private Point startPoint = null;
-	// end point of zoom rectangle
-	private Point endPoint = null;
-	// default size for zoom
-	private int defaultZoom = 100;
-
-	int tooltipX, tooltipY;
-
-	// dimension of the basis raster
-	private Dimension rasterDimension;
-
-	// thread for the tooltips
-	TooltipWatchdog tooltipWatchdog;
 
 	private AppletContext appletContext;
 
@@ -59,7 +40,7 @@ public class Muminav extends Applet {
 
 	boolean isStandalone = false;
 
-
+        public MuminavPanel muminavPanel;
 	/**
 	 *  Gets the parameter attribute of the Muminav object
 	 *
@@ -78,11 +59,7 @@ public class Muminav extends Applet {
 
 		showTooltip = false;
 
-		MyListener myListener = new MyListener();
-		MyMotionListener myMotionListener = new MyMotionListener();
 
-		addMouseListener(myListener);
-		addMouseMotionListener(myMotionListener);
 	}
 
 
@@ -92,10 +69,7 @@ public class Muminav extends Applet {
 	 *  it gets the focus.
 	 */
 	public void start() {
-		/*
-		    tooltipWatchdog = new TooltipWatchdog( this );
-		    tooltipWatchdog.start();
-		  */
+
 	}
 
 
@@ -103,157 +77,12 @@ public class Muminav extends Applet {
 	 *  Called if the applet container is iconized or if it losts the focus.
 	 */
 	public void stop() {
-		/*
-		    tooltipWatchdog.hold();
-		    tooltipWatchdog = null;
-		  */
-	}
-
-
-	/**
-	 *  Description of the Class
-	 *
-	 *@author     Joerg
-	 *@created    15. September 2002
-	 */
-	class MyListener extends MouseInputAdapter {
-
-		/**
-		 *  Description of the Method
-		 *
-		 *@param  e  Description of the Parameter
-		 */
-		public void mousePressed(MouseEvent e) {
-			int button;
-
-			button = e.getButton();
-			switch (button) {
-							case 3:
-								// left button -> load content
-								handleEvents(e.getPoint());
-								break;
-							case 1:
-								// draggin a rectangle with the right button
-								startPoint = e.getPoint();
-								break;
-			}
-		}
-
-
-		/**
-		 *  Description of the Method
-		 *
-		 *@param  e  Description of the Parameter
-		 */
-		public void mouseReleased(MouseEvent e) {
-			if (e.getButton() == 1) {
-				endPoint = e.getPoint();
-				if (enableZoom) {
-					enableZoom = false;
-					startPoint = null;
-					endPoint = null;
-					repaint();
-				}
-				else {
-					Dimension zoomDim = new Dimension(Math.abs(startPoint.x - endPoint.x)
-							, Math.abs(startPoint.y - endPoint.y));
-					// at single klick without move a default zoom window is used
-					if (zoomDim.width + zoomDim.height < 4) {
-						startPoint.x = new Double(startPoint.x - defaultZoom / 2).intValue();
-						startPoint.y = new Double(startPoint.y - defaultZoom / 2).intValue();
-						endPoint.x = new Double(endPoint.x + defaultZoom / 2).intValue();
-						endPoint.y = new Double(endPoint.y + defaultZoom / 2).intValue();
-					}
-					enableZoom = true;
-					repaint();
-				}
-			}
-		}
-	}
-
-
-	/**
-	 *  Description of the Class
-	 *
-	 *@author     zander
-	 *@created    15. September 2002
-	 */
-	class MyMotionListener extends MouseMotionAdapter {
-
-		/**
-		 *  Description of the Method
-		 *
-		 *@param  e  Description of the Parameter
-		 */
-		public void mouseMoved(MouseEvent e) {
-			/*
-			    TooltipWatchdog.updatePos( e.getX(), e.getY() );
-			    if ( showTooltip == true ) {
-			    System.out.println( "-bewegung" );
-			    showTooltip = false;
-			    tooltipText = "";
-			    repaint();
-			    }
-			  */
-		}
 
 	}
 
 
-	/**
-	 *  handle Events
-	 *
-	 *@param  point  Description of the Parameter
-	 *@return
-	 */
-	private boolean handleEvents(Point point) {
-
-		// Events in each child of the root
-		for (int i = 0; i < treeRoot.size(); i++) {
-			if (handleEventsForTree((Part) treeRoot.elementAt(i), point)) {
-				return (true);
-			}
-		}
-		return (false);
-	}
 
 
-	/**
-	 *  Description of the Method
-	 *
-	 *@param  t      Description of the Parameter
-	 *@param  point  Description of the Parameter
-	 *@return        Description of the Return Value
-	 */
-	private boolean handleEventsForTree(Part t, Point point) {
-		// clicked inside Part?
-		if (t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).isInside(point)) {
-			//      repaint();
-			showStatus("MyApplet: Loading image file");
-			System.out.println("you hit me!");
-			if (t.getUrl() != "") {
-				System.out.println("loading " + t.getUrl());
-				try {
-					appletContext.showDocument(new URL(getCodeBase() + t.getUrl()), "Content");
-				}
-				catch (Exception ex) {
-					ex.printStackTrace();
-				}
-			}
-
-			return (true);
-		}
-		// get Childs
-		Vector childs = t.getChilds();
-
-		// Events in each subtree
-		for (int i = 0; i < childs.size(); i++) {
-			if (handleEventsForTree((Part) childs.elementAt(i), point)) {
-				return (true);
-			}
-		}
-		return (false);
-	}
 
 
 	/**  Standard init method for applets. */
@@ -271,9 +100,6 @@ public class Muminav extends Applet {
 		this.skin = super.getParameter("Skin");
 		//    skinType = super.getParameter("SkinType");
 
-		// raster dimension uebergeben
-		// hier noch hardcoded
-		rasterDimension = new Dimension(12, 21);
 
 		// TODO: implement a better exception handling
 		try {
@@ -285,9 +111,11 @@ public class Muminav extends Applet {
 			//con.setRequestMethod( "POST" );
 			//con.setUseCaches( false );
 			if (con.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                                System.out.println("initTree");
 				this.initTree();
 			}
 			else {
+                                System.out.println("Build Tree");
 				//build tree
 				TreeBuilder tb = new TreeBuilder();
 
@@ -301,79 +129,22 @@ public class Muminav extends Applet {
 			this.initTree();
 		}
 
+
+                // Panel
+                muminavPanel = new MuminavPanel(treeRoot, this, appletContext);
+                JPanel contentPane = (JPanel) this.getContentPane();
+                contentPane.setLayout(new BorderLayout());
+                contentPane.add(muminavPanel, BorderLayout.CENTER);
+                muminavPanel.setSize(new Dimension(300, 300));
+
+
+
 	}
 
 
-	/**
-	 *  Starts the painting work.
-	 *
-	 *@param  g  Description of the Parameter
-	 */
-	public void paint(Graphics g) {
-		// Draw each child of the root
-		//     first cycle
-		drawFirst = true;
-		for (int i = 0; i < treeRoot.size(); i++) {
-			drawTree(g, (Part) treeRoot.elementAt(i));
-		}
-
-		//     second cycle
-		drawFirst = false;
-		for (int i = 0; i < treeRoot.size(); i++) {
-			drawTree(g, (Part) treeRoot.elementAt(i));
-		}
-
-		//   System.out.println("repaint " + tooltipX + "," + tooltipY +" bool " + showTooltip);
-		if (showTooltip == true) {
-			g.setColor(Color.black);
-			g.fillRect(tooltipX, tooltipY, 60, 20);
-		}
-	}
 
 
-	/**
-	 *  Sets the tooltip attribute of the Muminav object
-	 *
-	 *@param  trigger  The new tooltip value
-	 *@param  posx     The new tooltip value
-	 *@param  posy     The new tooltip value
-	 */
-	public void setTooltip(boolean trigger, int posx, int posy) {
-		tooltipX = posx;
-		tooltipY = posy;
-		// nur wenn sich der Zustand ?ndert neu zeichen
-		if (trigger == false) {
-			showTooltip = false;
-			//System.out.println("showTooltip false");
-			repaint();
-		}
-		else {
-			showTooltip = true;
-			//System.out.println("showTooltip true");
-			repaint();
-		}
-	}
 
-
-	/**
-	 *  recursive Method to traverse tree and draw Parts
-	 *
-	 *@param  g  Graphic-Object
-	 *@param  t  Subtree to draw
-	 */
-	private void drawTree(Graphics g, Part t) {
-		// get Childs
-		Vector childs = t.getChilds();
-
-		// Draw each subtree
-		for (int i = 0; i < childs.size(); i++) {
-			drawTree(g, (Part) childs.elementAt(i));
-		}
-		// draw Part
-		if (t.drawFirst() == drawFirst) {
-			t.fitToRaster(this.getSize(), rasterDimension, startPoint, endPoint).draw(g);
-		}
-	}
 
 
 	/**
@@ -424,6 +195,7 @@ public class Muminav extends Applet {
 		hParams.put("width", "5");
 		hParams.put("height", "5");
 		hParams.put("text", "T");
+                hParams.put("tooltipText","T-Tooltip juchuh");
 		hParams.put("textZoom", "Theorem");
 		hParams.put("url", "contentM1.html");
 		hParams.put("bgColor", " 0, 0, 0 ");
@@ -449,6 +221,7 @@ public class Muminav extends Applet {
 		hParams.put("height", " 3 ");
 		hParams.put("text", new String("B"));
 		hParams.put("textZoom", new String("Bew."));
+                hParams.put("tooltipText","B-Tooltip juchuh");
 		hParams.put("url", new String("contentM1.html"));
 		hParams.put("bgColor", " 0, 0, 0 ");
 		hParams.put("fontColor", " 255, 255, 255 ");
@@ -472,6 +245,7 @@ public class Muminav extends Applet {
 		hParams.put("height", " 3 ");
 		hParams.put("text", new String("H"));
 		hParams.put("textZoom", new String("Herl."));
+                hParams.put("tooltipText","H-Tooltip auch juchuh");
 		hParams.put("url", new String("contentM1.html"));
 		hParams.put("bgColor", " 0, 0, 0 ");
 		hParams.put("fontColor", " 255, 255, 255 ");
@@ -495,6 +269,7 @@ public class Muminav extends Applet {
 		hParams.put("height", " 3 ");
 		hParams.put("text", new String("B"));
 		hParams.put("textZoom", new String("Bem."));
+                hParams.put("tooltipText","B2-Tooltip juchuh");
 		hParams.put("url", new String("contentM1.html"));
 		hParams.put("bgColor", " 0, 0, 0 ");
 		hParams.put("fontColor", " 255, 255, 255 ");
@@ -518,6 +293,7 @@ public class Muminav extends Applet {
 		hParams.put("height", " 3 ");
 		hParams.put("text", new String("B"));
 		hParams.put("textZoom", new String("Beisp."));
+                hParams.put("tooltipText","B3-Tooltip juchuh");
 		hParams.put("url", new String("contentM1.html"));
 		hParams.put("bgColor", " 0, 0, 0 ");
 		hParams.put("fontColor", " 255, 255, 255 ");
@@ -557,6 +333,7 @@ public class Muminav extends Applet {
 		hParams.put("height", " 3 ");
 		hParams.put("text", new String("NN"));
 		hParams.put("textZoom", new String("NoName"));
+                hParams.put("tooltipText","NN-Tooltip juchuh");
 		hParams.put("url", new String("contentM1.html"));
 		hParams.put("bgColor", " 0, 0, 0 ");
 		hParams.put("fontColor", " 255, 255, 255 ");
@@ -660,6 +437,6 @@ public class Muminav extends Applet {
 
 }
 /*
-    $Id: Muminav.java,v 1.10 2002/09/19 03:22:28 zander Exp $
+    $Id: Muminav.java,v 1.11 2002/09/19 10:16:49 glaessel Exp $
   */
 

@@ -23,6 +23,7 @@ import java.lang.reflect.Field;
 
 public abstract class Part implements Cloneable {
 
+        protected String tooltipText = null;
 	/**
 	 *  set true, if this element have to draw at first (for example connectors)
 	 */
@@ -352,6 +353,25 @@ public abstract class Part implements Cloneable {
 
 		return new Color(getIntParam(colStrings[0]), getIntParam(colStrings[1]), getIntParam(colStrings[2]));
 	}
+
+        public String getTooltipText(){
+          return tooltipText;
+        }
+
+        public void drawTooltip(Graphics g, int x, int y, String ttText){
+          Font font = g.getFont();
+          g.setFont(new Font(font.getFamily(), font.getStyle(), 10));
+          FontMetrics fm = g.getFontMetrics();
+          int slen = fm.stringWidth(ttText);
+          int sheight = fm.getHeight();
+
+          g.setColor(new Color(0,0,127));
+          g.fillRect(x,y + 20,slen + 20,sheight + 2 );
+          g.setColor(new Color(150,150,255));
+          g.drawRect(x,y + 20,slen + 20,sheight + 2 );
+          g.setColor(Color.white);
+          g.drawString(ttText, x + 10 , y + 20 + 10 + 2);
+        }
 
 }
 
