@@ -86,83 +86,78 @@ public class DrawLib {
 		int negativerAnstieg = 0;
 		int groesser45 = 0;
 
-		if (thickness <= 1) {
-			// we wanna se at least anything
-			thickness = 1;
-		}
-		else {
-			// compensation of startpoint for fillOval
+		if (thickness > 0) {
+			// compensation of startpoint
 			int radius = thickness / 2;
 			x0 -= radius;
 			y0 -= radius;
 			x1 -= radius;
 			y1 -= radius;
-		}
 
-		// -------------------------------------------------
+			// -------------------------------------------------
 
-		if (x1 < x0) {
-			//x1 links von x0?
-			hilf = x0;
-			x0 = x1;
-			x1 = hilf;
-			//tauschen der Punkte
-			hilf = y0;
-			y0 = y1;
-			y1 = hilf;
-		}
-		int dx = x1 - x0;
-		//bestimmen des Abstandes in x-Richtung
-		int dy = y1 - y0;
-		//                        in y-Richtung
-		if (dy < 0) {
-			//Anstieg negativ?
-			dy = -dy;
-			//dy wird geaendert, so dass es positiv ist
-			negativerAnstieg = 1;
-			//fuer Zeichnen im 5.-8.Oktanten
-		}
-		if (dy > dx) {
-			//im 2.Oktanten?
-			groesser45 = 1;
-			hilf = dx;
-			dx = dy;
-			dy = hilf;
-			//durch Vertauschung koennen auch Geraden
-		}
-		//im 2.Oktanten gezeichnet werden
-		int entscheidung = 2 * dy - dx;
-		//initialisieren der Entscheidungsgroesse
-		int x = x0;
-		int y = y0;
+			if (x1 < x0) {
+				//x1 links von x0?
+				hilf = x0;
+				x0 = x1;
+				x1 = hilf;
+				//tauschen der Punkte
+				hilf = y0;
+				y0 = y1;
+				y1 = hilf;
+			}
+			int dx = x1 - x0;
+			//bestimmen des Abstandes in x-Richtung
+			int dy = y1 - y0;
+			//                        in y-Richtung
+			if (dy < 0) {
+				//Anstieg negativ?
+				dy = -dy;
+				//dy wird geaendert, so dass es positiv ist
+				negativerAnstieg = 1;
+				//fuer Zeichnen im 5.-8.Oktanten
+			}
+			if (dy > dx) {
+				//im 2.Oktanten?
+				groesser45 = 1;
+				hilf = dx;
+				dx = dy;
+				dy = hilf;
+				//durch Vertauschung koennen auch Geraden
+			}
+			//im 2.Oktanten gezeichnet werden
+			int entscheidung = 2 * dy - dx;
+			//initialisieren der Entscheidungsgroesse
+			int x = x0;
+			int y = y0;
 
-		// drawing rectangles, because it's much faster than drawing circles and the result isn't worse
-		g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);
-		//Zeichnen des Anfangswertes
-		for (int i = 0; i < dx; i++) {
-			x++;
-			if (entscheidung > 0) {
-				y++;
-				//naechster Punkt wird bei x+1,y+1 gesetzt
-				entscheidung += 2 * (dy - dx);
+			// drawing rectangles, because it's much faster than drawing circles and the result isn't worse
+			g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);
+			//Zeichnen des Anfangswertes
+			for (int i = 0; i < dx; i++) {
+				x++;
+				if (entscheidung > 0) {
+					y++;
+					//naechster Punkt wird bei x+1,y+1 gesetzt
+					entscheidung += 2 * (dy - dx);
+				}
+				else {
+					entscheidung += 2 * dy;
+				}
+				//naechster Punkt wird bei x+1,y gesetzt
+				if ((groesser45 == 0) && (negativerAnstieg == 0)) {
+					g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);
+				}
+				if ((groesser45 == 1) && (negativerAnstieg == 0)) {
+					g.fillRect((y - y0) + x0 - thickness / 2, (x - x0) + y0 - thickness / 2, thickness, thickness);
+				}
+				if ((groesser45 == 0) && (negativerAnstieg == 1)) {
+					g.fillRect(x - thickness / 2, y0 - (y - y0) - thickness / 2, thickness, thickness);
+				}
+				if ((groesser45 == 1) && (negativerAnstieg == 1)) {
+					g.fillRect((y - y0) + x0 - thickness / 2, y0 - (x - x0) - thickness / 2, thickness, thickness);
+				}
 			}
-			else {
-				entscheidung += 2 * dy;
-			}
-			//naechster Punkt wird bei x+1,y gesetzt
-			if ((groesser45 == 0) && (negativerAnstieg == 0)) {
-				g.fillRect(x - thickness / 2, y - thickness / 2, thickness, thickness);
-			}
-			if ((groesser45 == 1) && (negativerAnstieg == 0)) {
-				g.fillRect((y - y0) + x0 - thickness / 2, (x - x0) + y0 - thickness / 2, thickness, thickness);
-			}
-			if ((groesser45 == 0) && (negativerAnstieg == 1)) {
-				g.fillRect(x - thickness / 2, y0 - (y - y0) - thickness / 2, thickness, thickness);
-			}
-			if ((groesser45 == 1) && (negativerAnstieg == 1)) {
-				g.fillRect((y - y0) + x0 - thickness / 2, y0 - (x - x0) - thickness / 2, thickness, thickness);
-			}
-
 		}
 	}
 

@@ -74,7 +74,7 @@ public class Connector extends Part {
 	 */
 	public void init(Hashtable hParams) {
 		color = Color.black;
-		lineThickness = 0.02;
+		lineThickness = 0.3;
 
 		if (hParams.containsKey("lineThickness")) {
 			lineThickness = this.getDoubleParam(hParams.get("lineThickness"));

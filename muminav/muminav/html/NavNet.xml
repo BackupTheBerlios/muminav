@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" standalone="no"?>
 <!--
-$Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
+$Id: NavNet.xml,v 1.7 2002/09/22 01:41:09 zander Exp $
 -->
 
 <!--
@@ -16,13 +16,12 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
     height="5"
     text="1"
     tooltipText="T-Tooltip juchuh"
-    textZoom="Theorem"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
     fontColor="255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    lineRelSize=" 5 "
-    fontRelSize=" 70 ">
+    borderThickness =" 0.4 "
+    fontHeight=" 4 ">
 
         <MainElement
         posX=" 8 "
@@ -30,14 +29,13 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
         width=" 3 "
         height=" 3 "
         text="S1_1"
-        textZoom="Bew."
         tooltipText="B-Tooltip juchuh"
         url="contentM1.html"
         bgColor=" 0, 0, 0 "
         fontColor=" 255, 255, 255 "
         borderColor=" 255, 0, 0 "
-        lineRelSize=" 2 "
-        fontRelSize=" 40 ">
+        borderThickness=" 0.2 "
+        fontHeight=" 0.8 ">
 
             <MainElement
             posX=" 10 "
@@ -45,14 +43,13 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
             width=" 3 "
             height=" 3 "
             text="S1_2"
-            textZoom="Herl."
             tooltipText="H-Tooltip auch juchuh"
             url="contentM1.html"
             bgColor=" 0, 0, 0 "
             fontColor=" 255, 255, 255 "
             borderColor=" 255, 0, 0 "
-            lineRelSize=" 2 "
-            fontRelSize=" 40 "/>
+            borderThickness=" 0.2 "
+            fontHeight=" 0.8 "/>
     
         </MainElement>
         
@@ -62,15 +59,13 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
         width=" 3 "
         height=" 3 "
         text="S1_3"
-        textZoom="Bem."
         tooltipText="B2-Tooltip juchuh"
         url="contentM1.html"
         bgColor=" 0, 0, 0 "
         fontColor=" 255, 255, 255 "
         borderColor=" 255, 0, 0 "
-        lineRelSize=" 2 "
-        fontRelSize=" 40 "
-        />    
+        borderThickness=" 0.2 "
+        fontHeight=" 0.8 "/>    
 
         <MainElement
         posX=" 8 "
@@ -78,14 +73,27 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
         width=" 3 "
         height=" 3 "
         text="S1_4"
-        textZoom="Beisp."
         tooltipText="B3-Tooltip juchuh"
         url="contentM1.html"
         bgColor=" 0, 0, 0 "
         fontColor=" 255, 255, 255 "
         borderColor=" 255, 0, 0 "
-        lineRelSize=" 2 "
-        fontRelSize=" 40 "/>
+        borderThickness=" 0.2 "
+        fontHeight=" 0.8 "/>
+		
+		<MainElement
+        posX=" 10 "
+        posY=" 12 "
+        width=" 3 "
+        height=" 3 "
+        text="S1_5"
+        tooltipText="B3-Tooltip juchuh"
+        url="contentM1.html"
+        bgColor=" 0, 0, 0 "
+        fontColor=" 255, 255, 255 "
+        borderColor=" 255, 0, 0 "
+        borderThickness=" 0.2 "
+        fontHeight=" 0.8 "/>
 
     </MainElement>
 
@@ -95,21 +103,20 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
     width=" 10 "
     height=" 3 "
     text="muminav kicks ass!"
-    textZoom="NoName"
     tooltipText="NN-Tooltip juchuh"
     url="contentM1.html"
     bgColor=" 0, 0, 0 "
     fontColor=" 255, 255, 255 "
     borderColor=" 255, 0, 0 "
-    lineRelSize=" 5 "
-    fontRelSize=" 70 "/>    
+    borderThickness=" 0 "
+    fontHeight=" 1 "/>    
 
     <Connector
     startX=" 5 "
     startY=" 7 "
     endX=" 6 "
     endY=" 18 "
-    lineRelSize=" 3 "
+    lineThickness=" 0.3 "
     color=" 0, 0, 255 "/>
     
      <Connector
@@ -117,13 +124,16 @@ $Id: NavNet.xml,v 1.6 2002/09/21 22:58:35 ercmat Exp $
     startY=" 9 "
     endX=" 8 "
     endY=" 18 "
-    lineRelSize=" 13 "
+    lineThickness=" 0.6 "
     color=" 0, 0, 255 "/>
 
 </NavNet>
 
 <!--
 $Log: NavNet.xml,v $
+Revision 1.7  2002/09/22 01:41:09  zander
+- xml Datei und Skin Klassen nochmals angepasst
+
 Revision 1.6  2002/09/21 22:58:35  ercmat
 fehler im baumaufbau behoben
 struktur des xml file angepasst
