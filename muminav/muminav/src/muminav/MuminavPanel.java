@@ -84,7 +84,6 @@ public class MuminavPanel extends JPanel {
 	 *@param  g  Description of the Parameter
 	 */
 	public void paint(Graphics g) {
-		String ttText = null;
 		super.paint(g);
 		// Draw each child of the root
 		//     first cycle
@@ -100,12 +99,11 @@ public class MuminavPanel extends JPanel {
 
 		// Tooltip zeichnen
 		if (manager.isVisible() == true) {
-			System.out.println("eins");
 			Part ttpart = manager.getTooltipPart();
-			System.out.println("anderthalb");
-			ttText = ttpart.getTooltipText();
-			System.out.println("zwei");
-			manager.getTooltipPart().drawTooltip(g, manager.m_lastX, manager.m_lastY, ttText);
+			if(ttpart != null){
+			  manager.getTooltipPart().drawTooltip(g, manager.m_lastX,
+                            manager.m_lastY, ttpart.getTooltipText());
+                        }
 		}
 	}
 
@@ -138,7 +136,6 @@ public class MuminavPanel extends JPanel {
 	 *@return        The toolTipText value
 	 */
 	public String getToolTipText(MouseEvent event) {
-		System.out.println("test------");
 		return (":" + Math.random() * 100);
 	}
 

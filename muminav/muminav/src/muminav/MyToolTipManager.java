@@ -54,9 +54,7 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		m_timer = new Timer(1000, this);
 		m_timer.start();
 
-		m_toolTip.setTipText("TEST");
 		m_toolTip.setComponent(panel);
-		System.out.println("comp: " + m_toolTip.getComponent());
 		this.panel = panel;
 	}
 
@@ -77,7 +75,6 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@return    The tooltipPart value
 	 */
 	public Part getTooltipPart() {
-		System.out.println("get TooltipPart ");
 		return tooltipPart;
 	}
 
@@ -93,7 +90,6 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 		m_lastX = e.getX();
 		m_lastY = e.getY();
 		if (m_visible || m_toolTip.isVisible()) {
-			System.out.println("InVisible");
 			m_toolTip.setVisible(false);
 			m_visible = false;
 			m_toolTip.getParent().repaint();
@@ -107,13 +103,8 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@param  e  Description of the Parameter
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.print("actionperf x,y" + m_lastX + "," + m_lastY);
-		System.out.println(" panel Size: " + panel.getSize());
-//   System.out.println("layout: " + panel.getLayout());
-
 		if (m_moved || m_counter == 0 || m_toolTip.getTipText() == null) {
 			if (m_toolTip.isVisible()) {
-				System.out.println("InVisible");
 				m_toolTip.setVisible(false);
 				m_visible = false;
 			}
@@ -123,20 +114,16 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 
 		if (m_counter < 0) {
 			m_counter = 4;
-			System.out.println("visible");
 			m_toolTip.setTipText("! " + (Math.random() * 255));
-//     m_toolTip.setVisible(true);
+                  //     m_toolTip.setVisible(true);
 
 			tooltipPart = getTooltipObject(m_lastX, m_lastY);
-			System.out.println("ttp " + tooltipPart);
 			if (tooltipPart != null) {
-				System.out.println("part " + tooltipPart);
 
 			}
 
 			m_visible = true;
 			Dimension d = m_toolTip.getPreferredSize();
-			System.out.println("X " + m_lastX + " Y " + m_lastY + " height" + m_toolTip.getBounds().getHeight() + " width" + m_toolTip.getBounds().getWidth());
 			m_toolTip.setBounds(m_lastX, m_lastY + 20, d.width, d.height);
 			m_toolTip.getParent().repaint();
 		}
@@ -152,10 +139,8 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	 *@return    The tooltipObject value
 	 */
 	private Part getTooltipObject(int x, int y) {
-		System.out.println("Get TooltipObject");
 		// Events in each child of the root
 		for (int i = 0; i < panel.treeRoot.size(); i++) {
-			System.out.println("nummer " + i);
 			Part p = getTooltipObjectRecursive((Part) panel.treeRoot.elementAt(i), x, y);
 			if (p != null) {
 				return (p);
@@ -176,7 +161,6 @@ class MyToolTipManager extends MouseMotionAdapter implements ActionListener {
 	private Part getTooltipObjectRecursive(Part t, int x, int y) {
 		// inside Part?
 		if (((Part) t).fitToRaster(panel.getSize(), panel.getRasterDimension(), panel.getStartZoom(), panel.getEndZoom()).isInside(new Point(x, y))) {
-			System.out.println("inside");
 			return ((Part) t);
 		}
 		// get Childs
