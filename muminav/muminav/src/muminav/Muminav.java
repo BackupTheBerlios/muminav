@@ -1,7 +1,7 @@
 package muminav;
 
 /**
- * $Id: Muminav.java,v 1.4 2002/09/14 17:08:59 glaessel Exp $
+ * $Id: Muminav.java,v 1.5 2002/09/14 17:17:57 glaessel Exp $
  */
 
 import java.awt.*;
@@ -57,7 +57,6 @@ public class Muminav extends Applet {
   //Construct the applet
   public Muminav() {
 
-    Panel marquee = new Panel();
 
 
     showTooltip = false;
@@ -315,6 +314,9 @@ public class Muminav extends Applet {
 
 /**
  * $Log: Muminav.java,v $
+ * Revision 1.5  2002/09/14 17:17:57  glaessel
+ * korrektur
+ *
  * Revision 1.4  2002/09/14 17:08:59  glaessel
  * mit Tooltip-Thread
  *
